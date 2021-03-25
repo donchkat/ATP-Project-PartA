@@ -1,5 +1,5 @@
 # ATPProject2021
-Maze app
+mazeGenerators.Maze app
 Advanced programming course
 Software and information system engineering BGU
 
