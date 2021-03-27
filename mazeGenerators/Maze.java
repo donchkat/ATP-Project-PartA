@@ -11,12 +11,17 @@ import java.util.Arrays;
 public class Maze {
     private Position startPosition;
     private Position goalPosition;
+    protected int rows;
+    protected int cols;
     protected int[][] matrix;
 
     //constructor
     public Maze(int numOfRows, int numOfCols) {
         matrix = new int[numOfRows][numOfCols];
-
+        this.rows=numOfRows;
+        this.cols=numOfCols;
+      //  this.startPosition=new Position(0,0);
+        //this.goalPosition=new Position(rows-1,cols-1);
     }
 
     public void Print() {

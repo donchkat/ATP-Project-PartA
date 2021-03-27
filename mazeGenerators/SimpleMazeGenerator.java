@@ -2,6 +2,8 @@ package mazeGenerators;
 
 import mazeGenerators.AMazeGenerator;
 
+import java.util.Random;
+
 /**
  * this class generates a simple maze.
  */
@@ -15,14 +17,55 @@ public class SimpleMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate(int rows, int cols) {
         Maze newSimpleMaze = new Maze(rows, cols);
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if ((i % 2) == 0 && (j % 2) == 0) {
-                    newSimpleMaze.matrix[i][j] = 1;
-                }
-            }
-        }
+        newSimpleMaze.matrix=CreateBounds(newSimpleMaze);//take care of bounderies
+        newSimpleMaze.matrix=CreateWays(newSimpleMaze);
         return newSimpleMaze;
     }
 
-}
+    private int[][] CreateWays(Maze newSimpleMaze) {
+        Random rndIndex = new Random();
+        int i = rndIndex.nextInt(newSimpleMaze.rows);
+        int j = rndIndex.nextInt(newSimpleMaze.cols);
+        while (!(indexInGoalOrStart(i, j, newSimpleMaze))) {
+            newSimpleMaze.matrix[i][j] = 0;
+            i = rndIndex.nextInt(newSimpleMaze.rows);
+            j = rndIndex.nextInt(newSimpleMaze.cols);
+        }
+        return newSimpleMaze.matrix;
+    }
+
+
+
+
+    private int[][] CreateBounds(Maze newSimpleMaze) {
+        /**
+         * @param rows - the number of rows in the maze
+         * @param cols - the number of cols in the maze
+         * @param matrix- empty matrix of ints
+         * @return Maze - matrix with ones at the limits and full of zeros otherwise
+         * */
+        for(int i=0;i<newSimpleMaze.rows;i++){
+            for(int j=0;j< newSimpleMaze.cols;i++){
+                if(i==0||j==0||i== newSimpleMaze.rows-1||j== newSimpleMaze.rows-1)
+                    newSimpleMaze.matrix[i][j]=0;
+                else
+                    newSimpleMaze.matrix[i][j]=1;
+            }
+        }
+    newSimpleMaze.matrix[0][0]=0;
+    newSimpleMaze.matrix[newSimpleMaze.rows-1][newSimpleMaze.cols-1]=0;
+    return newSimpleMaze.matrix;
+    }
+
+
+
+
+    private boolean indexInGoalOrStart(int i, int j,Maze maze) {
+     if(maze.getGoalPosition().getColumnIndex()==j||
+             maze.getStartPosition().getColumnIndex()==j||
+             maze.getGoalPosition().getColumnIndex()==i||
+             maze.getStartPosition().getColumnIndex()==i)
+        return true;
+    return false;
+    }
+    }
