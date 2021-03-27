@@ -24,6 +24,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
     private int[][] CreateWays(Maze newSimpleMaze) {
         Random rndIndex = new Random();
+        newSimpleMaze.Print();
         int i = rndIndex.nextInt(newSimpleMaze.rows);
         int j = rndIndex.nextInt(newSimpleMaze.cols);
         while (!(indexInGoalOrStart(i, j, newSimpleMaze))) {
@@ -45,8 +46,8 @@ public class SimpleMazeGenerator extends AMazeGenerator {
          * @return Maze - matrix with ones at the limits and full of zeros otherwise
          * */
         for(int i=0;i<newSimpleMaze.rows;i++){
-            for(int j=0;j< newSimpleMaze.cols;i++){
-                if(i==0||j==0||i== newSimpleMaze.rows-1||j== newSimpleMaze.rows-1)
+            for(int j=0;j< newSimpleMaze.cols;j++){
+                if(i==0||j==0||i==(newSimpleMaze.rows-1)||j==(newSimpleMaze.cols-1))
                     newSimpleMaze.matrix[i][j]=0;
                 else
                     newSimpleMaze.matrix[i][j]=1;
@@ -61,6 +62,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
 
     private boolean indexInGoalOrStart(int i, int j,Maze maze) {
+    maze.Print();
      if(maze.getGoalPosition().getColumnIndex()==j||
              maze.getStartPosition().getColumnIndex()==j||
              maze.getGoalPosition().getColumnIndex()==i||

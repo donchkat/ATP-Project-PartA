@@ -20,15 +20,15 @@ public class Maze {
         matrix = new int[numOfRows][numOfCols];
         this.rows=numOfRows;
         this.cols=numOfCols;
-      //  this.startPosition=new Position(0,0);
-        //this.goalPosition=new Position(rows-1,cols-1);
+        this.startPosition=new Position(0,0);
+        this.goalPosition=new Position(rows-1,cols-1);
     }
 
-    public void Print() {
+    public  void Print() {
         for (int i = 0; i < this.matrix.length; i++) {
-            System.out.println("{ ");
+           // System.out.println("{ ");//WHY IS THIS HERE????
             for (int j = 0; j < matrix[i].length; j++) {
-                System.out.println(this.matrix[i][j]+" ");
+                System.out.print(this.matrix[i][j]+" ");
             }
             System.out.println("} \n");
         }
