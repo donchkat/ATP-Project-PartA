@@ -1,5 +1,7 @@
 package mazeGenerators;
 
+import java.util.Objects;
+
 /**
  * this class represents a position in a 2D area.
  * rowIndex - the index of current row
@@ -8,6 +10,20 @@ package mazeGenerators;
 public class Position {
     private int rowIndex;
     private int columnIndex;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return rowIndex == position.rowIndex &&
+                columnIndex == position.columnIndex;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rowIndex, columnIndex);
+    }
 
     /**constructor
      * @param rowIndex

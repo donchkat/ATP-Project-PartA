@@ -21,7 +21,10 @@ public class Maze {
         this.rows=numOfRows;
         this.cols=numOfCols;
         this.startPosition=new Position(0,0);
+        matrix[startPosition.getRowIndex()][startPosition.getColumnIndex()]=0;
         this.goalPosition=new Position(rows-1,cols-1);
+        matrix[goalPosition.getRowIndex()][goalPosition.getColumnIndex()]=0;
+
     }
 
     public  void Print() {

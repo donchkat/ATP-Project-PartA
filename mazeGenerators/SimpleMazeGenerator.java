@@ -24,13 +24,20 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
     private int[][] CreateWays(Maze newSimpleMaze) {
         Random rndIndex = new Random();
-        newSimpleMaze.Print();
+        //newSimpleMaze.Print();
         int i = rndIndex.nextInt(newSimpleMaze.rows);
         int j = rndIndex.nextInt(newSimpleMaze.cols);
-        while (!(indexInGoalOrStart(i, j, newSimpleMaze))) {
-            newSimpleMaze.matrix[i][j] = 0;
+        while (newSimpleMaze.matrix[i][j]!=0) {
+          for(int k=0;k<newSimpleMaze.rows;k++)
+              for(int n=0;n<newSimpleMaze.cols;n++){
+                   newSimpleMaze.matrix[i][n] = 0;
+                   newSimpleMaze.matrix[k][j]=0;
+              }
             i = rndIndex.nextInt(newSimpleMaze.rows);
             j = rndIndex.nextInt(newSimpleMaze.cols);
+            if(i==j)
+                break;
+
         }
         return newSimpleMaze.matrix;
     }
@@ -60,7 +67,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
 
 
-
+/**
     private boolean indexInGoalOrStart(int i, int j,Maze maze) {
     maze.Print();
      if(maze.getGoalPosition().getColumnIndex()==j||
@@ -70,4 +77,5 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         return true;
     return false;
     }
+ **/
     }
