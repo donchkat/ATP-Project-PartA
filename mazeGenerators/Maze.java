@@ -16,32 +16,32 @@ public class Maze {
     protected int[][] matrix;
 
     //constructor
-    public Maze(int numOfRows, int numOfCols) {
+    public Maze (int numOfRows, int numOfCols) {
         matrix = new int[numOfRows][numOfCols];
-        this.rows=numOfRows;
-        this.cols=numOfCols;
-        this.startPosition=new Position(0,0);
-        matrix[startPosition.getRowIndex()][startPosition.getColumnIndex()]=0;
-        this.goalPosition=new Position(rows-1,cols-1);
-        matrix[goalPosition.getRowIndex()][goalPosition.getColumnIndex()]=0;
+        this.rows = numOfRows;
+        this.cols = numOfCols;
+        this.startPosition = new Position(0, 0);
+        matrix[startPosition.getRowIndex()][startPosition.getColumnIndex()] = 0;
+        this.goalPosition = new Position(rows - 1, cols - 1);
+        matrix[goalPosition.getRowIndex()][goalPosition.getColumnIndex()] = 0;
 
     }
 
-    public  void Print() {
+    public void Print () {
         for (int i = 0; i < this.matrix.length; i++) {
-           // System.out.println("{ ");//WHY IS THIS HERE????
+            //System.out.println("{ ");//WHY IS THIS HERE???? -  BECAUSE that's how they want it to be printed
             for (int j = 0; j < matrix[i].length; j++) {
-                System.out.print(this.matrix[i][j]+" ");
+                System.out.print(this.matrix[i][j] + " ");
             }
             System.out.println("} \n");
         }
     }
 
-    public Position getStartPosition() {
+    public Position getStartPosition () {
         return startPosition;
     }
 
-    public Position getGoalPosition() {
+    public Position getGoalPosition () {
         return goalPosition;
     }
 

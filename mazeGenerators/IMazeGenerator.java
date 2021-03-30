@@ -3,8 +3,8 @@ package mazeGenerators;
 import mazeGenerators.Maze;
 
 public interface IMazeGenerator {
-    public Maze generate(int rows, int cols);
+     Maze generate (int rows, int cols);
 
-    public long measureAlgorithmTimeMillis(int rows, int cols);
+     long measureAlgorithmTimeMillis (int rows, int cols);
 
 }

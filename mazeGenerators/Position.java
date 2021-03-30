@@ -11,8 +11,16 @@ public class Position {
     private int rowIndex;
     private int columnIndex;
 
+    public void setRowIndex (int rowIndex) {
+        this.rowIndex = rowIndex;
+    }
+
+    public void setColumnIndex (int columnIndex) {
+        this.columnIndex = columnIndex;
+    }
+
     @Override
-    public boolean equals(Object o) {
+    public boolean equals (Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Position position = (Position) o;
@@ -21,29 +29,31 @@ public class Position {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode () {
         return Objects.hash(rowIndex, columnIndex);
     }
 
-    /**constructor
+    /**
+     * constructor
+     *
      * @param rowIndex
      * @param columnIndex
      */
-    public Position(int rowIndex, int columnIndex) {
+    public Position (int rowIndex, int columnIndex) {
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
     }
 
-    public int getRowIndex() {
+    public int getRowIndex () {
         return rowIndex;
     }
 
-    public int getColumnIndex() {
+    public int getColumnIndex () {
         return columnIndex;
     }
 
     @Override
-    public String toString() {
+    public String toString () {
         return "{" + rowIndex + "," + columnIndex + '}';
     }
 
