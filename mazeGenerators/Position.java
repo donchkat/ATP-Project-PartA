@@ -58,4 +58,8 @@ public class Position {
     }
 
 
+    public Position copy () {
+        Position copyPos = new Position(this.rowIndex, this.columnIndex);
+        return copyPos;
+    }
 }

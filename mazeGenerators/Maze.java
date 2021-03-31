@@ -15,6 +15,14 @@ public class Maze {
     protected int cols;
     protected int[][] matrix;
 
+    public void setStartPosition (Position startPosition) {
+        this.startPosition = startPosition;
+    }
+
+    public void setGoalPosition (Position goalPosition) {
+        this.goalPosition = goalPosition;
+    }
+
     //constructor
     public Maze (int numOfRows, int numOfCols) {
         matrix = new int[numOfRows][numOfCols];

@@ -6,61 +6,90 @@ import mazeGenerators.Maze;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Stack;
 
 /**
  *
  */
 public class MyMazeGenerator extends AMazeGenerator {
+    /**
+     * @param rows - number of rows in the maze
+     * @param cols - number of columns in the maze
+     * @return a maze that was generated with the DFS algorithm
+     */
     @Override
     public Maze generate (int rows, int cols) {
         Maze newMaze = new Maze(rows, cols);
         newMaze.matrix = onesMatrix(rows, cols);
-        //get random row and column numbers
-        //Random rand = new Random();
-       // int r = randRowIndex(rand, rows);
-        //int c = randColIndex(rand, cols);
-        //start generate from this cell
-        //Position currPos = new Position(r, c);
-        //newMaze.matrix[r][c] = 0;
-        newMaze.matrix[0][0] = 0;
-        newMaze.matrix[rows-1][cols-1] = 0;
+        Stack pathStack = new Stack();
         Position currPos = new Position(0, 0);
-        recGenerate(newMaze.matrix, currPos);
+
+        newMaze.matrix[currPos.getRowIndex()][currPos.getColumnIndex()] = 0; //marking as visited
+        pathStack.push(currPos.copy());
+        while (!pathStack.isEmpty()) {
+            if (checkNeighbors(newMaze, currPos)) {
+                randomNeighbor(newMaze.matrix, currPos);
+                pathStack.push(currPos.copy());
+            } else if (!pathStack.isEmpty())
+                currPos = (Position) pathStack.pop();
+        }
         return newMaze;
     }
 
-    /**NOT SURE WE NEED THIS - DONT DELETE YET
-     * @param rand - Random type - that helps us to get random column number
-     * @param cols - number of columns in our maze
-     * @return random column number [int]
-     */
-    private int randColIndex (Random rand, int cols) {
-        int c = rand.nextInt(cols);
-        while (c % 2 == 0) {
-            c = rand.nextInt(cols);
-        }
-        return c;
-    }
 
-    /**NOT SURE WE NEED THIS - DONT DELETE YET
-     * @param rand - Random type - that helps us to get random row number
-     * @param rows - number of rows in our maze
-     * @return random row number [int]
+    /**
+     * first check if some neighbors are out of range and don't go there.
+     * Check only the INranged cells if they contain 1's.
+     * @param myMaze - the maze we generate
+     * @param currPos - the current position
+     * @return true if at least one neighbor(between the INranged cells) contains 1 (unvisited)
      */
-    private int randRowIndex (Random rand, int rows) {
-        int r = rand.nextInt(rows);
-        while (r % 2 == 0) {
-            r = rand.nextInt(rows);
+    private boolean checkNeighbors (Maze myMaze, Position currPos) {
+        int r = currPos.getRowIndex();
+        int c = currPos.getColumnIndex();
+
+        //checking for each neighbor if it's INrange
+        boolean leftN = isOutOfRange(myMaze, new Position(r, c-2));
+        boolean rightN = isOutOfRange(myMaze, new Position(r, c+2));
+        boolean upN = isOutOfRange(myMaze, new Position(r-2, c));
+        boolean downN = isOutOfRange(myMaze, new Position(r+2, c));
+
+        //only the INrange neighbors are checked for their value
+        if(leftN){
+            leftN = false;
         }
-        return r;
+        else{
+            leftN = (myMaze.matrix[r][c - 2] == 1);
+        }
+
+        if(rightN){
+            rightN = false;
+        }
+        else{
+            rightN = (myMaze.matrix[r][c + 2] == 1);
+        }
+        if(upN){
+            upN = false;
+        }
+        else {
+            upN = (myMaze.matrix[r - 2][c] == 1);
+        }
+        if(downN){
+            downN = false;
+        }
+        else{
+            downN = (myMaze.matrix[r + 2][c] == 1);
+        }
+        return leftN || rightN || upN || downN;
     }
 
     /**
+     * this function chooses to which possible neighbor to go.
+     * it breaks the wall between them and puts 0 inside.
      * @param matrix  - the 2D array we generate our maze on
      * @param currPos - the current position in the maze.
      */
-    private void recGenerate (int[][] matrix, Position currPos) {
-
+    private void randomNeighbor (int[][] matrix, Position currPos) {
         //random directions
         Integer[] ranDirs = randomDirections(4);
         int r = currPos.getRowIndex();
@@ -71,51 +100,48 @@ public class MyMazeGenerator extends AMazeGenerator {
 
                 case 1: //UP
                     //index out of range
-                    if (r - 2 <= 0)
+                    if (r - 2 < 0)
                         continue;
                     if (matrix[r - 2][c] != 0) {
                         matrix[r - 2][c] = 0;
                         matrix[r - 1][c] = 0;
                         currPos.setRowIndex(r - 2);
                         currPos.setColumnIndex(c);
-                        recGenerate(matrix, currPos);
+                        return ;
                     }
                     break;
                 case 2: //RIGHT
-                    if (c + 2 >= matrix[0].length - 1)
+                    if (c + 2 > matrix[0].length - 1)
                         continue;
                     if (matrix[r][c + 2] != 0) {
                         matrix[r][c + 2] = 0;
                         matrix[r][c + 1] = 0;
                         currPos.setRowIndex(r);
                         currPos.setColumnIndex(c + 2);
-                        recGenerate(matrix, currPos);
+                        return ;
                     }
                     break;
                 case 3: //LEFT
-                    if (c - 2 <= 0)
+                    if (c - 2 < 0)
                         continue;
                     if (matrix[r][c - 2] != 0) {
                         matrix[r][c - 2] = 0;
                         matrix[r][c - 1] = 0;
                         currPos.setRowIndex(r);
                         currPos.setColumnIndex(c - 2);
-                        recGenerate(matrix, currPos);
+                        return ;
                     }
                     break;
                 case 4: //DOWN
-                    if (r + 2 >= matrix.length - 1)
+                    if (r + 2 > matrix.length - 1)
                         continue;
                     if (matrix[r + 2][c] != 0) {
                         matrix[r + 2][c] = 0;
                         matrix[r + 1][c] = 0;
                         currPos.setRowIndex(r + 2);
                         currPos.setColumnIndex(c);
-                        recGenerate(matrix, currPos);
+                        return ;
                     }
-                    break;
-                default:
-                    //do we want to throw here an exception?
                     break;
             }
         }
@@ -123,6 +149,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
 
     /**
+     * creates an array of numbers in not organized way
      * @param numOfDirs - quantity of the directions
      * @return array of numbers 0-X representing X different directions in random order
      */
@@ -136,13 +163,22 @@ public class MyMazeGenerator extends AMazeGenerator {
         return directions.toArray(new Integer[numOfDirs]);
     }
 
-    //didnt use this yet
-    private boolean isOutOfRange (int[][] mat, int i, int j) {
-        return i < 0 || j < 0 || i == mat.length || j == mat[0].length;
+    /**
+     * @param myMaze - the maze we generate
+     * @param optionalPos - the neighbor position we are checking
+     * @return true if this neighbor is not in range.
+     */
+    private boolean isOutOfRange (Maze myMaze, Position optionalPos) {
+        int r = optionalPos.getRowIndex();
+        int c = optionalPos.getColumnIndex();
+        int mazeHeight = myMaze.rows-1;
+        int mazeWidth = myMaze.cols-1;
+        return r<0 ||r > mazeHeight || c <0 || c > mazeWidth;
 
     }
 
     /**
+     * fills the maze with 1's.
      * @param rows - number of rows
      * @param cols - number of columns
      * @return matrix full of 1's
