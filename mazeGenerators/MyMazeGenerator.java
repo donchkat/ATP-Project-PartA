@@ -32,8 +32,36 @@ public class MyMazeGenerator extends AMazeGenerator {
                 pathStack.push(currPos.copy());
             } else if (!pathStack.isEmpty())
                 currPos = (Position) pathStack.pop();
+
         }
+        Position toGoal=new Position(newMaze.rows-2, newMaze.cols-2);
+        if(isInGoalInvironment(toGoal,newMaze))
+            zeroPathToGoal(toGoal,newMaze);
         return newMaze;
+    }
+
+    private void zeroPathToGoal(Position currPos, Maze myMaze) {
+        myMaze.matrix[myMaze.cols-1][myMaze.rows-1]=0;
+        Random rnd=new Random();
+        int num=rnd.nextInt(10);
+        if(num%2!=0)
+            myMaze.matrix[myMaze.cols-1][myMaze.rows-2]=0;
+        else
+            myMaze.matrix[myMaze.cols-2][myMaze.rows-1]=0;
+    }
+
+    /**
+     * Check if we are close to the goal postion and if we are, we break the walls to this position
+     * @param myMaze - the maze we generate
+     * @param currPos - the current position
+     * @return true we are a step or two from the goal(which is mat[numofrows,numofcols] else false)
+     */
+    private boolean isInGoalInvironment(Position currPos, Maze myMaze) {
+        if(myMaze.getGoalPosition().getColumnIndex()-1<=currPos.getColumnIndex()||
+                myMaze.getGoalPosition().getRowIndex()-1<= currPos.getColumnIndex()){
+            return true;
+        }
+        return false;
     }
 
 
