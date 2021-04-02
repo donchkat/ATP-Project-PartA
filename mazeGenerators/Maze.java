@@ -1,5 +1,6 @@
 package mazeGenerators;
 
+import search.AState;
 import search.ISearchable;
 import search.MazeState;
 
@@ -13,7 +14,7 @@ import java.util.Objects;
  * goalPosition - the goal position
  * matrix - the 2D field of the maze
  */
-public class Maze implements ISearchable {
+public class Maze {
     private Position startPosition;
     private Position goalPosition;
     protected int rows;
@@ -40,15 +41,16 @@ public class Maze implements ISearchable {
 
     }
 
+
     public void Print () {
         for (int i = 0; i < this.matrix.length; i++) {
             //System.out.println("{ ");//WHY IS THIS HERE???? -  BECAUSE that's how they want it to be printed
             for (int j = 0; j < matrix[i].length; j++) {
-                if(i==0&&j==0) {
+                if (i == 0 && j == 0) {
                     System.out.print('S' + " ");
-                continue;
+                    continue;
                 }
-                if(i==rows-1&&j==cols-1) {
+                if (i == rows - 1 && j == cols - 1) {
                     System.out.print('E' + " ");
                     continue;
                 }
@@ -59,15 +61,15 @@ public class Maze implements ISearchable {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals (Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Maze maze = (Maze) o;
-        boolean flag=true;
+        boolean flag = true;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if(matrix[i][j]!=((Maze) o).matrix[i][j])
-                    flag=false;
+                if (matrix[i][j] != ((Maze) o).matrix[i][j])
+                    flag = false;
             }
         }
         return rows == maze.rows &&
@@ -77,12 +79,6 @@ public class Maze implements ISearchable {
                 flag;
     }
 
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(startPosition, goalPosition, rows, cols);
-        result = 31 * result + Arrays.hashCode(matrix);
-        return result;
-    }
 
     public Position getStartPosition () {
         return startPosition;
@@ -92,19 +88,21 @@ public class Maze implements ISearchable {
         return goalPosition;
     }
 
-
-    @Override
-    public MazeState getStartState() {
-        return null;
+    public boolean checkLegalCell(int rowIndex, int colIndex){
+        return rowIndex<0 || colIndex <0 || rowIndex > this.matrix.length || colIndex > this.matrix[0].length;
     }
 
-    @Override
-    public MazeState getGoalState() {
-        return null;
+    public boolean isContainZero(int rowIndex, int colIndex){
+        return this.matrix[rowIndex][colIndex] == 0;
     }
 
-    @Override
-    public ArrayList<MazeState> getAllSuccessors() {
-        return null;
+
+    private boolean isOutOfRange (Maze myMaze, Position optionalPos) {
+        int r = optionalPos.getRowIndex();
+        int c = optionalPos.getColumnIndex();
+        int mazeHeight = myMaze.rows-1;
+        int mazeWidth = myMaze.cols-1;
+        return r<0 ||r > mazeHeight || c <0 || c > mazeWidth;
+
     }
 }

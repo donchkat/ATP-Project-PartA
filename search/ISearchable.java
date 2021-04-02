@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public interface ISearchable {
 
 
-public MazeState getStartState();
-public MazeState getGoalState();
-public ArrayList<MazeState> getAllSuccessors();
+public AState getStartState();
+public AState getGoalState();
+public ArrayList<AState> getAllSuccessors(AState state);
 
 }

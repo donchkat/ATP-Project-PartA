@@ -1,8 +1,12 @@
 package algorithms;
 
+import search.ASearchingAlgorithm;
+import search.ISearchable;
+import search.MazeState;
+
 import java.util.Iterator;
 
-public class DepthFirstSearch {
+public class DepthFirstSearch extends ASearchingAlgorithm {
     void DFSVisit(int v, boolean visited[],Graph graph)
     {
         // Mark the current node as visited and print it
@@ -34,4 +38,13 @@ public class DepthFirstSearch {
     }
 
 
+    @Override
+    public MazeState search (ISearchable iSearchable) {
+        return null;
+    }
+
+    @Override
+    public int getNumberVisitedNodes () {
+        return 0;
+    }
 }

@@ -1,9 +1,13 @@
 package algorithms;
 
+import search.ASearchingAlgorithm;
+import search.ISearchable;
+import search.MazeState;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class BreadthFirstSearch {
+public class BreadthFirstSearch extends ASearchingAlgorithm {
 
     // prints BFS traversal from a given source s
     void BFS(int s,Graph graph) {
@@ -35,5 +39,15 @@ public class BreadthFirstSearch {
                 }
             }
         }
+    }
+
+    @Override
+    public MazeState search (ISearchable iSearchable) {
+        return null;
+    }
+
+    @Override
+    public int getNumberVisitedNodes () {
+        return 0;
     }
 }
