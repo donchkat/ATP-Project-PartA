@@ -1,8 +1,5 @@
 package mazeGenerators;
 
-import mazeGenerators.AMazeGenerator;
-import mazeGenerators.Maze;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -41,13 +38,13 @@ public class MyMazeGenerator extends AMazeGenerator {
     }
 
     private void zeroPathToGoal(Position currPos, Maze myMaze) {
-        myMaze.matrix[myMaze.cols-1][myMaze.rows-1]=0;
+        myMaze.matrix[myMaze.rows-1][myMaze.cols-1]=0;
         Random rnd=new Random();
         int num=rnd.nextInt(10);
         if(num%2!=0)
-            myMaze.matrix[myMaze.cols-1][myMaze.rows-2]=0;
+            myMaze.matrix[myMaze.rows-1][myMaze.cols-2]=0;
         else
-            myMaze.matrix[myMaze.cols-2][myMaze.rows-1]=0;
+            myMaze.matrix[myMaze.rows-2][myMaze.cols-1]=0;
     }
 
     /**

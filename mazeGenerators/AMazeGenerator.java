@@ -1,7 +1,5 @@
 package mazeGenerators;
 
-import mazeGenerators.Maze;
-
 public abstract class AMazeGenerator implements IMazeGenerator {
     //protected Maze myMaze; -NOT SURE WE NEED THIS
     //do we need a constructor????

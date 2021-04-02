@@ -1,10 +1,5 @@
 package mazeGenerators;
 
-import mazeGenerators.AMazeGenerator;
-import mazeGenerators.Maze;
-
-import java.lang.reflect.Array;
-
 /**
  * this class generates an empty maze(full of 0's)
  */

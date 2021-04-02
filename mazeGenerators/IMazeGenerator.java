@@ -1,7 +1,5 @@
 package mazeGenerators;
 
-import mazeGenerators.Maze;
-
 public interface IMazeGenerator {
      Maze generate (int rows, int cols);
 

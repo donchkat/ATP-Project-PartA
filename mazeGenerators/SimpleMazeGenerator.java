@@ -1,7 +1,5 @@
 package mazeGenerators;
 
-import mazeGenerators.AMazeGenerator;
-
 import java.util.Random;
 
 /**

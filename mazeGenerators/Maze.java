@@ -1,6 +1,11 @@
 package mazeGenerators;
 
+import search.ISearchable;
+import search.MazeState;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * this class represents a 2D Maze object
@@ -8,7 +13,7 @@ import java.util.Arrays;
  * goalPosition - the goal position
  * matrix - the 2D field of the maze
  */
-public class Maze {
+public class Maze implements ISearchable {
     private Position startPosition;
     private Position goalPosition;
     protected int rows;
@@ -39,10 +44,44 @@ public class Maze {
         for (int i = 0; i < this.matrix.length; i++) {
             //System.out.println("{ ");//WHY IS THIS HERE???? -  BECAUSE that's how they want it to be printed
             for (int j = 0; j < matrix[i].length; j++) {
+                if(i==0&&j==0) {
+                    System.out.print('S' + " ");
+                continue;
+                }
+                if(i==rows-1&&j==cols-1) {
+                    System.out.print('E' + " ");
+                    continue;
+                }
                 System.out.print(this.matrix[i][j] + " ");
             }
             System.out.println("} \n");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Maze maze = (Maze) o;
+        boolean flag=true;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if(matrix[i][j]!=((Maze) o).matrix[i][j])
+                    flag=false;
+            }
+        }
+        return rows == maze.rows &&
+                cols == maze.cols &&
+                Objects.equals(startPosition, maze.startPosition) &&
+                Objects.equals(goalPosition, maze.goalPosition) &&
+                flag;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(startPosition, goalPosition, rows, cols);
+        result = 31 * result + Arrays.hashCode(matrix);
+        return result;
     }
 
     public Position getStartPosition () {
@@ -54,4 +93,18 @@ public class Maze {
     }
 
 
+    @Override
+    public MazeState getStartState() {
+        return null;
+    }
+
+    @Override
+    public MazeState getGoalState() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<MazeState> getAllSuccessors() {
+        return null;
+    }
 }
