@@ -1,11 +1,17 @@
 package search;
 
-import java.util.Objects;
-
 public class AState {
     private String state;
     private double cost;
     private AState cameFrom;
+
+    public void setCameFrom(AState cameFrom) {
+        this.cameFrom = cameFrom;
+    }
+
+    public AState getCameFrom() {
+        return cameFrom;
+    }
 
     @Override
     public boolean equals (Object o) {

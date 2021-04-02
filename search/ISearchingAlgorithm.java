@@ -1,6 +1,7 @@
 package search;
 
 public interface ISearchingAlgorithm {
-     MazeState search(ISearchable iSearchable);
-     int getNumberVisitedNodes();
+     Solution search(ISearchable iSearchable);
+     String getName();
+     int getNumberOfNodesEvaluated();
 }

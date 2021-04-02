@@ -1,11 +1,5 @@
 package mazeGenerators;
 
-import search.AState;
-import search.ISearchable;
-import search.MazeState;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 /**

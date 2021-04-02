@@ -8,6 +8,10 @@ import java.util.ArrayList;
 public class SearchableMaze implements ISearchable {
     private Maze adapterMaze;
 
+    public SearchableMaze(Maze adapterMaze) {
+        this.adapterMaze = adapterMaze;
+    }
+
     @Override
     public MazeState getStartState () {
         return new MazeState("S", 0, null, adapterMaze.getStartPosition() );

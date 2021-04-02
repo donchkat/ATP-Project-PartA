@@ -1,5 +1,6 @@
 package test;
 import mazeGenerators.*;
+
 public class RunMazeGenerator {
     public static void main(String[] args) {
         testMazeGenerator(new EmptyMazeGenerator());
