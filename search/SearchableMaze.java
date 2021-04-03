@@ -25,7 +25,8 @@ public class SearchableMaze implements ISearchable {
     @Override
     public ArrayList<AState> getAllSuccessors (AState state) {
         ArrayList<AState> possibleMoves = new ArrayList<AState>();
-        MazeState Mstate = (MazeState) state;
+        Position tmp=(Position) state.getValue();
+        MazeState Mstate = new MazeState(state.getState(),state.getCost(),state.getCameFrom(),tmp);
         int r = Mstate.getCurrPosition().getRowIndex();
         int c = Mstate.getCurrPosition().getColumnIndex();
 
@@ -58,7 +59,8 @@ public class SearchableMaze implements ISearchable {
         if(!adapterMaze.checkLegalCell(r,c)){
             if(adapterMaze.isContainZero(r,c)){
                 Position uPosition = new Position(r,c);
-                list.add(new AState(uPosition.toString(),cost,state));
+                AState newState=new AState("Grey",cost,state,uPosition);
+                list.add(newState);
                 return true;
             }
         }
