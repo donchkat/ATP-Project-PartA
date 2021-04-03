@@ -83,7 +83,7 @@ public class Maze {
     }
 
     public boolean checkLegalCell(int rowIndex, int colIndex){
-        return rowIndex<0 || colIndex <0 || rowIndex > this.matrix.length || colIndex > this.matrix[0].length;
+        return rowIndex<0 || colIndex <0 || rowIndex >= this.matrix.length || colIndex >= this.matrix[0].length;
     }
 
     public boolean isContainZero(int rowIndex, int colIndex){

@@ -14,16 +14,18 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public MazeState getStartState () {
-        return new MazeState("S", 0, null, adapterMaze.getStartPosition() );
+        return new MazeState("white", 0, null, adapterMaze.getStartPosition() );
     }
 
     @Override
     public MazeState getGoalState () {
-        return new MazeState("E", Integer.MAX_VALUE, null, adapterMaze.getGoalPosition());
+        return new MazeState("white", Integer.MAX_VALUE, null, adapterMaze.getGoalPosition());
     }
 
     @Override
     public ArrayList<AState> getAllSuccessors (AState state) {
+        if(state==null)
+            return  null;
         ArrayList<AState> possibleMoves = new ArrayList<AState>();
         Position tmp=(Position) state.getValue();
         MazeState Mstate = new MazeState(state.getState(),state.getCost(),state.getCameFrom(),tmp);
@@ -57,10 +59,14 @@ public class SearchableMaze implements ISearchable {
 
     public boolean insertStateToList(ArrayList<AState> list, AState state, int r, int c, double cost){
         if(!adapterMaze.checkLegalCell(r,c)){
-            if(adapterMaze.isContainZero(r,c)){
+            if(adapterMaze.isContainZero(r,c)&&(state.getState()!="black")){
                 Position uPosition = new Position(r,c);
-                AState newState=new AState("Grey",cost,state,uPosition);
-                list.add(newState);
+                AState newState=new AState("gray",cost,state,uPosition);
+                for (int i = 0; i < list.size(); i++) {
+                    if(list.get(i).equals(newState))
+                        return false;
+                }
+                   list.add(newState);
                 return true;
             }
         }

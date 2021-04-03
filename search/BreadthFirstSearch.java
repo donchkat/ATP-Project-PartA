@@ -13,28 +13,33 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         LinkedList<AState> myQ = new LinkedList<>();
         AState start = iSearchable.getStartState();
         AState goal = iSearchable.getGoalState();
-        myQ.addAll(iSearchable.getAllSuccessors(start));
-        AState curr = start;
-        this.numberOfVisitedNodes++;
-        while (!curr.equals(goal)) {
-            this.numberOfVisitedNodes++;
+        myQ.add(start);
+        AState curr=start;
+        while (!myQ.isEmpty()) {
             curr = myQ.pollFirst();
-            myQ.addAll(iSearchable.getAllSuccessors(curr));
-            for (int i = 0; i < iSearchable.getAllSuccessors(curr).size(); i++)
-                iSearchable.getAllSuccessors(curr).get(i).setCameFrom(curr);
+            this.numberOfVisitedNodes++;
+            if (curr.equals(goal))
+                  break;
+            for (int i = 0; i < iSearchable.getAllSuccessors(curr).size(); i++) {
+                if (iSearchable.getAllSuccessors(curr).get(i).getState() == "gray")
+                    myQ.add(iSearchable.getAllSuccessors(curr).get(i));
+            }
+            curr.setState("black");
         }
         return new Solution(curr);
+
     }
 
-    @Override
-    public String getName() {
-        return "Breadth First Search";
-    }
+        @Override
+        public String getName () {
+            return "Breadth First Search";
+        }
 
-    @Override
-    public int getNumberOfNodesEvaluated() {
-       return this.numberOfVisitedNodes;
-    }
+        @Override
+        public int getNumberOfNodesEvaluated () {
+            return this.numberOfVisitedNodes;
+        }
+
 
 
 }

@@ -52,7 +52,7 @@ public class AState {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AState aState = (AState) o;
-        return aState.state == this.state&& this.value.equals(((AState) o).value);
+        return this.value.equals(((AState) o).value);
     }
 
     public AState (double cost, AState cameFrom,Object value) {
