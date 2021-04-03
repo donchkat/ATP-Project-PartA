@@ -1,4 +1,4 @@
-package mazeGenerators;
+package algorithms.mazeGenerators;
 
 import java.util.Objects;
 
@@ -15,12 +15,21 @@ public class Maze {
     protected int cols;
     protected int[][] matrix;
 
-    public void setStartPosition (Position startPosition) {
-        this.startPosition = startPosition;
+
+    public int getRows () {
+        return rows;
+    }
+
+    public int getCols () {
+        return cols;
+    }
+
+    public void setStartPosition (Position stPos) {
+        this.startPosition = stPos;
     }
 
     public void setGoalPosition (Position goalPosition) {
-        this.goalPosition = goalPosition;
+        this.goalPosition= goalPosition;
     }
 
     //constructor

@@ -1,6 +1,6 @@
-package search;
+package algorithms.search;
 
-import mazeGenerators.Position;
+import algorithms.mazeGenerators.Position;
 
 public class MazeState extends AState{
     private Position currPosition;
@@ -9,8 +9,8 @@ public class MazeState extends AState{
         return currPosition;
     }
 
-    public MazeState (String state, double cost, AState cameFrom, Position currPosition) {
-        super(state, cost, cameFrom,currPosition);
+    public MazeState (double cost, AState cameFrom, Position currPosition) {
+        super( cost, cameFrom,currPosition);
         this.currPosition = currPosition;
     }
 }

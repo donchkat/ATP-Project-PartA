@@ -1,6 +1,4 @@
-package search;
-
-import mazeGenerators.Position;
+package algorithms.search;
 
 public class AState {
     private String state;
@@ -8,12 +6,13 @@ public class AState {
     private AState cameFrom;
     protected Object value;
 
-    public AState(String state, double cost, AState cameFrom, Object value) {
-        this.state = state;
-        this.cost = cost;
+    public AState (double cost, AState cameFrom,Object value) {
+        this.state = "white";
         this.cameFrom = cameFrom;
-        this.value = value;
+        this.cost = cost;
+        this.value=value;
     }
+
 
     public void setCameFrom(AState cameFrom) {
         this.cameFrom = cameFrom;
@@ -55,10 +54,5 @@ public class AState {
         return this.value.equals(((AState) o).value);
     }
 
-    public AState (double cost, AState cameFrom,Object value) {
-        this.state = "white";
-        this.cameFrom = cameFrom;
-        this.cost = cost;
-        this.value=value;
-    }
+
 }

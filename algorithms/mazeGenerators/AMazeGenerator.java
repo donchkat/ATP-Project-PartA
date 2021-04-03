@@ -1,4 +1,4 @@
-package mazeGenerators;
+package algorithms.mazeGenerators;
 
 public abstract class AMazeGenerator implements IMazeGenerator {
     //protected Maze myMaze; -NOT SURE WE NEED THIS
