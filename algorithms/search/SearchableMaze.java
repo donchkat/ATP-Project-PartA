@@ -21,7 +21,13 @@ public class SearchableMaze implements ISearchable {
             }
         }
     }
-
+private  void initMat(){
+    for (int i = 0; i < adapterMaze.getRows(); i++) {
+        for (int j = 0; j < adapterMaze.getCols(); j++) {
+            visitRecord[i][j] = "white";
+        }
+    }
+}
 
     @Override
     public MazeState getStartState () {
@@ -37,6 +43,9 @@ public class SearchableMaze implements ISearchable {
     public ArrayList<AState> getAllSuccessors (AState state) {
         if(state==null)
             return  null;
+        if(state.equals(this.getStartState())){
+            this.initMat();
+        }
         ArrayList<AState> possibleMoves = new ArrayList<AState>();
         Position tmp=(Position) state.getValue();
         MazeState Mstate = new MazeState(state.getCost(),state.getCameFrom(),tmp);
