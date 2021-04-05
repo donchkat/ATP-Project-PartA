@@ -8,21 +8,27 @@ import java.util.Random;
 public class SimpleMazeGenerator extends AMazeGenerator {
 
     /**
+     * generates a simple random maze. The frame of the maze is always 0's
+     * so it always will have a solution - the inside square is filled randomly with 1's.
      * @param rows - the number of rows in the maze
      * @param cols - the number of cols in the maze
-     * @return Maze - the simple maze it created.(the walls are put in the even cells-[0,0], [0,2], [2,2]..)
+     * @return Maze - the simple maze it created.
      */
     @Override
     public Maze generate (int rows, int cols) {
         Maze newSimpleMaze = new Maze(rows, cols);
-        newSimpleMaze.matrix = CreateBounds(newSimpleMaze);//take care of bounderies
-        newSimpleMaze.matrix = CreateWays(newSimpleMaze);
+        newSimpleMaze.matrix = CreateBounds(newSimpleMaze);//take care of maze bounds
+        newSimpleMaze.matrix = CreateWays(newSimpleMaze); // fill randomly the inner part
         return newSimpleMaze;
     }
 
+    /**
+     * NIV SHOULD WRITE HERE DESCRIPTION
+     * @param newSimpleMaze - the maze we are filling
+     * @return the same maze but randomly filled with 0's in the inner part.
+     */
     private int[][] CreateWays (Maze newSimpleMaze) {
         Random rndIndex = new Random();
-        //newSimpleMaze.Print();
         int i = rndIndex.nextInt(newSimpleMaze.rows);
         int j = rndIndex.nextInt(newSimpleMaze.cols);
         while (newSimpleMaze.matrix[i][j] != 0) {
@@ -35,19 +41,16 @@ public class SimpleMazeGenerator extends AMazeGenerator {
             j = rndIndex.nextInt(newSimpleMaze.cols);
             if (i == j)
                 break;
-
         }
         return newSimpleMaze.matrix;
     }
 
 
+    /**
+     * @param newSimpleMaze - the maze we are filling
+     * @return the same maze with 0's on the frame and 1's inside
+     */
     private int[][] CreateBounds (Maze newSimpleMaze) {
-        /**
-         * @param rows - the number of rows in the maze
-         * @param cols - the number of cols in the maze
-         * @param matrix- empty matrix of ints
-         * @return Maze - matrix with ones at the limits and full of zeros otherwise
-         * */
         for (int i = 0; i < newSimpleMaze.rows; i++) {
             for (int j = 0; j < newSimpleMaze.cols; j++) {
                 if (i == 0 || j == 0 || i == (newSimpleMaze.rows - 1) || j == (newSimpleMaze.cols - 1))
@@ -56,13 +59,13 @@ public class SimpleMazeGenerator extends AMazeGenerator {
                     newSimpleMaze.matrix[i][j] = 1;
             }
         }
-        newSimpleMaze.matrix[0][0] = 0;
-        newSimpleMaze.matrix[newSimpleMaze.rows - 1][newSimpleMaze.cols - 1] = 0;
+        newSimpleMaze.matrix[0][0] = 0; //WHY DO WE NEED THIS IF IN LINE 57 WE ALREADY PUT THERE 0
+        newSimpleMaze.matrix[newSimpleMaze.rows - 1][newSimpleMaze.cols - 1] = 0; //SAME HERE
         return newSimpleMaze.matrix;
     }
 
 
-/**
+/** - ???????????? do we need this yet?
  private boolean indexInGoalOrStart(int i, int j,Maze maze) {
  maze.Print();
  if(maze.getGoalPosition().getColumnIndex()==j||

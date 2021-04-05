@@ -11,6 +11,16 @@ public class Position {
     private int rowIndex;
     private int columnIndex;
 
+    /**
+     * constructor
+     * @param rowIndex - the row index of current position.
+     * @param columnIndex - the column index of current position.
+     */
+    public Position (int rowIndex, int columnIndex) {
+        this.rowIndex = rowIndex;
+        this.columnIndex = columnIndex;
+    }
+
     public void setRowIndex (int rowIndex) {
         this.rowIndex = rowIndex;
     }
@@ -28,22 +38,6 @@ public class Position {
                 columnIndex == position.columnIndex;
     }
 
-    @Override
-    public int hashCode () {
-        return Objects.hash(rowIndex, columnIndex);
-    }
-
-    /**
-     * constructor
-     *
-     * @param rowIndex
-     * @param columnIndex
-     */
-    public Position (int rowIndex, int columnIndex) {
-        this.rowIndex = rowIndex;
-        this.columnIndex = columnIndex;
-    }
-
     public int getRowIndex () {
         return rowIndex;
     }
@@ -57,7 +51,9 @@ public class Position {
         return "{" + rowIndex + "," + columnIndex + '}';
     }
 
-
+    /**
+     * @return a new copy of current Position
+     */
     public Position copy () {
         Position copyPos = new Position(this.rowIndex, this.columnIndex);
         return copyPos;

@@ -32,7 +32,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
         }
         Position toGoal=new Position(newMaze.rows-2, newMaze.cols-2);
-        if(isInGoalInvironment(toGoal,newMaze))
+        if(isInGoalEnvironment(toGoal,newMaze))
             zeroPathToGoal(toGoal,newMaze);
         return newMaze;
     }
@@ -48,12 +48,12 @@ public class MyMazeGenerator extends AMazeGenerator {
     }
 
     /**
-     * Check if we are close to the goal postion and if we are, we break the walls to this position
+     * Check if we are close to the goal position and if we are, we break the walls to this position
      * @param myMaze - the maze we generate
      * @param currPos - the current position
      * @return true we are a step or two from the goal(which is mat[numofrows,numofcols] else false)
      */
-    private boolean isInGoalInvironment(Position currPos, Maze myMaze) {
+    private boolean isInGoalEnvironment(Position currPos, Maze myMaze) {
         if(myMaze.getGoalPosition().getColumnIndex()-1<=currPos.getColumnIndex()||
                 myMaze.getGoalPosition().getRowIndex()-1<= currPos.getColumnIndex()){
             return true;
