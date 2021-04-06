@@ -84,7 +84,15 @@ private  void initMatColor(){
           return possibleMoves;
     }
 
-
+    /**
+     * the function recieves params of possible  cell, turn it into a state if it is legal to do so
+     * @param list-the open list of the algorithm
+     * @param state- the previous state
+     * @param r- index of row of possible next state
+     * @param c-index of column of possible next state
+     * @param cost- weight of "edge" between "vertices"
+     * @return true if new state is inserted, else false
+     */
     public boolean insertStateToList(ArrayList<AState> list, AState state, int r, int c, double cost){
         if(!adapterMaze.checkLegalCell(r,c)){
             if(adapterMaze.isContainZero(r,c)&&visitRecord[r][c]=="white"){
