@@ -58,7 +58,7 @@ public class AState {
     public String toString() {
         return "AState{" +
                 ", cost=" + cost +
-//                ", value=" + value +
+                ", value=" + value +
                 '}';
     }
 }

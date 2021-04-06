@@ -7,27 +7,34 @@ import java.util.ArrayList;
 
 public class SearchableMaze implements ISearchable {
     private Maze adapterMaze;
-    private String [][] visitRecord; //ignore
+    private String [][] visitRecord;
+    private double [][] costs;//ignore
     //not sure its ok to add this here.because the searching algorithms will depend on this field.
     //so I wish each searchable object would have this.
 
     public SearchableMaze(Maze adapterMaze) {
         this.adapterMaze = adapterMaze;
         this.visitRecord=new String[adapterMaze.getRows()][adapterMaze.getCols()];
+        this.costs=new double[adapterMaze.getRows()][adapterMaze.getCols()];
         //ignore this part
-        for (int i = 0; i < adapterMaze.getRows(); i++) {
-            for (int j = 0; j < adapterMaze.getCols(); j++) {
-                visitRecord[i][j] = "white";
-            }
-        }
+       initMatColor();
+       initMatCost();
     }
-private  void initMat(){
+private  void initMatColor(){
     for (int i = 0; i < adapterMaze.getRows(); i++) {
         for (int j = 0; j < adapterMaze.getCols(); j++) {
-            visitRecord[i][j] = "white";
+            this.visitRecord[i][j]="white";
         }
     }
 }
+    private  void initMatCost(){
+        for (int i = 0; i < adapterMaze.getRows(); i++) {
+            for (int j = 0; j < adapterMaze.getCols(); j++) {
+
+                costs[i][j]=Integer.MAX_VALUE;
+            }
+        }
+    }
 
     @Override
     public MazeState getStartState () {
@@ -44,7 +51,7 @@ private  void initMat(){
         if(state==null)
             return  null;
         if(state.equals(this.getStartState())){
-            this.initMat();
+            this.initMatColor();
         }
         ArrayList<AState> possibleMoves = new ArrayList<AState>();
         Position tmp=(Position) state.getValue();
@@ -62,19 +69,19 @@ private  void initMat(){
         //RIGHT
         boolean rightCell = insertStateToList(possibleMoves, Mstate, r, c+1, 10);
 
-        //rightup
-        if(upCell || rightCell)
-            insertStateToList(possibleMoves, Mstate,r-1, c+1, 15);
-        //leftUp
-        if(upCell || leftCell)
-            insertStateToList(possibleMoves, Mstate, r-1, c-1, 15);
         //DOWNRIGHT
         if(rightCell || downCell)
             insertStateToList(possibleMoves, Mstate, r+1, c+1, 15);
         //DOWNLEFT
         if(downCell || leftCell)
             insertStateToList(possibleMoves, Mstate, r+1, c-1, 15);
-        return possibleMoves;
+        //rightup
+        if(upCell || rightCell)
+            insertStateToList(possibleMoves, Mstate,r-1, c+1, 15);
+        //leftUp
+        if(upCell || leftCell)
+            insertStateToList(possibleMoves, Mstate, r-1, c-1, 15);
+          return possibleMoves;
     }
 
 
@@ -82,7 +89,9 @@ private  void initMat(){
         if(!adapterMaze.checkLegalCell(r,c)){
             if(adapterMaze.isContainZero(r,c)&&visitRecord[r][c]=="white"){
                 Position uPosition = new Position(r,c);
-                AState newState=new AState(cost,state,uPosition);
+                double minimum=Math.min(state.getCost(),costs[r][c])+cost;
+                AState newState=new AState(minimum,state,uPosition);
+                costs[r][c]=minimum;
                 for (int i = 0; i < list.size(); i++) {
                     if(list.get(i).equals(newState))
                         return false;

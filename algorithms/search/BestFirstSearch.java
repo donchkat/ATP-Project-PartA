@@ -9,7 +9,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
 
     @Override
     public Solution search (ISearchable iSearchable) {
-        Comparator<AState> comparator = new stateComperator();
+        Comparator<AState> comparator = new stateComparator();
         PriorityQueue<AState> queue = new PriorityQueue<AState>(1, comparator);
         //PriorityQueue<AState> myQ = new PriorityQueue<>();
         AState start = iSearchable.getStartState();
@@ -17,7 +17,13 @@ public class BestFirstSearch extends ASearchingAlgorithm {
         queue.add(start);
         AState curr = start;
         while (!queue.isEmpty()) {
-            curr = queue.poll();
+
+            curr = queue.remove();
+            /***
+            System.out.println("Solution path:");
+            System.out.println(curr);
+            System.out.println("Solution path:");
+***/
             curr.setState("gray");
             this.numberOfVisitedNodes++;
             if (curr.equals(goal)) {
@@ -29,6 +35,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
                     arr.get(i).setState("gray");
                 queue.add(arr.get(i));
             }
+
         }
         return new Solution(curr);
 
