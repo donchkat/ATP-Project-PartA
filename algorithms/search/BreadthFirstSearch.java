@@ -21,6 +21,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                 break;
             }
             ArrayList<AState> arr = iSearchable.getAllSuccessors(curr);
+
+            // ????WHY TO MAKE ALL THE NEIGHBORS GRAY???
             for (int i = 0; i < arr.size(); i++) {
                 if (arr.get(i).getState() == "white")
                     arr.get(i).setState("gray");

@@ -1,10 +1,13 @@
 package algorithms.search;
 
-public class AState {
-    private String state;
-    private double cost;
-    private AState cameFrom;
+
+//changed here to abstract class
+public  class AState {
+    protected String state;
+    protected double cost;
+    protected AState cameFrom;
     protected Object value;
+
 
     public AState (double cost, AState cameFrom,Object value) {
         this.state = "white";
@@ -12,6 +15,7 @@ public class AState {
         this.cost = cost;
         this.value=value;
     }
+
 
 
     public void setCameFrom(AState cameFrom) {
@@ -54,6 +58,8 @@ public class AState {
         return this.value.equals(aState.value);
     }
 
+
+    //CHANGE THE FORMAT OF THIS TO: {X,Y}
     @Override
     public String toString() {
         return "AState{" +

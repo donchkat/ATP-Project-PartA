@@ -57,7 +57,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
     }
 
     /**
-     * Check if we are close to the goal position and if we are, we break the walls to this position
+     * Check if we are close to the goal position.
      *
      * @param myMaze  - the maze we generate
      * @param currPos - the current position

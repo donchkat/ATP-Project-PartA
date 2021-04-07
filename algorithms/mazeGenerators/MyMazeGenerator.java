@@ -62,8 +62,6 @@ public class MyMazeGenerator extends AMazeGenerator {
     }
 
 
-
-
     /**
      * first check if some neighbors are out of range and don't go there.
      * Check only the INranged cells if they contain 1's.

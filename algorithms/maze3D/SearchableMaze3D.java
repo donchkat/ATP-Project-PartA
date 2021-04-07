@@ -6,12 +6,12 @@ import algorithms.search.ISearchable;
 
 import java.util.ArrayList;
 
-public class Searchable3DMaze implements ISearchable {
+public class SearchableMaze3D implements ISearchable {
     private Maze3D adapterMaze;
     private String [][][] visitRecord;
     private double [][][] costs;
 
-    public Searchable3DMaze(Maze3D adapterMaze) {
+    public SearchableMaze3D (Maze3D adapterMaze) {
         this.adapterMaze = adapterMaze;
         this.visitRecord=new String[adapterMaze.depth][adapterMaze.rows][adapterMaze.cols];
         this.costs=new double[adapterMaze.depth][adapterMaze.rows][adapterMaze.cols];

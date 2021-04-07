@@ -10,7 +10,7 @@ public class MazeState extends AState{
     }
 
     public MazeState (double cost, AState cameFrom, Position currPosition) {
-        super( cost, cameFrom,currPosition);
+        super(cost,cameFrom, currPosition );
         this.currPosition = currPosition;
     }
 }

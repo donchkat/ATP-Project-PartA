@@ -61,7 +61,7 @@ public class Maze {
     /**
      * prints a 2D maze
      */
-    public void Print () {
+    public void print () {
         for (int i = 0; i < this.matrix.length; i++) {
             System.out.print("{ ");
             for (int j = 0; j < matrix[i].length; j++) {

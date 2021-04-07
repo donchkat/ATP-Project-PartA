@@ -19,7 +19,7 @@ public class Maze3D {
         this.cols = cols;
     }
 
-    public void Print () {
+    public void print () {
         System.out.println("{ ");
         for (int i = 0; i < this.matrix3D.length; i++) {
             for (int j = 0; j < matrix3D[i].length; j++) {
@@ -36,9 +36,15 @@ public class Maze3D {
                     }
                     System.out.print(this.matrix3D[i][j][k] + " ");
                 }
-                System.out.print("}\n");
+                System.out.println("}\n");
             }
-            System.out.println("------------"); //how much of these we need to print?
+            if(i<depth-1) {
+                for (int p = 0; p < (cols * 2) + 3; p++) {
+                    System.out.print("-");
+                }
+                System.out.print("\n");
+
+            }
 
         }
         System.out.println("}\n");

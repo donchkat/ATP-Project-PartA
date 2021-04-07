@@ -98,7 +98,7 @@ private  void initMatColor(){
             if(adapterMaze.isContainZero(r,c)&&visitRecord[r][c]=="white"){
                 Position uPosition = new Position(r,c);
                 double minimum=Math.min(state.getCost(),costs[r][c])+cost;
-                AState newState=new AState(minimum,state,uPosition);
+                AState newState=new MazeState(minimum,state,uPosition);
                 costs[r][c]=minimum;
                 for (int i = 0; i < list.size(); i++) {
                     if(list.get(i).equals(newState))

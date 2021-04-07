@@ -1,6 +1,8 @@
 package algorithms.search;
 import algorithms.mazeGenerators.*;
 
+
+//ITS NOT SUPPOSED TO BE IN THIS PACKAGE
 public class RunMazeGenerator {
     public static void main(String[] args) {
         testMazeGenerator(new EmptyMazeGenerator());
@@ -12,7 +14,7 @@ public class RunMazeGenerator {
 // generate another maze
         Maze maze = mazeGenerator.generate(100/*rows*/, 100/*columns*/);
 // prints the maze
-        maze.Print();
+        maze.print();
 // get the maze entrance
         Position startPosition = maze.getStartPosition();
 // print the start position
