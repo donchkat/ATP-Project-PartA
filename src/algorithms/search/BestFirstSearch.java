@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 
 public class BestFirstSearch extends ASearchingAlgorithm {
     @Override
-    public Solution search (ISearchable iSearchable) {
+    public Solution solve (ISearchable iSearchable) {
         Comparator<AState> comparator = new stateComparator();
         PriorityQueue<AState> queue = new PriorityQueue<AState>(1, comparator);
         //PriorityQueue<AState> myQ = new PriorityQueue<>();

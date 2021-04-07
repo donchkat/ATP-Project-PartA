@@ -25,7 +25,7 @@ public class RunSearchOnMaze3D {
 
     private static void solveProblem3D (ISearchable domain, ISearchingAlgorithm searcher) {
         //Solve a searching problem with a searcher
-        Solution solution = searcher.search(domain);
+        Solution solution = searcher.solve(domain);
         System.out.println(String.format("'%s' algorithm - nodes evaluated: %s", searcher.getName(), searcher.getNumberOfNodesEvaluated()));
         //Printing Solution Path
         System.out.println("Solution path:");

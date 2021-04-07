@@ -38,7 +38,7 @@ class BestFirstSearchTest {
             System.out.println("bad time");
     }
          private static int mysolveProblem (ISearchable domain, ISearchingAlgorithm searcher) {
-        Solution solution = searcher.search(domain);
+        Solution solution = searcher.solve(domain);
         ArrayList<AState> solutionPath = solution.getSolutionPath();
         return solutionPath.size();
 

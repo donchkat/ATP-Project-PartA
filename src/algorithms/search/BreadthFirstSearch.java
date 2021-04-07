@@ -7,7 +7,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 
 
     @Override
-    public Solution search (ISearchable iSearchable) {
+    public Solution solve (ISearchable iSearchable) {
         LinkedList<AState> myQ = new LinkedList<>();
         AState start = iSearchable.getStartState();
         AState goal = iSearchable.getGoalState();

@@ -6,7 +6,7 @@ import java.util.Stack;
 public class DepthFirstSearch extends ASearchingAlgorithm {
 
     @Override
-    public Solution search (ISearchable iSearchable) {
+    public Solution solve (ISearchable iSearchable) {
         Stack<AState> myS = new Stack<AState>();
         AState start = iSearchable.getStartState();
         AState goal = iSearchable.getGoalState();
