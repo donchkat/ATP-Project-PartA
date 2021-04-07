@@ -61,27 +61,38 @@ private  void initMatColor(){
         int c = Mstate.getCurrPosition().getColumnIndex();
 
         //UP
-        boolean upCell = insertStateToList(possibleMoves, Mstate, r-1, c, 10);
+        boolean upCell = isinsertedStateToList(possibleMoves, Mstate, r-1, c, 10);
         //DOWN
-        boolean downCell = insertStateToList(possibleMoves, Mstate, r+1, c, 10);
+        boolean downCell = isinsertedStateToList(possibleMoves, Mstate, r+1, c, 10);
         //LEFT
-        boolean leftCell = insertStateToList(possibleMoves,Mstate, r, c-1, 10 );
+        boolean leftCell = isinsertedStateToList(possibleMoves,Mstate, r, c-1, 10 );
         //RIGHT
-        boolean rightCell = insertStateToList(possibleMoves, Mstate, r, c+1, 10);
+        boolean rightCell = isinsertedStateToList(possibleMoves, Mstate, r, c+1, 10);
 
         //DOWNRIGHT
         if(rightCell || downCell)
-            insertStateToList(possibleMoves, Mstate, r+1, c+1, 15);
+            isinsertedStateToList(possibleMoves, Mstate, r+1, c+1, 15);
         //DOWNLEFT
         if(downCell || leftCell)
-            insertStateToList(possibleMoves, Mstate, r+1, c-1, 15);
+            isinsertedStateToList(possibleMoves, Mstate, r+1, c-1, 15);
         //rightup
         if(upCell || rightCell)
-            insertStateToList(possibleMoves, Mstate,r-1, c+1, 15);
+            isinsertedStateToList(possibleMoves, Mstate,r-1, c+1, 15);
         //leftUp
         if(upCell || leftCell)
-            insertStateToList(possibleMoves, Mstate, r-1, c-1, 15);
+            isinsertedStateToList(possibleMoves, Mstate, r-1, c-1, 15);
           return possibleMoves;
+    }
+
+    private void insertStateToList(ArrayList<AState> list, AState state, int r, int c, double cost) {
+        Position uPosition = new Position(r,c);
+        //double minimum=Math.min(state.getCost(),costs[r][c])+cost;
+        AState newState=new MazeState(state.getCost()+cost,state,uPosition);
+        costs[r][c]=state.getCost();
+        list.add(newState);
+        visitRecord[r][c]="gray";
+
+
     }
 
     /**
@@ -93,19 +104,10 @@ private  void initMatColor(){
      * @param cost- weight of "edge" between "vertices"
      * @return true if new state is inserted, else false
      */
-    public boolean insertStateToList(ArrayList<AState> list, AState state, int r, int c, double cost){
+    public boolean isinsertedStateToList(ArrayList<AState> list, AState state, int r, int c, double cost){
         if(!adapterMaze.checkLegalCell(r,c)){
             if(adapterMaze.isContainZero(r,c)&&visitRecord[r][c]=="white"){
-                Position uPosition = new Position(r,c);
-                double minimum=Math.min(state.getCost(),costs[r][c])+cost;
-                AState newState=new MazeState(minimum,state,uPosition);
-                costs[r][c]=minimum;
-                for (int i = 0; i < list.size(); i++) {
-                    if(list.get(i).equals(newState))
-                        return false;
-                }
-                   list.add(newState);
-                   visitRecord[r][c]="gray";
+                insertStateToList(list,state,r,c,cost);
                 return true;
             }
         }

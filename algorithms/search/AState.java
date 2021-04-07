@@ -2,19 +2,11 @@ package algorithms.search;
 
 
 //changed here to abstract class
-public  class AState {
+public abstract class AState {
     protected String state;
     protected double cost;
     protected AState cameFrom;
     protected Object value;
-
-
-    public AState (double cost, AState cameFrom,Object value) {
-        this.state = "white";
-        this.cameFrom = cameFrom;
-        this.cost = cost;
-        this.value=value;
-    }
 
 
 

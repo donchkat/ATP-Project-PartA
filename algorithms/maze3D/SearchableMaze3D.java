@@ -3,6 +3,7 @@ package algorithms.maze3D;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.AState;
 import algorithms.search.ISearchable;
+import algorithms.search.MazeState;
 
 import java.util.ArrayList;
 
@@ -37,19 +38,22 @@ public class SearchableMaze3D implements ISearchable {
         }
     }
 
-
     @Override
-    public AState getStartState() {
-        return null;
+    public Maze3DState getStartState () {
+        return new Maze3DState( 0, null, adapterMaze.getStartPosition3D() );
     }
 
     @Override
-    public AState getGoalState() {
-        return null;
+    public Maze3DState getGoalState () {
+        return new Maze3DState( Integer.MAX_VALUE, null, adapterMaze.getGoalPosition3D());
     }
 
     @Override
     public ArrayList<AState> getAllSuccessors(AState state) {
         return null;
     }
+
+
+
+
 }

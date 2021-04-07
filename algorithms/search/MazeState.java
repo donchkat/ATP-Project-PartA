@@ -3,14 +3,16 @@ package algorithms.search;
 import algorithms.mazeGenerators.Position;
 
 public class MazeState extends AState{
-    private Position currPosition;
 
     public Position getCurrPosition () {
-        return currPosition;
+        return (Position)this.value;
     }
 
     public MazeState (double cost, AState cameFrom, Position currPosition) {
-        super(cost,cameFrom, currPosition );
-        this.currPosition = currPosition;
+        super();
+        this.state = "white";
+        this.cameFrom = cameFrom;
+        this.cost = cost;
+        this.value=currPosition;
     }
 }

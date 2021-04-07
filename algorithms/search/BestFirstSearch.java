@@ -24,16 +24,17 @@ public class BestFirstSearch extends ASearchingAlgorithm {
             System.out.println(curr);
             System.out.println("Solution path:");
 ***/
-            curr.setState("gray");
+           // curr.setState("gray");
             this.numberOfVisitedNodes++;
             if (curr.equals(goal)) {
                 break;
             }
             ArrayList<AState> arr = iSearchable.getAllSuccessors(curr);
             for (int i = 0; i < arr.size(); i++) {
-                if (arr.get(i).getState() == "white")
-                    arr.get(i).setState("gray");
-                queue.add(arr.get(i));
+                //if (arr.get(i).getState() == "white")
+                  //  arr.get(i).setState("gray");
+               if(!arr.get(i).equals(curr.getCameFrom()))
+                 queue.add(arr.get(i));
             }
 
         }
