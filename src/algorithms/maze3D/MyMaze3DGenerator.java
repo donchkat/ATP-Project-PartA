@@ -48,6 +48,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
      */
     private void zeroPathToGoal (Position3D currPos, Maze3D myMaze) {
         myMaze.matrix3D[myMaze.depth - 1][myMaze.rows - 1][myMaze.cols - 1] = 0;
+        myMaze.matrix3D[myMaze.depth - 1][myMaze.rows - 2][myMaze.cols - 2] = 0;
         Random rnd = new Random();
         int num = rnd.nextInt(10);
         if (num % 2 != 0)

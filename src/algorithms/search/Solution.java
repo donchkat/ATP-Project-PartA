@@ -7,7 +7,7 @@ public class Solution {
 
     public Solution (AState aState) {
         solutionPath = new ArrayList<>();
-        while (aState.getCameFrom() != null) {
+        while (aState != null) {
             this.solutionPath.add(aState);
             aState = aState.getCameFrom();
         }
