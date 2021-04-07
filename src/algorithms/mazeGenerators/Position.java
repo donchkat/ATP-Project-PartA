@@ -1,7 +1,5 @@
 package algorithms.mazeGenerators;
 
-import java.util.Objects;
-
 /**
  * this class represents a position in a 2D area.
  * rowIndex - the index of current row

@@ -15,7 +15,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         while (!myS.isEmpty()) {
             curr = myS.pop();
             this.numberOfVisitedNodes++;
-          //  if (curr.getState() == "gray") //visited
+            //  if (curr.getState() == "gray") //visited
             //    continue;
             if (curr.equals(goal))
                 break;
@@ -25,8 +25,8 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             // for (int i = adj.size() - 1; i >= 0; i--) - that's what they used in the algorithm
             for (int i = 0; i < adjList.size(); i++) {
                 //AState neighbor = adjList.get(i);
-              //  if (adjList.get(i).getState() == "white")
-                    myS.push(adjList.get(i));
+                //  if (adjList.get(i).getState() == "white")
+                myS.push(adjList.get(i));
             }
 
         }

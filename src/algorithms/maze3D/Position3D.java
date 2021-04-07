@@ -1,9 +1,5 @@
 package algorithms.maze3D;
 
-import algorithms.mazeGenerators.Position;
-
-import java.util.Objects;
-
 /**
  * A class for 3D maze Positions.
  * Like regular Position + depth field is added.

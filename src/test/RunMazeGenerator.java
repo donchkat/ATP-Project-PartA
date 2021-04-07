@@ -2,16 +2,16 @@ package test;
 
 
 import algorithms.mazeGenerators.*;
-import algorithms.maze3D.*;
 
 public class RunMazeGenerator {
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         testMazeGenerator(new EmptyMazeGenerator());
         testMazeGenerator(new SimpleMazeGenerator());
         testMazeGenerator(new MyMazeGenerator());
     }
-    private static void testMazeGenerator(IMazeGenerator mazeGenerator) {
-        System.out.println(String.format("Maze generation time(ms): %s", mazeGenerator.measureAlgorithmTimeMillis(100/*rows*/,100/*columns*/)));
+
+    private static void testMazeGenerator (IMazeGenerator mazeGenerator) {
+        System.out.println(String.format("Maze generation time(ms): %s", mazeGenerator.measureAlgorithmTimeMillis(100/*rows*/, 100/*columns*/)));
 // generate another maze
         Maze maze = mazeGenerator.generate(5/*rows*/, 5/*columns*/);
 // prints the maze
@@ -23,10 +23,6 @@ public class RunMazeGenerator {
 // prints the maze exit position
         System.out.println(String.format("Goal Position: %s", maze.getGoalPosition()));
     }
-
-
-
-
 
 
 }

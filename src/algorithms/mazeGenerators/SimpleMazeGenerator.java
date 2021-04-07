@@ -10,6 +10,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
     /**
      * generates a simple random maze. The frame of the maze is always 0's
      * so it always will have a solution - the inside square is filled randomly with 1's.
+     *
      * @param rows - the number of rows in the maze
      * @param cols - the number of cols in the maze
      * @return Maze - the simple maze it created.
@@ -24,6 +25,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
     /**
      * NIV SHOULD WRITE HERE DESCRIPTION
+     *
      * @param newSimpleMaze - the maze we are filling
      * @return the same maze but randomly filled with 0's in the inner part.
      */

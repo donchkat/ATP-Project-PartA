@@ -25,13 +25,12 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             // ????WHY TO MAKE ALL THE NEIGHBORS GRAY???
             for (int i = 0; i < arr.size(); i++) {
                 //if (arr.get(i).getState() == "white")
-                  //  arr.get(i).setState("gray");
-                if(!arr.get(i).equals(curr.getCameFrom()))
+                //  arr.get(i).setState("gray");
+                if (!arr.get(i).equals(curr.getCameFrom()))
                     myQ.add(arr.get(i));
 
 
-
-        }
+            }
         }
         return new Solution(curr);
 

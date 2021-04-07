@@ -131,6 +131,13 @@ public class Maze {
         return rowIndex < 0 || colIndex < 0 || rowIndex >= this.matrix.length || colIndex >= this.matrix[0].length;
     }
 
+    /**
+     * checks if a cell in the maze contains 0 .
+     *
+     * @param rowIndex - the row of current position
+     * @param colIndex - the column of current position
+     * @return - True if cell contains 0, else False
+     */
     public boolean isContainZero (int rowIndex, int colIndex) {
         return this.matrix[rowIndex][colIndex] == 0;
     }

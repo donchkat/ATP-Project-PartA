@@ -2,11 +2,9 @@ package algorithms.search;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 public class BestFirstSearch extends ASearchingAlgorithm {
-
     @Override
     public Solution search (ISearchable iSearchable) {
         Comparator<AState> comparator = new stateComparator();
@@ -19,12 +17,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
         while (!queue.isEmpty()) {
 
             curr = queue.remove();
-            /***
-            System.out.println("Solution path:");
-            System.out.println(curr);
-            System.out.println("Solution path:");
-***/
-           // curr.setState("gray");
+            // curr.setState("gray");
             this.numberOfVisitedNodes++;
             if (curr.equals(goal)) {
                 break;
@@ -32,9 +25,9 @@ public class BestFirstSearch extends ASearchingAlgorithm {
             ArrayList<AState> arr = iSearchable.getAllSuccessors(curr);
             for (int i = 0; i < arr.size(); i++) {
                 //if (arr.get(i).getState() == "white")
-                  //  arr.get(i).setState("gray");
-               if(!arr.get(i).equals(curr.getCameFrom()))
-                 queue.add(arr.get(i));
+                //  arr.get(i).setState("gray");
+                if (!arr.get(i).equals(curr.getCameFrom()))
+                    queue.add(arr.get(i));
             }
 
         }
