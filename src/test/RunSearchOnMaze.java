@@ -18,7 +18,7 @@ public class RunSearchOnMaze {
         SearchableMaze searchableMaze = new SearchableMaze(maze);
 
         solveProblem(searchableMaze, new BreadthFirstSearch());
-        // solveProblem(searchableMaze, new DepthFirstSearch());
+        solveProblem(searchableMaze, new DepthFirstSearch());
         solveProblem(searchableMaze, new BestFirstSearch());
         /**
          for(int i=0;i<1000;i++){
@@ -46,7 +46,7 @@ public class RunSearchOnMaze {
         System.out.println("Solution path:");
         ArrayList<AState> solutionPath = solution.getSolutionPath();
         for (int i = 0; i < solutionPath.size(); i++) {
-            System.out.println(String.format("%s %s", i, solutionPath.get(i)));
+            System.out.println(String.format("%s. %s", i, solutionPath.get(i)));
         }
 
 

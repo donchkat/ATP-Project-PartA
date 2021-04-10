@@ -1,13 +1,14 @@
 package algorithms.maze3D;
 
+import Errors.NullError;
 import algorithms.search.AState;
 
 public class Maze3DState extends AState {
-//AState supposed to be abstract but its not
 
-    public Maze3DState (double cost, AState cameFrom, Position3D value) {
+    public Maze3DState (double cost, AState cameFrom, Position3D value) throws NullError {
         super();
-        this.state = "white";
+        if(value == null)
+            throw new NullError();
         this.cameFrom = cameFrom;
         this.cost = cost;
         this.value=value;

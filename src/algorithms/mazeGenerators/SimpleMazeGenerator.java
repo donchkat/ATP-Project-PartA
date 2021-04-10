@@ -26,7 +26,8 @@ public class SimpleMazeGenerator extends AMazeGenerator {
     }
 
     /**
-     * NIV SHOULD WRITE HERE DESCRIPTION
+     * chooses randomly a position and until it's not contains 0,
+     * we fill the inner part with columns and rows of 0's.
      *
      * @param newSimpleMaze - the maze we are filling
      * @return the same maze but randomly filled with 0's in the inner part.
@@ -51,6 +52,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
 
     /**
+     *
      * @param newSimpleMaze - the maze we are filling
      * @return the same maze with 0's on the frame and 1's inside
      */
@@ -63,21 +65,6 @@ public class SimpleMazeGenerator extends AMazeGenerator {
                     newSimpleMaze.matrix[i][j] = 1;
             }
         }
-        newSimpleMaze.matrix[0][0] = 0; //WHY DO WE NEED THIS IF IN LINE 57 WE ALREADY PUT THERE 0
-        newSimpleMaze.matrix[newSimpleMaze.rows - 1][newSimpleMaze.cols - 1] = 0; //SAME HERE
         return newSimpleMaze.matrix;
     }
-
-
-/** - ???????????? do we need this yet?
- private boolean indexInGoalOrStart(int i, int j,Maze maze) {
- maze.Print();
- if(maze.getGoalPosition().getColumnIndex()==j||
- maze.getStartPosition().getColumnIndex()==j||
- maze.getGoalPosition().getColumnIndex()==i||
- maze.getStartPosition().getColumnIndex()==i)
- return true;
- return false;
- }
- **/
 }

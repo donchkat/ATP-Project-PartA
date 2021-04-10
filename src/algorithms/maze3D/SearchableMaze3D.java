@@ -1,5 +1,7 @@
 package algorithms.maze3D;
 
+import Errors.LowBoundInput;
+import Errors.NullError;
 import algorithms.search.AState;
 import algorithms.search.ISearchable;
 import java.util.ArrayList;
@@ -57,7 +59,7 @@ public class SearchableMaze3D implements ISearchable {
      * @return the initial state of the maze.
      */
     @Override
-    public Maze3DState getStartState () {
+    public Maze3DState getStartState () throws NullError {
         return new Maze3DState(0, null, adapterMaze.getStartPosition3D());
     }
 
@@ -65,7 +67,7 @@ public class SearchableMaze3D implements ISearchable {
      * @return the final state we aim to get to in the maze.
      */
     @Override
-    public Maze3DState getGoalState () {
+    public Maze3DState getGoalState () throws NullError {
         return new Maze3DState(Integer.MAX_VALUE, null, adapterMaze.getGoalPosition3D());
     }
 
@@ -75,7 +77,7 @@ public class SearchableMaze3D implements ISearchable {
      * @return Array list of states that are possible to move to from the current state.
      */
     @Override
-    public ArrayList<AState> getAllSuccessors (AState state) {
+    public ArrayList<AState> getAllSuccessors (AState state) throws NullError, LowBoundInput {
         if (state == null)
             return null;
         if (state.equals(this.getStartState())) {
@@ -86,7 +88,7 @@ public class SearchableMaze3D implements ISearchable {
         ArrayList<AState> possibleMoves = new ArrayList<AState>();
         Position3D currPos = (Position3D) state.getValue();
         Maze3DState Mstate = new Maze3DState(state.getCost(), state.getCameFrom(), currPos);
-        Mstate.setState("gray");
+        //Mstate.setState("gray");
         int d = Mstate.getPosition3D().getDepthIndex();
         int r = Mstate.getPosition3D().getRowIndex();
         int c = Mstate.getPosition3D().getColumnIndex();
@@ -116,7 +118,7 @@ public class SearchableMaze3D implements ISearchable {
      * @param cost-    weight of "edge" between "vertices"
      * @return true if new state is inserted, else false
      */
-    public boolean isInsertedStateToList (ArrayList<AState> list, AState state, int d, int r, int c, double cost) {
+    public boolean isInsertedStateToList (ArrayList<AState> list, AState state, int d, int r, int c, double cost) throws NullError, LowBoundInput {
         if (!adapterMaze.checkLegalCell(d, r, c)) {
             if (adapterMaze.isContainZero(d, r, c) && visitRecord[d][r][c].equals("white")) {
                 insertStateToList(list, state, d, r, c, cost);
@@ -135,9 +137,8 @@ public class SearchableMaze3D implements ISearchable {
      * @param c-index  of column of possible next state
      * @param cost-    weight of "edge" between "vertices"
      */
-    private void insertStateToList (ArrayList<AState> list, AState state, int d, int r, int c, double cost) {
+    private void insertStateToList (ArrayList<AState> list, AState state, int d, int r, int c, double cost) throws NullError, LowBoundInput {
         Position3D newPos = new Position3D(d, r, c);
-        //double minimum=Math.min(state.getCost(),costs[r][c])+cost;
         AState newState = new Maze3DState(state.getCost() + cost, state, newPos);
         costs[d][r][c] = state.getCost();
         list.add(newState);

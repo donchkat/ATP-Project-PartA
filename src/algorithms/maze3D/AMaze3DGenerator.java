@@ -1,5 +1,7 @@
 package algorithms.maze3D;
 
+import Errors.LowBoundInput;
+
 /**
  * Abstract class for 3D maze generators.
  * All the generators will have the same "MeasureAlgorithmTimeMillis" function.
@@ -14,7 +16,7 @@ public abstract class AMaze3DGenerator implements IMaze3DGenerator {
      * @return - the time it took to generate the maze(in millis)
      */
     @Override
-    public long measureAlgorithmTimeMillis (int depth, int rows, int cols) {
+    public long measureAlgorithmTimeMillis (int depth, int rows, int cols) throws LowBoundInput {
         long startTime = System.currentTimeMillis();
         this.generate(depth, rows, cols);
         long finishTime = System.currentTimeMillis();
@@ -25,5 +27,5 @@ public abstract class AMaze3DGenerator implements IMaze3DGenerator {
      * an abstract function - builds and returns a 3D maze.
      */
     @Override
-    public abstract Maze3D generate(int depth, int row, int column);
+    public abstract Maze3D generate(int depth, int row, int column) throws LowBoundInput;
 }

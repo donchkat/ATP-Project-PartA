@@ -1,5 +1,7 @@
 package algorithms.maze3D;
 
+import Errors.LowBoundInput;
+
 /**
  * A class for 3D maze Positions.
  * Like regular Position + depth field is added.
@@ -15,7 +17,7 @@ public class Position3D {
      * @param row - row of current position
      * @param col - column of current position
      */
-    public Position3D (int depth, int row, int col) {
+    public Position3D (int depth, int row, int col)  {
         this.depth = depth;
         this.row = row;
         this.col = col;
@@ -37,7 +39,7 @@ public class Position3D {
         return "{" + depth + "," + row + "," + col + '}';
     }
 
-    public Position3D copy () {
+    public Position3D copy () throws LowBoundInput {
         Position3D copyPos = new Position3D(this.depth, this.row, this.col);
         return copyPos;
     }
@@ -66,21 +68,27 @@ public class Position3D {
     /**
      * sets the value of current position depth
      */
-    public void setDepth (int depth) {
+    public void setDepth (int depth) throws LowBoundInput {
+        if(depth < 0)
+            throw new LowBoundInput();
         this.depth = depth;
     }
 
     /**
      * sets the value of current position row
      */
-    public void setRowIndex (int row) {
+    public void setRowIndex (int row) throws LowBoundInput {
+        if(row < 0)
+            throw new LowBoundInput();
         this.row = row;
     }
 
     /**
      * sets the value of current position column
      */
-    public void setColumnIndex (int col) {
+    public void setColumnIndex (int col) throws LowBoundInput {
+        if(col < 0)
+            throw new LowBoundInput();
         this.col = col;
     }
 }

@@ -3,9 +3,11 @@ package algorithms.mazeGenerators;
 import Errors.LowBoundInput;
 import Errors.NullError;
 
+/**
+ * abstract class for a maze generators
+ */
 public abstract class AMazeGenerator implements IMazeGenerator {
-    //protected Maze myMaze; -NOT SURE WE NEED THIS
-    //do we need a constructor????
+
 
     @Override
     public abstract Maze generate (int rows, int cols) throws LowBoundInput, NullError;

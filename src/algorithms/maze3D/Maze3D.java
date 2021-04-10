@@ -1,5 +1,7 @@
 package algorithms.maze3D;
 
+import Errors.LowBoundInput;
+
 public class Maze3D {
     protected int[][][] matrix3D;
     private Position3D startPosition3D;
@@ -8,7 +10,11 @@ public class Maze3D {
     protected int rows;
     protected int cols;
 
-    public Maze3D (int depth, int rows, int cols) {
+    //CHANGE FROM PROTECTED TO PRIVATE.
+
+    public Maze3D (int depth, int rows, int cols) throws LowBoundInput {
+        if(depth < 2 || rows < 2 || cols < 2)
+            throw new LowBoundInput();
         this.matrix3D = new int[depth][rows][cols];
         this.startPosition3D = new Position3D(0, 0, 0);
         this.matrix3D[0][0][0] = 0;

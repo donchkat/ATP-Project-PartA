@@ -18,6 +18,7 @@ public class Maze {
     protected int cols;
     protected int[][] matrix;
 
+    //CHANGE TO PRIVATE AND ADD GETTERS & SETTERS.
 
     /**
      * @return the number of rows in the maze
@@ -79,7 +80,7 @@ public class Maze {
      *
      * @param o
      * @return
-     */
+
     //what this function do?? where do we use it?
     @Override
     public boolean equals (Object o) {
@@ -99,7 +100,7 @@ public class Maze {
                 Objects.equals(goalPosition, maze.goalPosition) &&
                 flag;
     }
-
+*/
 
     /**
      * @return the start position of the maze
@@ -146,7 +147,7 @@ public class Maze {
      * @param myMaze
      * @param optionalPos
      * @return
-     */
+
     private boolean isOutOfRange (Maze myMaze, Position optionalPos) {
         int r = optionalPos.getRowIndex();
         int c = optionalPos.getColumnIndex();
@@ -155,4 +156,5 @@ public class Maze {
         return r < 0 || r > mazeHeight || c < 0 || c > mazeWidth;
 
     }
+    */
 }

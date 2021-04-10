@@ -1,5 +1,7 @@
 package algorithms.maze3D;
 
+import Errors.LowBoundInput;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -18,7 +20,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
      * @return 3D maze
      */
     @Override
-    public Maze3D generate (int depth, int rows, int cols) {
+    public Maze3D generate (int depth, int rows, int cols) throws LowBoundInput {
         Maze3D newMaze = new Maze3D(depth, rows, cols);
         newMaze.matrix3D = onesMatrix(depth, rows, cols);
         Stack<Position3D> pathStack = new Stack<>();
@@ -36,17 +38,16 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         }
         Position3D toGoal = new Position3D(newMaze.depth - 2, newMaze.rows - 2, newMaze.cols - 2);
         if (isInGoalEnvironment(toGoal, newMaze))
-            zeroPathToGoal(toGoal, newMaze);
+            zeroPathToGoal( newMaze);
         return newMaze;
     }
 
     /**
-     * ??????????????????????????????
      *
-     * @param currPos - current position - ITS NEVER USED - WHY??
+     *
      * @param myMaze  - the 3D maze we generate
      */
-    private void zeroPathToGoal (Position3D currPos, Maze3D myMaze) {
+    private void zeroPathToGoal ( Maze3D myMaze) {
         myMaze.matrix3D[myMaze.depth - 1][myMaze.rows - 1][myMaze.cols - 1] = 0;
         myMaze.matrix3D[myMaze.depth - 1][myMaze.rows - 2][myMaze.cols - 2] = 0;
         Random rnd = new Random();
@@ -72,16 +73,15 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                 goalColIndex <= currPos.getColumnIndex();
     }
 
-
     /**
-     * first check if some neighbors are out of range and don't go there.
+     * first check if some neighbors are out of range and if yes, don't go there.
      * Check only the in ranged cells if they contain 1's.
      *
      * @param myMaze  - the maze we generate
      * @param currPos - the current position
      * @return true if at least one neighbor(between the in ranged cells) contains 1 (unvisited)
      */
-    private boolean checkNeighbors (Maze3D myMaze, Position3D currPos) {
+    private boolean checkNeighbors (Maze3D myMaze, Position3D currPos) throws LowBoundInput {
         int d = currPos.getDepthIndex();
         int r = currPos.getRowIndex();
         int c = currPos.getColumnIndex();
@@ -134,7 +134,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
      * @param matrix  - the 3D array we generate our maze on
      * @param currPos - the current position in the maze.
      */
-    private void randomNeighbor (int[][][] matrix, Position3D currPos) {
+    private void randomNeighbor (int[][][] matrix, Position3D currPos) throws LowBoundInput {
         //random directions
         Integer[] ranDirs = randomDirections(6);
         int d = currPos.getDepthIndex();
@@ -245,14 +245,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
      * @return true if this neighbor is not in range.
      */
     private boolean isOutOfRange (Maze3D myMaze, Position3D optionalPos) {
-        int d = optionalPos.getDepthIndex();
-        int r = optionalPos.getRowIndex();
-        int c = optionalPos.getColumnIndex();
-        int mazeDepth = myMaze.depth - 1;
-        int mazeHeight = myMaze.rows - 1;
-        int mazeWidth = myMaze.cols - 1;
-        return r < 0 || r > mazeHeight || c < 0 || c > mazeWidth || d < 0 || d > mazeDepth;
-
+        return myMaze.checkLegalCell(optionalPos.getDepthIndex(),optionalPos.getRowIndex(),optionalPos.getColumnIndex());
     }
 
     /**
@@ -263,7 +256,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
      * @param cols  - number of columns
      * @return matrix full of 1's
      */
-    private int[][][] onesMatrix (int depth, int rows, int cols) {
+    private int[][][] onesMatrix (int depth, int rows, int cols) throws LowBoundInput {
         Maze3D newEmptyMaze = new Maze3D(depth, rows, cols);
         for (int i = 0; i < depth; i++) {
             for (int j = 0; j < rows; j++) {

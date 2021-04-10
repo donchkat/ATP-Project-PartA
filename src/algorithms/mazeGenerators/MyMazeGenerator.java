@@ -9,7 +9,7 @@ import java.util.Random;
 import java.util.Stack;
 
 /**
- *
+ * generates a complex maze with DFS algorithm.
  */
 public class MyMazeGenerator extends AMazeGenerator {
     /**
@@ -34,31 +34,38 @@ public class MyMazeGenerator extends AMazeGenerator {
                 currPos = (Position) pathStack.pop();
 
         }
-        Position toGoal=new Position(newMaze.rows-2, newMaze.cols-2);
-        if(isInGoalEnvironment(toGoal,newMaze))
-            zeroPathToGoal(toGoal,newMaze);
+        Position toGoal = new Position(newMaze.rows - 2, newMaze.cols - 2);
+        if (isInGoalEnvironment(toGoal, newMaze))
+            zeroPathToGoal(newMaze);
         return newMaze;
     }
 
-    private void zeroPathToGoal(Position currPos, Maze myMaze) {
-        myMaze.matrix[myMaze.rows-1][myMaze.cols-1]=0;
-        Random rnd=new Random();
-        int num=rnd.nextInt(10);
-        if(num%2!=0)
-            myMaze.matrix[myMaze.rows-1][myMaze.cols-2]=0;
+    /**
+     * it creates a random path to the goal position from the closest position to the goal
+     * which we get to.
+     *
+     * @param myMaze - the maze we generate
+     */
+    private void zeroPathToGoal (Maze myMaze) {
+        myMaze.matrix[myMaze.rows - 1][myMaze.cols - 1] = 0;
+        Random rnd = new Random();
+        int num = rnd.nextInt(10);
+        if (num % 2 != 0)
+            myMaze.matrix[myMaze.rows - 1][myMaze.cols - 2] = 0;
         else
-            myMaze.matrix[myMaze.rows-2][myMaze.cols-1]=0;
+            myMaze.matrix[myMaze.rows - 2][myMaze.cols - 1] = 0;
     }
 
     /**
      * Check if we are close to the goal position and if we are, we break the walls to this position
-     * @param myMaze - the maze we generate
+     *
+     * @param myMaze  - the maze we generate
      * @param currPos - the current position
      * @return true we are a step or two from the goal(which is mat[numofrows,numofcols] else false)
      */
-    private boolean isInGoalEnvironment(Position currPos, Maze myMaze) {
-        if(myMaze.getGoalPosition().getColumnIndex()-1<=currPos.getColumnIndex()||
-                myMaze.getGoalPosition().getRowIndex()-1<= currPos.getColumnIndex()){
+    private boolean isInGoalEnvironment (Position currPos, Maze myMaze) {
+        if (myMaze.getGoalPosition().getColumnIndex() - 1 <= currPos.getColumnIndex() ||
+                myMaze.getGoalPosition().getRowIndex() - 1 <= currPos.getColumnIndex()) {
             return true;
         }
         return false;
@@ -67,45 +74,42 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * first check if some neighbors are out of range and don't go there.
-     * Check only the INranged cells if they contain 1's.
-     * @param myMaze - the maze we generate
+     * Check only the in ranged cells if they contain 1's.
+     *
+     * @param myMaze  - the maze we generate
      * @param currPos - the current position
-     * @return true if at least one neighbor(between the INranged cells) contains 1 (unvisited)
+     * @return true if at least one neighbor(between the in ranged cells) contains 1 (unvisited)
      */
-    private boolean checkNeighbors (Maze myMaze, Position currPos) {
+    private boolean checkNeighbors (Maze myMaze, Position currPos) throws LowBoundInput {
         int r = currPos.getRowIndex();
         int c = currPos.getColumnIndex();
 
-        //checking for each neighbor if it's INrange
-        boolean leftN = isOutOfRange(myMaze, new Position(r, c-2));
-        boolean rightN = isOutOfRange(myMaze, new Position(r, c+2));
-        boolean upN = isOutOfRange(myMaze, new Position(r-2, c));
-        boolean downN = isOutOfRange(myMaze, new Position(r+2, c));
+        //checking for each neighbor if it's in range
+        boolean leftN = isOutOfRange(myMaze, new Position(r, c - 2));
+        boolean rightN = isOutOfRange(myMaze, new Position(r, c + 2));
+        boolean upN = isOutOfRange(myMaze, new Position(r - 2, c));
+        boolean downN = isOutOfRange(myMaze, new Position(r + 2, c));
 
-        //only the INrange neighbors are checked for their value
-        if(leftN){
+        //only the in range neighbors are checked for their value
+        if (leftN) {
             leftN = false;
-        }
-        else{
+        } else {
             leftN = (myMaze.matrix[r][c - 2] == 1);
         }
 
-        if(rightN){
+        if (rightN) {
             rightN = false;
-        }
-        else{
+        } else {
             rightN = (myMaze.matrix[r][c + 2] == 1);
         }
-        if(upN){
+        if (upN) {
             upN = false;
-        }
-        else {
+        } else {
             upN = (myMaze.matrix[r - 2][c] == 1);
         }
-        if(downN){
+        if (downN) {
             downN = false;
-        }
-        else{
+        } else {
             downN = (myMaze.matrix[r + 2][c] == 1);
         }
         return leftN || rightN || upN || downN;
@@ -114,11 +118,12 @@ public class MyMazeGenerator extends AMazeGenerator {
     /**
      * this function chooses to which possible neighbor to go.
      * it breaks the wall between them and puts 0 inside.
+     *
      * @param matrix  - the 2D array we generate our maze on
      * @param currPos - the current position in the maze.
      */
-    private void randomNeighbor (int[][] matrix, Position currPos) throws NullError {
-        if(matrix==null)
+    private void randomNeighbor (int[][] matrix, Position currPos) throws NullError, LowBoundInput {
+        if (matrix == null)
             throw new NullError();
         //random directions
         Integer[] ranDirs = randomDirections(4);
@@ -137,7 +142,7 @@ public class MyMazeGenerator extends AMazeGenerator {
                         matrix[r - 1][c] = 0;
                         currPos.setRowIndex(r - 2);
                         currPos.setColumnIndex(c);
-                        return ;
+                        return;
                     }
                     break;
                 case 2: //RIGHT
@@ -148,7 +153,7 @@ public class MyMazeGenerator extends AMazeGenerator {
                         matrix[r][c + 1] = 0;
                         currPos.setRowIndex(r);
                         currPos.setColumnIndex(c + 2);
-                        return ;
+                        return;
                     }
                     break;
                 case 3: //LEFT
@@ -159,7 +164,7 @@ public class MyMazeGenerator extends AMazeGenerator {
                         matrix[r][c - 1] = 0;
                         currPos.setRowIndex(r);
                         currPos.setColumnIndex(c - 2);
-                        return ;
+                        return;
                     }
                     break;
                 case 4: //DOWN
@@ -170,7 +175,7 @@ public class MyMazeGenerator extends AMazeGenerator {
                         matrix[r + 1][c] = 0;
                         currPos.setRowIndex(r + 2);
                         currPos.setColumnIndex(c);
-                        return ;
+                        return;
                     }
                     break;
             }
@@ -180,6 +185,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * creates an array of numbers in not organized way
+     *
      * @param numOfDirs - quantity of the directions
      * @return array of numbers 0-X representing X different directions in random order
      */
@@ -194,21 +200,17 @@ public class MyMazeGenerator extends AMazeGenerator {
     }
 
     /**
-     * @param myMaze - the maze we generate
+     * @param myMaze      - the maze we generate
      * @param optionalPos - the neighbor position we are checking
      * @return true if this neighbor is not in range.
      */
     private boolean isOutOfRange (Maze myMaze, Position optionalPos) {
-        int r = optionalPos.getRowIndex();
-        int c = optionalPos.getColumnIndex();
-        int mazeHeight = myMaze.rows-1;
-        int mazeWidth = myMaze.cols-1;
-        return r<0 ||r > mazeHeight || c <0 || c > mazeWidth;
-
+        return myMaze.checkLegalCell(optionalPos.getRowIndex(), optionalPos.getColumnIndex());
     }
 
     /**
      * fills the maze with 1's.
+     *
      * @param rows - number of rows
      * @param cols - number of columns
      * @return matrix full of 1's

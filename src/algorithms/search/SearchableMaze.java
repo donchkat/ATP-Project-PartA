@@ -8,24 +8,28 @@ import algorithms.mazeGenerators.Position;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter object from a maze to a searchable object for searching algorithms.
+ */
 public class SearchableMaze implements ISearchable {
     private Maze adapterMaze;
     private String[][] visitRecord;
-    private double[][] costs;//ignore
-    //not sure its ok to add this here.because the searching algorithms will depend on this field.
-    //so I wish each searchable object would have this.
+    private double[][] costs;
+
 
     public SearchableMaze (Maze adapterMaze) throws NullError {
-        if(adapterMaze==null)
+        if (adapterMaze == null)
             throw new NullError();
         this.adapterMaze = adapterMaze;
         this.visitRecord = new String[adapterMaze.getRows()][adapterMaze.getCols()];
         this.costs = new double[adapterMaze.getRows()][adapterMaze.getCols()];
-        //ignore this part
         initMatColor();
         initMatCost();
     }
 
+    /**
+     *
+     */
     private void initMatColor () {
         for (int i = 0; i < adapterMaze.getRows(); i++) {
             for (int j = 0; j < adapterMaze.getCols(); j++) {
@@ -34,6 +38,9 @@ public class SearchableMaze implements ISearchable {
         }
     }
 
+    /**
+     *
+     */
     private void initMatCost () {
         for (int i = 0; i < adapterMaze.getRows(); i++) {
             for (int j = 0; j < adapterMaze.getCols(); j++) {
@@ -44,17 +51,17 @@ public class SearchableMaze implements ISearchable {
     }
 
     @Override
-    public MazeState getStartState () {
+    public MazeState getStartState () throws NullError {
         return new MazeState(0, null, adapterMaze.getStartPosition());
     }
 
     @Override
-    public MazeState getGoalState () {
+    public MazeState getGoalState () throws NullError{
         return new MazeState(Integer.MAX_VALUE, null, adapterMaze.getGoalPosition());
     }
 
     @Override
-    public ArrayList<AState> getAllSuccessors (AState state) throws LowBoundInput, OutOfBoundMatrixInput {
+    public ArrayList<AState> getAllSuccessors (AState state) throws LowBoundInput, OutOfBoundMatrixInput, NullError{
         if (state == null)
             return null;
         if (state.equals(this.getStartState())) {
@@ -63,7 +70,7 @@ public class SearchableMaze implements ISearchable {
         ArrayList<AState> possibleMoves = new ArrayList<AState>();
         Position currPos = (Position) state.getValue();
         MazeState Mstate = new MazeState(state.getCost(), state.getCameFrom(), currPos);
-        Mstate.setState("gray");
+        //Mstate.setState("gray");
         int r = Mstate.getCurrPosition().getRowIndex();
         int c = Mstate.getCurrPosition().getColumnIndex();
 
@@ -102,7 +109,7 @@ public class SearchableMaze implements ISearchable {
      * @param cost-    weight of "edge" between "vertices"
      * @return true if new state is inserted, else false
      */
-    public boolean isInsertedStateToList (ArrayList<AState> list, AState state, int r, int c, double cost) throws LowBoundInput, OutOfBoundMatrixInput {
+    public boolean isInsertedStateToList (ArrayList<AState> list, AState state, int r, int c, double cost) throws LowBoundInput, OutOfBoundMatrixInput, NullError {
         if (!adapterMaze.checkLegalCell(r, c)) {
             if (adapterMaze.isContainZero(r, c) && visitRecord[r][c] == "white") {
                 insertStateToList(list, state, r, c, cost);
@@ -121,9 +128,8 @@ public class SearchableMaze implements ISearchable {
      * @param c-index  of column of possible next state
      * @param cost-    weight of "edge" between "vertices"
      */
-    private void insertStateToList (ArrayList<AState> list, AState state, int r, int c, double cost) {
+    private void insertStateToList (ArrayList<AState> list, AState state, int r, int c, double cost) throws LowBoundInput, NullError {
         Position uPosition = new Position(r, c);
-        //double minimum=Math.min(state.getCost(),costs[r][c])+cost;
         AState newState = new MazeState(state.getCost() + cost, state, uPosition);
         costs[r][c] = state.getCost();
         list.add(newState);
