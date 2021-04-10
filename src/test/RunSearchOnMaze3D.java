@@ -3,7 +3,7 @@ package test;
 import Errors.LowBoundInput;
 import Errors.NullError;
 import Errors.OutOfBoundMatrixInput;
-import algorithms.maze3D.IMazeGenerator3D;
+import algorithms.maze3D.IMaze3DGenerator;
 import algorithms.maze3D.Maze3D;
 import algorithms.maze3D.MyMaze3DGenerator;
 import algorithms.maze3D.SearchableMaze3D;
@@ -12,15 +12,15 @@ import java.util.ArrayList;
 
 public class RunSearchOnMaze3D {
     public static void main (String[] args) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
-        IMazeGenerator3D mg = new MyMaze3DGenerator();
+        IMaze3DGenerator mg = new MyMaze3DGenerator();
 
         for (int i = 0; i < 1000; i++) {
-            Maze3D maze = mg.generate(10, 10,10);
-     //       maze.print();
+            Maze3D maze = mg.generate(3, 10,10);
+            maze.print();
             SearchableMaze3D searchableMaze = new SearchableMaze3D(maze);
-            //solveProblem3D(searchableMaze, new BreadthFirstSearch());
+            solveProblem3D(searchableMaze, new BreadthFirstSearch());
             solveProblem3D(searchableMaze, new DepthFirstSearch());
-            //solveProblem3D(searchableMaze, new BestFirstSearch());
+            solveProblem3D(searchableMaze, new BestFirstSearch());
 
         }
 
@@ -33,8 +33,8 @@ public class RunSearchOnMaze3D {
         //Printing Solution Path
         System.out.println("Solution path:");
         ArrayList<AState> solutionPath = solution.getSolutionPath();
-     /**   for (int i = 0; i < solutionPath.size(); i++) {
+        for (int i = 0; i < solutionPath.size(); i++) {
             System.out.println(String.format("%s %s", i, solutionPath.get(i)));
-        }**/
+        }
     }
 }

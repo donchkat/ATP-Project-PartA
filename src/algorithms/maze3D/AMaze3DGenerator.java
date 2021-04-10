@@ -5,7 +5,7 @@ package algorithms.maze3D;
  * All the generators will have the same "MeasureAlgorithmTimeMillis" function.
  * Each one will implement the "Generate" function in it's own way.
  */
-public abstract class AMaze3DGenerator implements IMazeGenerator3D{
+public abstract class AMaze3DGenerator implements IMaze3DGenerator {
     /**
      * checks the time it takes to build a 3D maze.
      * @param depth - the depth of the 3D maze

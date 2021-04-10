@@ -1,10 +1,7 @@
 package algorithms.maze3D;
 
-import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.ISearchable;
-import algorithms.search.MazeState;
-
 import java.util.ArrayList;
 
 /**
@@ -84,7 +81,7 @@ public class SearchableMaze3D implements ISearchable {
         if (state.equals(this.getStartState())) {
             this.initMatColor();
             this.initMatCost();
-            visitRecord[0][0][0]="white";
+            visitRecord[0][0][0]="gray";
         }
         ArrayList<AState> possibleMoves = new ArrayList<AState>();
         Position3D currPos = (Position3D) state.getValue();
@@ -121,7 +118,7 @@ public class SearchableMaze3D implements ISearchable {
      */
     public boolean isInsertedStateToList (ArrayList<AState> list, AState state, int d, int r, int c, double cost) {
         if (!adapterMaze.checkLegalCell(d, r, c)) {
-            if (adapterMaze.isContainZero(d, r, c) && visitRecord[d][r][c] == "white") {
+            if (adapterMaze.isContainZero(d, r, c) && visitRecord[d][r][c].equals("white")) {
                 insertStateToList(list, state, d, r, c, cost);
                 return true;
             }
