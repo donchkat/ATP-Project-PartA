@@ -6,6 +6,9 @@ import Errors.OutOfBoundMatrixInput;
 
 import java.util.ArrayList;
 
+/**
+ * represent any searching problem functionality
+ */
 public interface ISearchable {
 
 

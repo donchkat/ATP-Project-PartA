@@ -8,12 +8,17 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/**
+ * greedy algorithm that will choose always to take the shortcuts if it is possible
+ */
 public class BestFirstSearch extends ASearchingAlgorithm {
+
 
     public BestFirstSearch () {
         this.name = "BestFirstSearch";
         this.numberOfVisitedNodes=0;
     }
+
 
     @Override
     public Solution solve (ISearchable iSearchable) throws NullError, LowBoundInput, OutOfBoundMatrixInput {

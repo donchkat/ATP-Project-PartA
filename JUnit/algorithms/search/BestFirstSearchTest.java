@@ -14,6 +14,14 @@ import java.util.ArrayList;
 class BestFirstSearchTest {
 
 
+    /**
+     * checks the time and the ability(how well they create the maze) of the generators
+     * @param args 
+     * @throws LowBoundInput
+     * @throws NullError
+     * @throws OutOfBoundMatrixInput
+     *
+     */
     public static void main (String[] args) throws LowBoundInput, NullError, OutOfBoundMatrixInput {
         long startTime = System.currentTimeMillis();
         boolean flag=true;

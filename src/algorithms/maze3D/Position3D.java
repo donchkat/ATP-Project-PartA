@@ -23,6 +23,11 @@ public class Position3D {
         this.col = col;
     }
 
+    /**
+     * compares two positions
+     * @param o
+     * @returntrue if they have same coordinates else false
+     */
     @Override
     public boolean equals (Object o) {
         if (this == o) return true;

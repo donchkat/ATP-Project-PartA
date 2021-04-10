@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- *
+ *the known bfs algorithm that scans the graph widely
  */
 public class BreadthFirstSearch extends ASearchingAlgorithm {
 

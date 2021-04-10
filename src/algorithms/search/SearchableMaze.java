@@ -17,6 +17,11 @@ public class SearchableMaze implements ISearchable {
     private double[][] costs;
 
 
+    /**
+     * building the adapter
+     * @param adapterMaze
+     * @throws NullError
+     */
     public SearchableMaze (Maze adapterMaze) throws NullError {
         if (adapterMaze == null)
             throw new NullError();
@@ -28,7 +33,7 @@ public class SearchableMaze implements ISearchable {
     }
 
     /**
-     *
+     *all the nodes start white
      */
     private void initMatColor () {
         for (int i = 0; i < adapterMaze.getRows(); i++) {
@@ -39,7 +44,7 @@ public class SearchableMaze implements ISearchable {
     }
 
     /**
-     *
+     *we assume that the start position of any node is infinity because we didnt found it yet
      */
     private void initMatCost () {
         for (int i = 0; i < adapterMaze.getRows(); i++) {
@@ -50,16 +55,31 @@ public class SearchableMaze implements ISearchable {
         }
     }
 
+    /**
+     * @return the start of the search
+     * @throws NullError
+     */
     @Override
     public MazeState getStartState () throws NullError {
         return new MazeState(0, null, adapterMaze.getStartPosition());
     }
 
+    /**
+     * @return the goal of search
+     * @throws NullError
+     */
     @Override
     public MazeState getGoalState () throws NullError{
         return new MazeState(Integer.MAX_VALUE, null, adapterMaze.getGoalPosition());
     }
 
+    /**
+     * @param state-current state
+     * @returnall the neighbors of the state in the matrix
+     * @throws LowBoundInput
+     * @throws OutOfBoundMatrixInput
+     * @throws NullError
+     */
     @Override
     public ArrayList<AState> getAllSuccessors (AState state) throws LowBoundInput, OutOfBoundMatrixInput, NullError{
         if (state == null)

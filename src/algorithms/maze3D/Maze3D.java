@@ -2,6 +2,9 @@ package algorithms.maze3D;
 
 import Errors.LowBoundInput;
 
+/**
+ * The cube maze
+ */
 public class Maze3D {
     protected int[][][] matrix3D;
     private Position3D startPosition3D;
@@ -12,6 +15,13 @@ public class Maze3D {
 
     //CHANGE FROM PROTECTED TO PRIVATE.
 
+    /**
+     *Creating new cube maze
+     * @param depth
+     * @param rows
+     * @param cols
+     * @throws LowBoundInput
+     */
     public Maze3D (int depth, int rows, int cols) throws LowBoundInput {
         if(depth < 2 || rows < 2 || cols < 2)
             throw new LowBoundInput();
@@ -25,6 +35,9 @@ public class Maze3D {
         this.cols = cols;
     }
 
+    /**
+     * print the maze
+     */
     public void print () {
         System.out.println("{ ");
         for (int i = 0; i < this.matrix3D.length; i++) {

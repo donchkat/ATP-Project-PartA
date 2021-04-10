@@ -6,9 +6,8 @@ import Errors.OutOfBoundMatrixInput;
 
 import java.util.ArrayList;
 import java.util.Stack;
-
 /**
- *
+ *the known bfs algorithm that scans the graph deeply
  */
 public class DepthFirstSearch extends ASearchingAlgorithm {
 

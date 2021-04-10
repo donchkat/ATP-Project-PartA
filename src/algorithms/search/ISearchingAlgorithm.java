@@ -5,7 +5,7 @@ import Errors.NullError;
 import Errors.OutOfBoundMatrixInput;
 
 /**
- *
+ *represent any searching algorithm functionality
  */
 public interface ISearchingAlgorithm {
 

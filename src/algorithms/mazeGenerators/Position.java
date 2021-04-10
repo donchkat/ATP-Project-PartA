@@ -23,18 +23,31 @@ public class Position {
 
     }
 
+    /**
+     * @param rowIndex -the new row index
+     * @throws LowBoundInput
+     *
+     */
     public void setRowIndex (int rowIndex) throws LowBoundInput {
         if (rowIndex < 0)
             throw new LowBoundInput();
         this.rowIndex = rowIndex;
     }
 
+    /**
+     * @param columnIndex -the new column index
+     * @throws LowBoundInput
+     */
     public void setColumnIndex (int columnIndex) throws LowBoundInput {
         if (columnIndex < 0)
             throw new LowBoundInput();
         this.columnIndex = columnIndex;
     }
 
+    /**
+     * @param o- some object
+     * @return true if it is a position that has equal coordinates to this
+     */
     @Override
     public boolean equals (Object o) {
         if (this == o) return true;
@@ -44,14 +57,23 @@ public class Position {
                 columnIndex == position.columnIndex;
     }
 
+    /**
+     * @return index of the row of this
+     */
     public int getRowIndex () {
         return rowIndex;
     }
 
+    /**
+     * @return index of the column of this
+     */
     public int getColumnIndex () {
         return columnIndex;
     }
 
+    /**
+     * @return a string of the object as {x,y}
+     */
     @Override
     public String toString () {
         return "{" + rowIndex + "," + columnIndex + '}';

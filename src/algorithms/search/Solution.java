@@ -13,12 +13,14 @@ public class Solution {
         if(aState == null)
             throw new NullError();
         solutionPath = new ArrayList<>();
+        ArrayList<AState> tmp=new ArrayList<>();
         while (aState != null) {
-            this.solutionPath.add(aState);
+            tmp.add(aState);
             aState = aState.getCameFrom();
         }
-
-
+        for (int i = tmp.size()-1; i >= 0; i--) {
+              solutionPath.add(tmp.get(i));
+        }
 
     }
 

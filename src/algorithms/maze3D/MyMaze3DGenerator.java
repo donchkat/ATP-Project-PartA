@@ -44,7 +44,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
 
     /**
      *
-     *
+     *select randomly path from the closest position to the end position and build it on the matrix
      * @param myMaze  - the 3D maze we generate
      */
     private void zeroPathToGoal ( Maze3D myMaze) {

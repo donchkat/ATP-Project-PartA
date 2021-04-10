@@ -4,12 +4,12 @@ import Errors.NullError;
 import algorithms.mazeGenerators.Position;
 
 /**
- *
+ *Astate that contains a Position as value
  */
 public class MazeState extends AState{
 
     /**
-     * @return
+     * @return the data of the state
      */
     public Position getCurrPosition () {
         return (Position)this.value;
