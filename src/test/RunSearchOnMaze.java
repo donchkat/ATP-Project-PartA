@@ -1,5 +1,8 @@
 package test;
 
+import Errors.LowBoundInput;
+import Errors.NullError;
+import Errors.OutOfBoundMatrixInput;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
@@ -8,9 +11,9 @@ import algorithms.search.*;
 import java.util.ArrayList;
 
 public class RunSearchOnMaze {
-    public static void main (String[] args) {
+    public static void main (String[] args) throws LowBoundInput, NullError, OutOfBoundMatrixInput {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(4, 4);
+        Maze maze = mg.generate(10, 10);
         maze.print();
         SearchableMaze searchableMaze = new SearchableMaze(maze);
 
@@ -35,7 +38,7 @@ public class RunSearchOnMaze {
     }
 
 
-    private static void solveProblem (ISearchable domain, ISearchingAlgorithm searcher) {
+    private static void solveProblem (ISearchable domain, ISearchingAlgorithm searcher) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
 //Solve a searching problem with a searcher
         Solution solution = searcher.solve(domain);
         System.out.println(String.format("'%s' algorithm - nodes evaluated: %s", searcher.getName(), searcher.getNumberOfNodesEvaluated()));
@@ -49,7 +52,7 @@ public class RunSearchOnMaze {
 
     }
 
-    private static int mysolveProblem (ISearchable domain, ISearchingAlgorithm searcher) {
+    private static int mysolveProblem (ISearchable domain, ISearchingAlgorithm searcher) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
 //Solve a searching problem with a searcher
         Solution solution = searcher.solve(domain);
         //  System.out.println(String.format("'%s' algorithm - nodes evaluated: %s", searcher.getName(), searcher.getNumberOfNodesEvaluated()));

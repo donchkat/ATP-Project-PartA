@@ -2,6 +2,9 @@ package algorithms.search;
 
 //import static org.junit.jupiter.api.Assertions.*;
 
+import Errors.LowBoundInput;
+import Errors.NullError;
+import Errors.OutOfBoundMatrixInput;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
@@ -11,7 +14,7 @@ import java.util.ArrayList;
 class BestFirstSearchTest {
 
 
-    public static void main (String[] args) {
+    public static void main (String[] args) throws LowBoundInput, NullError, OutOfBoundMatrixInput {
         long startTime = System.currentTimeMillis();
         boolean flag=true;
 
@@ -37,7 +40,7 @@ class BestFirstSearchTest {
         else
             System.out.println("bad time");
     }
-         private static int mysolveProblem (ISearchable domain, ISearchingAlgorithm searcher) {
+         private static int mysolveProblem (ISearchable domain, ISearchingAlgorithm searcher) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
         Solution solution = searcher.solve(domain);
         ArrayList<AState> solutionPath = solution.getSolutionPath();
         return solutionPath.size();

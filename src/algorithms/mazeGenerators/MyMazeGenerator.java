@@ -1,5 +1,8 @@
 package algorithms.mazeGenerators;
 
+import Errors.LowBoundInput;
+import Errors.NullError;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -15,7 +18,7 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @return a maze that was generated with the DFS algorithm
      */
     @Override
-    public Maze generate (int rows, int cols) {
+    public Maze generate (int rows, int cols) throws LowBoundInput, NullError {
         Maze newMaze = new Maze(rows, cols);
         newMaze.matrix = onesMatrix(rows, cols);
         Stack pathStack = new Stack();
@@ -114,7 +117,9 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @param matrix  - the 2D array we generate our maze on
      * @param currPos - the current position in the maze.
      */
-    private void randomNeighbor (int[][] matrix, Position currPos) {
+    private void randomNeighbor (int[][] matrix, Position currPos) throws NullError {
+        if(matrix==null)
+            throw new NullError();
         //random directions
         Integer[] ranDirs = randomDirections(4);
         int r = currPos.getRowIndex();
@@ -208,7 +213,7 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @param cols - number of columns
      * @return matrix full of 1's
      */
-    private int[][] onesMatrix (int rows, int cols) {
+    private int[][] onesMatrix (int rows, int cols) throws LowBoundInput {
         Maze newEmptyMaze = new Maze(rows, cols);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {

@@ -1,5 +1,7 @@
 package algorithms.mazeGenerators;
 
+import Errors.LowBoundInput;
+
 import java.util.Random;
 
 /**
@@ -16,7 +18,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
      * @return Maze - the simple maze it created.
      */
     @Override
-    public Maze generate (int rows, int cols) {
+    public Maze generate (int rows, int cols) throws LowBoundInput {
         Maze newSimpleMaze = new Maze(rows, cols);
         newSimpleMaze.matrix = CreateBounds(newSimpleMaze);//take care of maze bounds
         newSimpleMaze.matrix = CreateWays(newSimpleMaze); // fill randomly the inner part

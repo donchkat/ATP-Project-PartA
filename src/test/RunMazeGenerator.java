@@ -1,16 +1,18 @@
 package test;
 
 
+import Errors.LowBoundInput;
+import Errors.NullError;
 import algorithms.mazeGenerators.*;
 
 public class RunMazeGenerator {
-    public static void main (String[] args) {
+    public static void main (String[] args) throws LowBoundInput, NullError {
         testMazeGenerator(new EmptyMazeGenerator());
         testMazeGenerator(new SimpleMazeGenerator());
         testMazeGenerator(new MyMazeGenerator());
     }
 
-    private static void testMazeGenerator (IMazeGenerator mazeGenerator) {
+    private static void testMazeGenerator (IMazeGenerator mazeGenerator) throws LowBoundInput, NullError {
         System.out.println(String.format("Maze generation time(ms): %s", mazeGenerator.measureAlgorithmTimeMillis(100/*rows*/, 100/*columns*/)));
 // generate another maze
         Maze maze = mazeGenerator.generate(5/*rows*/, 5/*columns*/);

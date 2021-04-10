@@ -1,12 +1,17 @@
 package algorithms.search;
 
+import Errors.LowBoundInput;
+import Errors.NullError;
+import Errors.OutOfBoundMatrixInput;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class BestFirstSearch extends ASearchingAlgorithm {
     @Override
-    public Solution solve (ISearchable iSearchable) {
+    public Solution solve (ISearchable iSearchable) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
+       checkNull(iSearchable);
         Comparator<AState> comparator = new stateComparator();
         PriorityQueue<AState> queue = new PriorityQueue<AState>(1, comparator);
         //PriorityQueue<AState> myQ = new PriorityQueue<>();

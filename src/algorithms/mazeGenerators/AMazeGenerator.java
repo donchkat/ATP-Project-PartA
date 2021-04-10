@@ -1,11 +1,14 @@
 package algorithms.mazeGenerators;
 
+import Errors.LowBoundInput;
+import Errors.NullError;
+
 public abstract class AMazeGenerator implements IMazeGenerator {
     //protected Maze myMaze; -NOT SURE WE NEED THIS
     //do we need a constructor????
 
     @Override
-    public abstract Maze generate (int rows, int cols);
+    public abstract Maze generate (int rows, int cols) throws LowBoundInput, NullError;
 
     /**
      * @param rows - num of rows in the maze
@@ -13,7 +16,7 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      * @return the time it took to build the maze
      */
     @Override
-    public long measureAlgorithmTimeMillis (int rows, int cols) {
+    public long measureAlgorithmTimeMillis (int rows, int cols) throws LowBoundInput, NullError {
         long startTime = System.currentTimeMillis();
         this.generate(rows, cols);
         long finishTime = System.currentTimeMillis();

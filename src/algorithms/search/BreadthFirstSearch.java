@@ -1,5 +1,9 @@
 package algorithms.search;
 
+import Errors.LowBoundInput;
+import Errors.NullError;
+import Errors.OutOfBoundMatrixInput;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -7,7 +11,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 
 
     @Override
-    public Solution solve (ISearchable iSearchable) {
+    public Solution solve (ISearchable iSearchable) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
+        checkNull(iSearchable);
         LinkedList<AState> myQ = new LinkedList<>();
         AState start = iSearchable.getStartState();
         AState goal = iSearchable.getGoalState();

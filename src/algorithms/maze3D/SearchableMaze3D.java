@@ -83,6 +83,8 @@ public class SearchableMaze3D implements ISearchable {
             return null;
         if (state.equals(this.getStartState())) {
             this.initMatColor();
+            this.initMatCost();
+            visitRecord[0][0][0]="white";
         }
         ArrayList<AState> possibleMoves = new ArrayList<AState>();
         Position3D currPos = (Position3D) state.getValue();

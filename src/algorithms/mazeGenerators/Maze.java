@@ -1,5 +1,8 @@
 package algorithms.mazeGenerators;
 
+import Errors.LowBoundInput;
+import Errors.OutOfBoundMatrixInput;
+
 import java.util.Objects;
 
 /**
@@ -30,15 +33,6 @@ public class Maze {
         return cols;
     }
 
-    //not using it - why?
-    public void setStartPosition (Position stPos) {
-        this.startPosition = stPos;
-    }
-
-    //not using it - why?
-    public void setGoalPosition (Position goalPosition) {
-        this.goalPosition = goalPosition;
-    }
 
     /**
      * constructor
@@ -46,7 +40,8 @@ public class Maze {
      * @param numOfRows - the number of rows in the maze
      * @param numOfCols - the number of columns in the maze
      */
-    public Maze (int numOfRows, int numOfCols) {
+    public Maze (int numOfRows, int numOfCols) throws LowBoundInput {
+       if(numOfCols<2||numOfRows<2)throw new LowBoundInput();
         matrix = new int[numOfRows][numOfCols];
         this.rows = numOfRows;
         this.cols = numOfCols;
@@ -138,7 +133,9 @@ public class Maze {
      * @param colIndex - the column of current position
      * @return - True if cell contains 0, else False
      */
-    public boolean isContainZero (int rowIndex, int colIndex) {
+    public boolean isContainZero (int rowIndex, int colIndex) throws LowBoundInput, OutOfBoundMatrixInput {
+        if(rowIndex < 0 || colIndex < 0)throw new LowBoundInput();
+        if(rowIndex >= this.matrix.length || colIndex >= this.matrix[0].length)throw new OutOfBoundMatrixInput();
         return this.matrix[rowIndex][colIndex] == 0;
     }
 

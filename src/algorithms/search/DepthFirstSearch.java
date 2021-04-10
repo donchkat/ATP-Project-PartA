@@ -1,12 +1,17 @@
 package algorithms.search;
 
+import Errors.LowBoundInput;
+import Errors.NullError;
+import Errors.OutOfBoundMatrixInput;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class DepthFirstSearch extends ASearchingAlgorithm {
 
     @Override
-    public Solution solve (ISearchable iSearchable) {
+    public Solution solve (ISearchable iSearchable) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
+        checkNull(iSearchable);
         Stack<AState> myS = new Stack<AState>();
         AState start = iSearchable.getStartState();
         AState goal = iSearchable.getGoalState();
@@ -15,8 +20,8 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         while (!myS.isEmpty()) {
             curr = myS.pop();
             this.numberOfVisitedNodes++;
-            //  if (curr.getState() == "gray") //visited
-            //    continue;
+              if (curr.getState() == "gray") //visited
+                continue;
             if (curr.equals(goal))
                 break;
             curr.setState("gray");
@@ -24,8 +29,8 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             ArrayList<AState> adjList = iSearchable.getAllSuccessors(curr);
             // for (int i = adj.size() - 1; i >= 0; i--) - that's what they used in the algorithm
             for (int i = 0; i < adjList.size(); i++) {
-                //AState neighbor = adjList.get(i);
-                //  if (adjList.get(i).getState() == "white")
+                AState neighbor = adjList.get(i);
+                  if (adjList.get(i).getState() == "white")
                 myS.push(adjList.get(i));
             }
 

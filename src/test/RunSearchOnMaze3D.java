@@ -1,5 +1,8 @@
 package test;
 
+import Errors.LowBoundInput;
+import Errors.NullError;
+import Errors.OutOfBoundMatrixInput;
 import algorithms.maze3D.IMazeGenerator3D;
 import algorithms.maze3D.Maze3D;
 import algorithms.maze3D.MyMaze3DGenerator;
@@ -8,22 +11,22 @@ import algorithms.search.*;
 import java.util.ArrayList;
 
 public class RunSearchOnMaze3D {
-    public static void main (String[] args) {
+    public static void main (String[] args) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
         IMazeGenerator3D mg = new MyMaze3DGenerator();
 
         for (int i = 0; i < 1000; i++) {
             Maze3D maze = mg.generate(10, 10,10);
-            maze.print();
+     //       maze.print();
             SearchableMaze3D searchableMaze = new SearchableMaze3D(maze);
-            solveProblem3D(searchableMaze, new BreadthFirstSearch());
-            //solveProblem3D(searchableMaze, new DepthFirstSearch());
-            solveProblem3D(searchableMaze, new BestFirstSearch());
+            //solveProblem3D(searchableMaze, new BreadthFirstSearch());
+            solveProblem3D(searchableMaze, new DepthFirstSearch());
+            //solveProblem3D(searchableMaze, new BestFirstSearch());
 
         }
 
     }
 
-    private static void solveProblem3D (ISearchable domain, ISearchingAlgorithm searcher) {
+    private static void solveProblem3D (ISearchable domain, ISearchingAlgorithm searcher) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
         //Solve a searching problem with a searcher
         Solution solution = searcher.solve(domain);
         System.out.println(String.format("'%s' algorithm - nodes evaluated: %s", searcher.getName(), searcher.getNumberOfNodesEvaluated()));

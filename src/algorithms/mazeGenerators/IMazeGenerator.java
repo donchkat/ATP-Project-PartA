@@ -1,8 +1,11 @@
 package algorithms.mazeGenerators;
 
-public interface IMazeGenerator {
-     Maze generate (int rows, int cols);
+import Errors.LowBoundInput;
+import Errors.NullError;
 
-     long measureAlgorithmTimeMillis (int rows, int cols);
+public interface IMazeGenerator {
+     Maze generate (int rows, int cols) throws LowBoundInput, NullError;
+
+     long measureAlgorithmTimeMillis (int rows, int cols) throws LowBoundInput, NullError;
 
 }

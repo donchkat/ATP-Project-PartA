@@ -9,9 +9,6 @@ public abstract class AState {
     protected Object value;
 
 
-    public void setCameFrom (AState cameFrom) {
-        this.cameFrom = cameFrom;
-    }
 
     public String getState () {
         return state;
@@ -25,17 +22,11 @@ public abstract class AState {
         return cost;
     }
 
-    public void setCost (double cost) {
-        this.cost = cost;
-    }
 
     public Object getValue () {
         return value;
     }
 
-    public void setValue (Object value) {
-        this.value = value;
-    }
 
     public AState getCameFrom () {
         return cameFrom;
@@ -54,7 +45,7 @@ public abstract class AState {
     @Override
     public String toString () {
         return "AState{" +
-                ", cost=" + cost +
+                ", cost=" +
                 ", value=" + value +
                 '}';
     }

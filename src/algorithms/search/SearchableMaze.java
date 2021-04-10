@@ -1,5 +1,8 @@
 package algorithms.search;
 
+import Errors.LowBoundInput;
+import Errors.NullError;
+import Errors.OutOfBoundMatrixInput;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 
@@ -12,7 +15,9 @@ public class SearchableMaze implements ISearchable {
     //not sure its ok to add this here.because the searching algorithms will depend on this field.
     //so I wish each searchable object would have this.
 
-    public SearchableMaze (Maze adapterMaze) {
+    public SearchableMaze (Maze adapterMaze) throws NullError {
+        if(adapterMaze==null)
+            throw new NullError();
         this.adapterMaze = adapterMaze;
         this.visitRecord = new String[adapterMaze.getRows()][adapterMaze.getCols()];
         this.costs = new double[adapterMaze.getRows()][adapterMaze.getCols()];
@@ -49,7 +54,7 @@ public class SearchableMaze implements ISearchable {
     }
 
     @Override
-    public ArrayList<AState> getAllSuccessors (AState state) {
+    public ArrayList<AState> getAllSuccessors (AState state) throws LowBoundInput, OutOfBoundMatrixInput {
         if (state == null)
             return null;
         if (state.equals(this.getStartState())) {
@@ -97,7 +102,7 @@ public class SearchableMaze implements ISearchable {
      * @param cost-    weight of "edge" between "vertices"
      * @return true if new state is inserted, else false
      */
-    public boolean isInsertedStateToList (ArrayList<AState> list, AState state, int r, int c, double cost) {
+    public boolean isInsertedStateToList (ArrayList<AState> list, AState state, int r, int c, double cost) throws LowBoundInput, OutOfBoundMatrixInput {
         if (!adapterMaze.checkLegalCell(r, c)) {
             if (adapterMaze.isContainZero(r, c) && visitRecord[r][c] == "white") {
                 insertStateToList(list, state, r, c, cost);
