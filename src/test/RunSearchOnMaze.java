@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class RunSearchOnMaze {
     public static void main (String[] args) throws LowBoundInput, NullError, OutOfBoundMatrixInput {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(10, 10);
+        Maze maze = mg.generate(5, 8);
         maze.print();
         SearchableMaze searchableMaze = new SearchableMaze(maze);
 

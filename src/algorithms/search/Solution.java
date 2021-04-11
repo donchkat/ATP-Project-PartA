@@ -9,6 +9,12 @@ import java.util.ArrayList;
 public class Solution {
     private ArrayList<AState> solutionPath;
 
+    /**
+     * @param aState the goal state
+     * @throws NullError
+     *
+     * returns the solution of the maze
+    */
     public Solution (AState aState) throws NullError {
         if(aState == null)
             throw new NullError();
@@ -24,6 +30,9 @@ public class Solution {
 
     }
 
+    /**
+     * @return array list of the solution states
+     */
     public ArrayList<AState> getSolutionPath () {
         return solutionPath;
     }
