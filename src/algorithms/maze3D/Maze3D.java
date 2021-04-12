@@ -6,12 +6,64 @@ import Errors.LowBoundInput;
  * The cube maze
  */
 public class Maze3D {
-    protected int[][][] matrix3D;
+    private int[][][] matrix3D;
     private Position3D startPosition3D;
     private Position3D goalPosition3D;
-    protected int depth;
-    protected int rows;
-    protected int cols;
+    private int depth;
+    private int rows;
+    private int cols;
+
+
+    /**
+     * setter for a specific cell in the matrix of the maze
+     * @param depth - the depth of the cell we set
+     * @param row - row index of the cell we set
+     * @param col - column index of the cell we set
+     * @param value - the value we set into the cell
+     */
+    public void setCellInMatrix3D(int depth, int row, int col, int value){
+        this.matrix3D[depth][row][col] = value;
+    }
+
+    public void setMatrix3D (int[][][] matrix3D) {
+        this.matrix3D = matrix3D;
+    }
+
+    public void setStartPosition3D (Position3D startPosition3D) {
+        this.startPosition3D = startPosition3D;
+    }
+
+    public void setGoalPosition3D (Position3D goalPosition3D) {
+        this.goalPosition3D = goalPosition3D;
+    }
+
+    public void setDepth (int depth) {
+        this.depth = depth;
+    }
+
+    public void setRows (int rows) {
+        this.rows = rows;
+    }
+
+    public void setCols (int cols) {
+        this.cols = cols;
+    }
+
+    public int[][][] getMatrix3D () {
+        return matrix3D;
+    }
+
+    public int getDepth () {
+        return depth;
+    }
+
+    public int getRows () {
+        return rows;
+    }
+
+    public int getCols () {
+        return cols;
+    }
 
     //CHANGE FROM PROTECTED TO PRIVATE.
 

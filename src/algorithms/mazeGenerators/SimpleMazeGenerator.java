@@ -20,8 +20,8 @@ public class SimpleMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate (int rows, int cols) throws LowBoundInput {
         Maze newSimpleMaze = new Maze(rows, cols);
-        newSimpleMaze.matrix = CreateBounds(newSimpleMaze);//take care of maze bounds
-        newSimpleMaze.matrix = CreateWays(newSimpleMaze); // fill randomly the inner part
+        newSimpleMaze.setMatrix(CreateBounds(newSimpleMaze)); //take care of maze bounds
+        newSimpleMaze.setMatrix(CreateWays(newSimpleMaze)); // fill randomly the inner part
         return newSimpleMaze;
     }
 
@@ -34,20 +34,20 @@ public class SimpleMazeGenerator extends AMazeGenerator {
      */
     private int[][] CreateWays (Maze newSimpleMaze) {
         Random rndIndex = new Random();
-        int i = rndIndex.nextInt(newSimpleMaze.rows);
-        int j = rndIndex.nextInt(newSimpleMaze.cols);
-        while (newSimpleMaze.matrix[i][j] != 0) {
-            for (int k = 0; k < newSimpleMaze.rows; k++)
-                for (int n = 0; n < newSimpleMaze.cols; n++) {
-                    newSimpleMaze.matrix[i][n] = 0;
-                    newSimpleMaze.matrix[k][j] = 0;
+        int i = rndIndex.nextInt(newSimpleMaze.getRows());
+        int j = rndIndex.nextInt(newSimpleMaze.getCols());
+        while (newSimpleMaze.getMatrix()[i][j] != 0) {
+            for (int k = 0; k < newSimpleMaze.getRows(); k++)
+                for (int n = 0; n < newSimpleMaze.getCols(); n++) {
+                    newSimpleMaze.setCellInMatrix(i,n,0);
+                    newSimpleMaze.setCellInMatrix(k,j,0);
                 }
-            i = rndIndex.nextInt(newSimpleMaze.rows);
-            j = rndIndex.nextInt(newSimpleMaze.cols);
+            i = rndIndex.nextInt(newSimpleMaze.getRows());
+            j = rndIndex.nextInt(newSimpleMaze.getCols());
             if (i == j)
                 break;
         }
-        return newSimpleMaze.matrix;
+        return newSimpleMaze.getMatrix();
     }
 
 
@@ -57,14 +57,14 @@ public class SimpleMazeGenerator extends AMazeGenerator {
      * @return the same maze with 0's on the frame and 1's inside
      */
     private int[][] CreateBounds (Maze newSimpleMaze) {
-        for (int i = 0; i < newSimpleMaze.rows; i++) {
-            for (int j = 0; j < newSimpleMaze.cols; j++) {
-                if (i == 0 || j == 0 || i == (newSimpleMaze.rows - 1) || j == (newSimpleMaze.cols - 1))
-                    newSimpleMaze.matrix[i][j] = 0;
+        for (int i = 0; i < newSimpleMaze.getRows(); i++) {
+            for (int j = 0; j < newSimpleMaze.getCols(); j++) {
+                if (i == 0 || j == 0 || i == (newSimpleMaze.getRows() - 1) || j == (newSimpleMaze.getCols() - 1))
+                    newSimpleMaze.setCellInMatrix(i,j,0);
                 else
-                    newSimpleMaze.matrix[i][j] = 1;
+                    newSimpleMaze.setCellInMatrix(i,j,1);
             }
         }
-        return newSimpleMaze.matrix;
+        return newSimpleMaze.getMatrix();
     }
 }

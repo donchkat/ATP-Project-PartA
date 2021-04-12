@@ -20,21 +20,21 @@ public class MyMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate (int rows, int cols) throws LowBoundInput, NullError {
         Maze newMaze = new Maze(rows, cols);
-        newMaze.matrix = onesMatrix(rows, cols);
+        newMaze.setMatrix(onesMatrix(rows, cols));
         Stack pathStack = new Stack();
         Position currPos = new Position(0, 0);
 
-        newMaze.matrix[currPos.getRowIndex()][currPos.getColumnIndex()] = 0; //marking as visited
+        newMaze.setCellInMatrix(currPos.getRowIndex(), currPos.getColumnIndex(), 0); //marking as visited
         pathStack.push(currPos.copy());
         while (!pathStack.isEmpty()) {
             if (checkNeighbors(newMaze, currPos)) {
-                randomNeighbor(newMaze.matrix, currPos);
+                randomNeighbor(newMaze.getMatrix(), currPos);
                 pathStack.push(currPos.copy());
             } else if (!pathStack.isEmpty())
                 currPos = (Position) pathStack.pop();
 
         }
-        Position toGoal = new Position(newMaze.rows - 2, newMaze.cols - 2);
+        Position toGoal = new Position(newMaze.getRows() - 2, newMaze.getCols() - 2);
         if (isInGoalEnvironment(toGoal, newMaze))
             zeroPathToGoal(newMaze);
         return newMaze;
@@ -47,13 +47,13 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @param myMaze - the maze we generate
      */
     private void zeroPathToGoal (Maze myMaze) {
-        myMaze.matrix[myMaze.rows - 1][myMaze.cols - 1] = 0;
+        myMaze.setCellInMatrix(myMaze.getRows() - 1, myMaze.getCols() - 1, 0);
         Random rnd = new Random();
         int num = rnd.nextInt(10);
         if (num % 2 != 0)
-            myMaze.matrix[myMaze.rows - 1][myMaze.cols - 2] = 0;
+            myMaze.setCellInMatrix(myMaze.getRows() - 1, myMaze.getCols() - 2, 0);
         else
-            myMaze.matrix[myMaze.rows - 2][myMaze.cols - 1] = 0;
+            myMaze.setCellInMatrix(myMaze.getRows() - 2, myMaze.getCols() - 1, 0);
     }
 
     /**
@@ -94,23 +94,23 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (leftN) {
             leftN = false;
         } else {
-            leftN = (myMaze.matrix[r][c - 2] == 1);
+            leftN = (myMaze.getMatrix()[r][c - 2] == 1);
         }
 
         if (rightN) {
             rightN = false;
         } else {
-            rightN = (myMaze.matrix[r][c + 2] == 1);
+            rightN = (myMaze.getMatrix()[r][c + 2] == 1);
         }
         if (upN) {
             upN = false;
         } else {
-            upN = (myMaze.matrix[r - 2][c] == 1);
+            upN = (myMaze.getMatrix()[r - 2][c] == 1);
         }
         if (downN) {
             downN = false;
         } else {
-            downN = (myMaze.matrix[r + 2][c] == 1);
+            downN = (myMaze.getMatrix()[r + 2][c] == 1);
         }
         return leftN || rightN || upN || downN;
     }
@@ -218,11 +218,10 @@ public class MyMazeGenerator extends AMazeGenerator {
     private int[][] onesMatrix (int rows, int cols) throws LowBoundInput {
         Maze newEmptyMaze = new Maze(rows, cols);
         for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                newEmptyMaze.matrix[i][j] = 1;
-            }
+            for (int j = 0; j < cols; j++)
+                newEmptyMaze.setCellInMatrix(i, j, 1);
         }
-        return newEmptyMaze.matrix;
+        return newEmptyMaze.getMatrix();
     }
 
 }

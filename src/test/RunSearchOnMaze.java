@@ -6,14 +6,31 @@ import Errors.OutOfBoundMatrixInput;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.*;
 
 import java.util.ArrayList;
 
 public class RunSearchOnMaze {
     public static void main (String[] args) throws LowBoundInput, NullError, OutOfBoundMatrixInput {
-        IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(10, 10);
+        //IMazeGenerator mg = new MyMazeGenerator();
+        //Maze maze = mg.generate(10, 10);
+        int[][] mat = new int[][]{
+                {1,0,0,0,0,0,1,0,0,0,0,0,0,1,1},
+                {1,1,1,1,1,0,0,0,1,1,1,1,1,1,0},
+                {0,1,1,1,1,1,1,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,1,1,1,1,1,0,1,1,1,0},
+                {1,0,1,1,0,0,0,1,1,1,0,1,1,1,0},
+                {0,0,1,1,1,1,0,0,0,1,1,0,1,1,0},
+                {0,0,1,1,1,1,1,1,0,1,1,0,0,0,0},
+                {0,1,1,1,1,1,1,1,0,1,1,1,1,0,1},
+                {1,1,1,1,1,1,1,1,0,1,1,1,1,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,1,0,1,1,0,1,1,0,1,1,1,0,1}};
+        Maze maze = new Maze(11,15);
+        maze.setMatrix(mat);
+        maze.setGoalPosition(new Position(7,0));
+        maze.setStartPosition(new Position(2,14));
         maze.print();
         SearchableMaze searchableMaze = new SearchableMaze(maze);
 

@@ -14,11 +14,37 @@ import java.util.Objects;
 public class Maze {
     private Position startPosition;
     private Position goalPosition;
-    protected int rows;
-    protected int cols;
-    protected int[][] matrix;
+    private int rows;
+    private int cols;
+    private int[][] matrix;
 
-    //CHANGE TO PRIVATE AND ADD GETTERS & SETTERS.
+
+    public void setRows (int rows) {
+        this.rows = rows;
+    }
+
+    public void setCols (int cols) {
+        this.cols = cols;
+    }
+
+    public int[][] getMatrix () {
+
+        return matrix;
+    }
+//CHANGE TO PRIVATE AND ADD GETTERS & SETTERS.
+
+
+    public void setStartPosition (Position startPosition) {
+        this.startPosition = startPosition;
+    }
+
+    public void setGoalPosition (Position goalPosition) {
+        this.goalPosition = goalPosition;
+    }
+
+    public void setMatrix (int[][] matrix) {
+        this.matrix = matrix;
+    }
 
     /**
      * @return the number of rows in the maze
@@ -61,11 +87,11 @@ public class Maze {
         for (int i = 0; i < this.matrix.length; i++) {
             System.out.print("{ ");
             for (int j = 0; j < matrix[i].length; j++) {
-                if (i == 0 && j == 0) {
+                if (i == startPosition.getRowIndex() && j == startPosition.getColumnIndex()) {
                     System.out.print('S' + " ");
                     continue;
                 }
-                if (i == rows - 1 && j == cols - 1) {
+                if (i == goalPosition.getRowIndex() && j == goalPosition.getColumnIndex()) {
                     System.out.print('E' + " ");
                     continue;
                 }
@@ -140,6 +166,15 @@ public class Maze {
         return this.matrix[rowIndex][colIndex] == 0;
     }
 
+    /**
+     * setter for a specific cell in the matrix of the maze
+     * @param row - row index of the cell we set
+     * @param col - column index of the cell we set
+     * @param value - the value we set into the cell
+     */
+    public void setCellInMatrix(int row, int col, int value){
+        this.matrix[row][col] = value;
+    }
 
     /**
      * we are not using it- why?

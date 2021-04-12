@@ -22,8 +22,8 @@ public class SearchableMaze3D implements ISearchable {
      */
     public SearchableMaze3D (Maze3D adapterMaze) {
         this.adapterMaze = adapterMaze;
-        this.visitRecord = new String[adapterMaze.depth][adapterMaze.rows][adapterMaze.cols];
-        this.costs = new double[adapterMaze.depth][adapterMaze.rows][adapterMaze.cols];
+        this.visitRecord = new String[adapterMaze.getDepth()][adapterMaze.getRows()][adapterMaze.getCols()];
+        this.costs = new double[adapterMaze.getDepth()][adapterMaze.getRows()][adapterMaze.getCols()];
         initMatColor();
         initMatCost();
     }
@@ -33,9 +33,9 @@ public class SearchableMaze3D implements ISearchable {
      * Because at the start everyone are unvisited.
      */
     private void initMatColor () {
-        for (int i = 0; i < adapterMaze.depth; i++) {
-            for (int j = 0; j < adapterMaze.rows; j++) {
-                for (int k = 0; k < adapterMaze.cols; k++) {
+        for (int i = 0; i < adapterMaze.getDepth(); i++) {
+            for (int j = 0; j < adapterMaze.getRows(); j++) {
+                for (int k = 0; k < adapterMaze.getCols(); k++) {
                     this.visitRecord[i][j][k] = "white";
                 }
             }
@@ -46,9 +46,9 @@ public class SearchableMaze3D implements ISearchable {
      * fills the "costs" matrix with the max cost it can have at first.
      */
     private void initMatCost () {
-        for (int i = 0; i < adapterMaze.depth; i++) {
-            for (int j = 0; j < adapterMaze.rows; j++) {
-                for (int k = 0; k < adapterMaze.cols; k++) {
+        for (int i = 0; i < adapterMaze.getDepth(); i++) {
+            for (int j = 0; j < adapterMaze.getRows(); j++) {
+                for (int k = 0; k < adapterMaze.getCols(); k++) {
                     costs[i][j][k] = Integer.MAX_VALUE;
                 }
             }
