@@ -96,12 +96,13 @@ public class SearchableMaze implements ISearchable {
 
         //UP
         boolean upCell = isInsertedStateToList(possibleMoves, Mstate, r - 1, c, 10);
+        //RIGHT
+        boolean rightCell = isInsertedStateToList(possibleMoves, Mstate, r, c + 1, 10);
+
         //DOWN
         boolean downCell = isInsertedStateToList(possibleMoves, Mstate, r + 1, c, 10);
         //LEFT
         boolean leftCell = isInsertedStateToList(possibleMoves, Mstate, r, c - 1, 10);
-        //RIGHT
-        boolean rightCell = isInsertedStateToList(possibleMoves, Mstate, r, c + 1, 10);
 
         //DOWNRIGHT
         if (rightCell || downCell)

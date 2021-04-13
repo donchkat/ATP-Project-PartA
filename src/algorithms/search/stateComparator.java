@@ -14,10 +14,10 @@ public class stateComparator implements Comparator<AState>{
            // throw new NullError();
 
         if (x.getCost()> y.getCost()) {
-            return -1;
+            return 1;
         }
         if (x.getCost()< y.getCost()) {
-            return 1;
+            return -1;
         }
         return 0;
     }
