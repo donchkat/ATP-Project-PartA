@@ -3,6 +3,9 @@ package algorithms.maze3D;
 import Errors.NullError;
 import algorithms.search.AState;
 
+/**
+ * Class that represents a 3D maze state - a Position that is wrapped as a State object
+ */
 public class Maze3DState extends AState {
 
     /**

@@ -2,7 +2,6 @@ package algorithms.mazeGenerators;
 
 import Errors.LowBoundInput;
 import Errors.NullError;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -80,7 +79,7 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @param currPos - the current position
      * @return true if at least one neighbor(between the in ranged cells) contains 1 (unvisited)
      */
-    private boolean checkNeighbors (Maze myMaze, Position currPos) throws LowBoundInput {
+    private boolean checkNeighbors (Maze myMaze, Position currPos){
         int r = currPos.getRowIndex();
         int c = currPos.getColumnIndex();
 

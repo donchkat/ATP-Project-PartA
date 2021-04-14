@@ -3,8 +3,6 @@ package algorithms.mazeGenerators;
 import Errors.LowBoundInput;
 import Errors.OutOfBoundMatrixInput;
 
-import java.util.Objects;
-
 /**
  * this class represents a 2D Maze object
  * startPosition - the position we start the maze at
@@ -23,16 +21,11 @@ public class Maze {
         this.rows = rows;
     }
 
-    public void setCols (int cols) {
-        this.cols = cols;
-    }
 
     public int[][] getMatrix () {
 
         return matrix;
     }
-//CHANGE TO PRIVATE AND ADD GETTERS & SETTERS.
-
 
     public void setStartPosition (Position startPosition) {
         this.startPosition = startPosition;
@@ -102,33 +95,6 @@ public class Maze {
     }
 
     /**
-     * ???????????????????
-     *
-     * @param o
-     * @return
-
-    //what this function do?? where do we use it?
-    @Override
-    public boolean equals (Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Maze maze = (Maze) o;
-        boolean flag = true;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (matrix[i][j] != ((Maze) o).matrix[i][j])
-                    flag = false;
-            }
-        }
-        return rows == maze.rows &&
-                cols == maze.cols &&
-                Objects.equals(startPosition, maze.startPosition) &&
-                Objects.equals(goalPosition, maze.goalPosition) &&
-                flag;
-    }
-*/
-
-    /**
      * @return the start position of the maze
      */
     public Position getStartPosition () {
@@ -176,20 +142,4 @@ public class Maze {
         this.matrix[row][col] = value;
     }
 
-    /**
-     * we are not using it- why?
-     *
-     * @param myMaze
-     * @param optionalPos
-     * @return
-
-    private boolean isOutOfRange (Maze myMaze, Position optionalPos) {
-        int r = optionalPos.getRowIndex();
-        int c = optionalPos.getColumnIndex();
-        int mazeHeight = myMaze.rows - 1;
-        int mazeWidth = myMaze.cols - 1;
-        return r < 0 || r > mazeHeight || c < 0 || c > mazeWidth;
-
-    }
-    */
 }

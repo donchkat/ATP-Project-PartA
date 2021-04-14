@@ -13,8 +13,8 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
 
     /**
      * checks if the argument is not null
-     * @param o
-     * @throws NullError
+     * @param o - the argument
+     * @throws NullError - throws exception
      */
     protected void checkNull(Object o) throws NullError {
         if(o==null)
@@ -23,9 +23,9 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
     /**
      * @param iSearchable - a search problem translated to a graph searching problem
      * @return Solution-list of states
-     * @throws NullError
-     * @throws LowBoundInput
-     * @throws OutOfBoundMatrixInput
+     * @throws NullError - throws exception
+     * @throws LowBoundInput - throws exception
+     * @throws OutOfBoundMatrixInput - throws exception
      */
     public abstract Solution solve (ISearchable iSearchable) throws NullError, LowBoundInput, OutOfBoundMatrixInput;
 

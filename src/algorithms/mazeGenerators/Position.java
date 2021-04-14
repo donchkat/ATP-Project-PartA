@@ -25,8 +25,7 @@ public class Position {
 
     /**
      * @param rowIndex -the new row index
-     * @throws LowBoundInput
-     *
+     * @throws LowBoundInput - throws exception
      */
     public void setRowIndex (int rowIndex) throws LowBoundInput {
         if (rowIndex < 0)
@@ -36,7 +35,7 @@ public class Position {
 
     /**
      * @param columnIndex -the new column index
-     * @throws LowBoundInput
+     * @throws LowBoundInput -throws exception
      */
     public void setColumnIndex (int columnIndex) throws LowBoundInput {
         if (columnIndex < 0)
@@ -82,8 +81,7 @@ public class Position {
     /**
      * @return a new copy of current Position
      */
-    public Position copy () throws LowBoundInput {
-        Position copyPos = new Position(this.rowIndex, this.columnIndex);
-        return copyPos;
+    public Position copy () {
+        return new Position(this.rowIndex, this.columnIndex);
     }
 }

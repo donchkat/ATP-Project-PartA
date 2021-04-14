@@ -24,7 +24,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
     public Solution solve (ISearchable iSearchable) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
         checkNull(iSearchable);
         Comparator<AState> comparator = new stateComparator();
-        PriorityQueue<AState> queue = new PriorityQueue<AState>(1, comparator);
+        PriorityQueue<AState> queue = new PriorityQueue<>(1, comparator);
         AState start = iSearchable.getStartState();
         AState goal = iSearchable.getGoalState();
         queue.add(start);
@@ -36,9 +36,9 @@ public class BestFirstSearch extends ASearchingAlgorithm {
                 break;
             }
             ArrayList<AState> arr = iSearchable.getAllSuccessors(curr);
-            for (int i = 0; i < arr.size(); i++) {
-                if (!arr.get(i).equals(curr.getCameFrom()))
-                    queue.add(arr.get(i));
+            for (AState aState : arr) {
+                if (!aState.equals(curr.getCameFrom()))
+                    queue.add(aState);
             }
         }
         return new Solution(curr);

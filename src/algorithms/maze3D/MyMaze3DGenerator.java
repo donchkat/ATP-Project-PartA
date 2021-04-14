@@ -81,7 +81,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
      * @param currPos - the current position
      * @return true if at least one neighbor(between the in ranged cells) contains 1 (unvisited)
      */
-    private boolean checkNeighbors (Maze3D myMaze, Position3D currPos) throws LowBoundInput {
+    private boolean checkNeighbors (Maze3D myMaze, Position3D currPos) {
         int d = currPos.getDepthIndex();
         int r = currPos.getRowIndex();
         int c = currPos.getColumnIndex();

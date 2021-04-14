@@ -16,9 +16,9 @@ public class MazeState extends AState{
     }
 
     /**
-     * @param cost
-     * @param cameFrom
-     * @param currPosition
+     * @param cost - the cost we gained so far. ???????????????
+     * @param cameFrom - it's father
+     * @param currPosition - the current position we are at.
      */
     public MazeState (double cost, AState cameFrom, Position currPosition) throws NullError {
         super();

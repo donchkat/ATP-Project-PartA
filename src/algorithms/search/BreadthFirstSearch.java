@@ -33,9 +33,9 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                 break;
             }
             ArrayList<AState> arr = iSearchable.getAllSuccessors(curr);
-            for (int i = 0; i < arr.size(); i++) {
-                if (!arr.get(i).equals(curr.getCameFrom()))
-                    myQ.add(arr.get(i));
+            for (AState aState : arr) {
+                if (!aState.equals(curr.getCameFrom()))
+                    myQ.add(aState);
             }
         }
         return new Solution(curr);

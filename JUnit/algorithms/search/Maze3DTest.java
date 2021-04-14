@@ -15,7 +15,7 @@ public class Maze3DTest {
         CheckTimeBuildAndSolve();
         System.out.println("good job!");
     }
-
+    //TAKES A LOT OF TIME- BUT WORKS.
     private static void CheckTimeBuildAndSolve() throws LowBoundInput, OutOfBoundMatrixInput, NullError {
         IMaze3DGenerator mg = new MyMaze3DGenerator();
         for (int i = 100; i <150 ; i++) {
@@ -29,18 +29,12 @@ public class Maze3DTest {
                     solveProblem3D(searchableMaze, new BreadthFirstSearch());
                     if(startTime-System.currentTimeMillis()>=120000)
                         System.out.println("solve bugbug");
-
                 }
-
             }
-
         }
-
-
-
     }
 
-
+    //???
     private static void solveProblem3D (ISearchable domain, ISearchingAlgorithm searcher) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
         //Solve a searching problem with a searcher
         Solution solution = searcher.solve(domain);

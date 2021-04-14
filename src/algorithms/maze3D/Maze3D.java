@@ -29,25 +29,10 @@ public class Maze3D {
         this.matrix3D = matrix3D;
     }
 
-    public void setStartPosition3D (Position3D startPosition3D) {
-        this.startPosition3D = startPosition3D;
-    }
-
-    public void setGoalPosition3D (Position3D goalPosition3D) {
-        this.goalPosition3D = goalPosition3D;
-    }
-
-    public void setDepth (int depth) {
-        this.depth = depth;
-    }
-
     public void setRows (int rows) {
         this.rows = rows;
     }
 
-    public void setCols (int cols) {
-        this.cols = cols;
-    }
 
     public int[][][] getMatrix3D () {
         return matrix3D;
@@ -64,8 +49,6 @@ public class Maze3D {
     public int getCols () {
         return cols;
     }
-
-    //CHANGE FROM PROTECTED TO PRIVATE.
 
     /**
      *Creating new cube maze

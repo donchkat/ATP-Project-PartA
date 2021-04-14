@@ -14,13 +14,13 @@ import java.util.ArrayList;
 public class SearchableMaze implements ISearchable {
     private Maze adapterMaze;
     private String[][] visitRecord;
-    private double[][] costs;
+    private double[][] costs; // DO WE NEED THIS?
 
 
     /**
      * building the adapter
-     * @param adapterMaze
-     * @throws NullError
+     * @param adapterMaze - the instance of the maze object we will be searching.
+     * @throws NullError - throws exception
      */
     public SearchableMaze (Maze adapterMaze) throws NullError {
         if (adapterMaze == null)
@@ -57,7 +57,7 @@ public class SearchableMaze implements ISearchable {
 
     /**
      * @return the start of the search
-     * @throws NullError
+     * @throws NullError - throws exception
      */
     @Override
     public MazeState getStartState () throws NullError {
@@ -66,7 +66,7 @@ public class SearchableMaze implements ISearchable {
 
     /**
      * @return the goal of search
-     * @throws NullError
+     * @throws NullError - throws exception
      */
     @Override
     public MazeState getGoalState () throws NullError{
@@ -74,11 +74,11 @@ public class SearchableMaze implements ISearchable {
     }
 
     /**
+     * it returns an Array List of all the possible positions we can move to.
      * @param state-current state
-     * @returnall the neighbors of the state in the matrix
-     * @throws LowBoundInput
-     * @throws OutOfBoundMatrixInput
-     * @throws NullError
+     * @throws LowBoundInput - throws exception
+     * @throws OutOfBoundMatrixInput - throws exception
+     * @throws NullError - throws exception
      */
     @Override
     public ArrayList<AState> getAllSuccessors (AState state) throws LowBoundInput, OutOfBoundMatrixInput, NullError{
@@ -87,10 +87,9 @@ public class SearchableMaze implements ISearchable {
         if (state.equals(this.getStartState())) {
             this.initMatColor();
         }
-        ArrayList<AState> possibleMoves = new ArrayList<AState>();
+        ArrayList<AState> possibleMoves = new ArrayList<>();
         Position currPos = (Position) state.getValue();
         MazeState Mstate = new MazeState(state.getCost(), state.getCameFrom(), currPos);
-        //Mstate.setState("gray");
         int r = Mstate.getCurrPosition().getRowIndex();
         int c = Mstate.getCurrPosition().getColumnIndex();
 
@@ -132,7 +131,7 @@ public class SearchableMaze implements ISearchable {
      */
     public boolean isInsertedStateToList (ArrayList<AState> list, AState state, int r, int c, double cost) throws LowBoundInput, OutOfBoundMatrixInput, NullError {
         if (!adapterMaze.checkLegalCell(r, c)) {
-            if (adapterMaze.isContainZero(r, c) && visitRecord[r][c] == "white") {
+            if (adapterMaze.isContainZero(r, c) && visitRecord[r][c].equals("white")) {
                 insertStateToList(list, state, r, c, cost);
                 return true;
             }
@@ -149,7 +148,7 @@ public class SearchableMaze implements ISearchable {
      * @param c-index  of column of possible next state
      * @param cost-    weight of "edge" between "vertices"
      */
-    private void insertStateToList (ArrayList<AState> list, AState state, int r, int c, double cost) throws LowBoundInput, NullError {
+    private void insertStateToList (ArrayList<AState> list, AState state, int r, int c, double cost) throws  NullError {
         Position uPosition = new Position(r, c);
         AState newState = new MazeState(state.getCost() + cost, state, uPosition);
         costs[r][c] = state.getCost();

@@ -18,7 +18,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
     @Override
     public Solution solve (ISearchable iSearchable) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
         checkNull(iSearchable);
-        Stack<AState> myS = new Stack<AState>();
+        Stack<AState> myS = new Stack<>();
         AState start = iSearchable.getStartState();
         AState goal = iSearchable.getGoalState();
         myS.add(start);
@@ -29,9 +29,9 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             if (curr.equals(goal))
                 break;
             ArrayList<AState> adjList = iSearchable.getAllSuccessors(curr);
-            for (int i = 0; i < adjList.size(); i++) {
-                if (!adjList.get(i).equals(curr.getCameFrom()))
-                    myS.push(adjList.get(i));
+            for (AState aState : adjList) {
+                if (!aState.equals(curr.getCameFrom()))
+                    myS.push(aState);
             }
         }
         return new Solution(curr);

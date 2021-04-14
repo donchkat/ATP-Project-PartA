@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class BuildMazeTest {
     public static void main(String[] args) throws Exception {
         testTime();
-        testSolveability();
+        testSolveAbility();
         System.out.println("good job");
     }
 
@@ -26,36 +26,36 @@ public class BuildMazeTest {
                 long startTime = System.currentTimeMillis();
                 IMazeGenerator mg1 = new MyMazeGenerator();
                 Maze maze1 = mg1.generate(i, j);
-                SearchableMaze searchableMaze1 = new SearchableMaze(maze1);
+                SearchableMaze searchableMaze1 = new SearchableMaze(maze1); //NOT USING IT - WHY?
                 if(startTime-System.currentTimeMillis()>=60000)
                     System.out.println("bugbug");
             }
         }
     }
-    private static void testSolveability() throws Exception {
+    private static void testSolveAbility() throws Exception {
         for (int i = 100; i < 200; i++) {
             for (int j = 100; j < 200; j++) {
                 long startTime = System.currentTimeMillis();
                 IMazeGenerator mg1 = new MyMazeGenerator();
                 Maze maze1 = mg1.generate(i, j);
                 SearchableMaze searchableMaze1 = new SearchableMaze(maze1);
-                ArrayList<AState> x = mysolveProblem(searchableMaze1, new BreadthFirstSearch());
-                ArrayList<AState> y = mysolveProblem(searchableMaze1, new DepthFirstSearch());
-                ArrayList<AState> z = mysolveProblem(searchableMaze1, new BestFirstSearch());
+                ArrayList<AState> x = mySolveProblem(searchableMaze1, new BreadthFirstSearch());
+                ArrayList<AState> y = mySolveProblem(searchableMaze1, new DepthFirstSearch());
+                ArrayList<AState> z = mySolveProblem(searchableMaze1, new BestFirstSearch());
                 if (x.size()==0||y.size()==0||z.size()==0)
                     System.out.println("not solvable");
                 if(!x.get(0).equals(y.get(0))||!y.get(0).equals(z.get(0)))
                     System.out.println("bugbug start");
                 if(!x.get(x.size()-1).equals(y.get(y.size()-1))||!y.get(y.size()-1).equals(z.get(z.size()-1)))
                     System.out.println("bugbug end");
-                if(startTime-System.currentTimeMillis()>=60000)
+                if(startTime-System.currentTimeMillis()>=60000) //-WHY 60000?
                     throw new Exception("run out of time");
 
             }
         }
 
     }
-    private static ArrayList<AState> mysolveProblem (ISearchable domain, ISearchingAlgorithm searcher) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
+    private static ArrayList<AState> mySolveProblem (ISearchable domain, ISearchingAlgorithm searcher) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
         Solution solution = searcher.solve(domain);
         ArrayList<AState> solutionPath = solution.getSolutionPath();
         return solutionPath;
