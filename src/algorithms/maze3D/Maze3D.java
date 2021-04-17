@@ -73,37 +73,7 @@ public class Maze3D {
     /**
      * print the maze
      */
-    public void print () {
-        System.out.println("{ ");
-        for (int i = 0; i < this.matrix3D.length; i++) {
-            for (int j = 0; j < matrix3D[i].length; j++) {
-                System.out.print("{ ");
 
-                for (int k = 0; k < matrix3D[i][j].length; k++) {
-                    if (i == 0 && j == 0 && k == 0) {
-                        System.out.print('S' + " ");
-                        continue;
-                    }
-                    if (i == depth - 1 && j == rows - 1 && k == cols - 1) {
-                        System.out.print('E' + " ");
-                        continue;
-                    }
-                    System.out.print(this.matrix3D[i][j][k] + " ");
-                }
-                System.out.println("}\n");
-            }
-            if (i < depth - 1) {
-                for (int p = 0; p < (cols * 2) + 3; p++) {
-                    System.out.print("-");
-                }
-                System.out.print("\n");
-
-            }
-
-        }
-        System.out.println("}\n");
-
-    }
 
     public Position3D getStartPosition3D () {
         return startPosition3D;
@@ -140,37 +110,36 @@ public class Maze3D {
 
 
     //Rotem's print function
-    /**
-     * public void print(){
-     * 	System.out.println("{");
-     * 	for(int depth = 0; depth < map.length; depth++){
-     * 		for(int row = 0; row < map[0].length; row++) {
-     * 			System.out.print("{ ");
-     * 			for (int col = 0; col < map[0][0].length; col++) {
-     * 				if (depth == startPosition.getDepthIndex() && row == startPosition.getRowIndex() && col == startPosition.getColumnIndex()) // if the position is the start - mark with S
-     * 					System.out.print("S ");
-     * 				else {
-     * 					if (depth == goalPosition.getDepthIndex() && row == goalPosition.getRowIndex() && col == goalPosition.getColumnIndex()) // if the position is the goal - mark with E
-     * 						System.out.print("E ");
-     * 					else
-     * 						System.out.print(map[depth][row][col] + " ");
-     *                                }* 			}
-     * 			System.out.println("}");
-     *        }
-     * 		if(depth < map.length - 1) {
-     * 			System.out.print("---");
-     * 			for (int i = 0; i < map[0][0].length; i++)
-     * 				System.out.print("--");
-     * 			System.out.println();
-     *        }* 	}
-     * 	System.out.println("}");
-     * }
-     *
-     *
-     *
-     *
-     *
-     */
+
+      public void print(){
+      	System.out.println("{");
+      	for(int depth = 0; depth < matrix3D.length; depth++){
+      		for(int row = 0; row < matrix3D[0].length; row++) {
+      			System.out.print("{ ");
+      			for (int col = 0; col < matrix3D[0][0].length; col++) {
+      				if (depth == startPosition3D.getDepthIndex() && row == startPosition3D.getRowIndex() && col == startPosition3D.getColumnIndex()) // if the position is the start - mark with S
+      					System.out.print("S ");
+      				else {
+      					if (depth == goalPosition3D.getDepthIndex() && row == goalPosition3D.getRowIndex() && col == goalPosition3D.getColumnIndex()) // if the position is the goal - mark with E
+      						System.out.print("E ");
+      					else
+      						System.out.print(matrix3D[depth][row][col] + " ");
+                                     } 			}
+      			System.out.println("}");
+             }
+      		if(depth < matrix3D.length - 1) {
+      			System.out.print("---");
+      			for (int i = 0; i < matrix3D[0][0].length; i++)
+      				System.out.print("--");
+      			System.out.println();
+             } 	}
+      	System.out.println("}");
+      }
+
+
+
+
+
 
 
 }

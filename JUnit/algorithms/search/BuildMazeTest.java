@@ -50,7 +50,6 @@ public class BuildMazeTest {
                     System.out.println("bugbug end");
                 if(startTime-System.currentTimeMillis()>=60000) //-WHY 60000?
                     throw new Exception("run out of time");
-
             }
         }
 

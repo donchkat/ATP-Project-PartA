@@ -22,7 +22,6 @@ public class MyMazeGenerator extends AMazeGenerator {
         newMaze.setMatrix(onesMatrix(rows, cols));
         Stack pathStack = new Stack();
         Position currPos = new Position(0, 0);
-
         newMaze.setCellInMatrix(currPos.getRowIndex(), currPos.getColumnIndex(), 0); //marking as visited
         pathStack.push(currPos.copy());
         while (!pathStack.isEmpty()) {
@@ -31,7 +30,6 @@ public class MyMazeGenerator extends AMazeGenerator {
                 pathStack.push(currPos.copy());
             } else if (!pathStack.isEmpty())
                 currPos = (Position) pathStack.pop();
-
         }
         Position toGoal = new Position(newMaze.getRows() - 2, newMaze.getCols() - 2);
         if (isInGoalEnvironment(toGoal, newMaze))
@@ -137,10 +135,7 @@ public class MyMazeGenerator extends AMazeGenerator {
                     if (r - 2 < 0)
                         continue;
                     if (matrix[r - 2][c] != 0) {
-                        matrix[r - 2][c] = 0;
-                        matrix[r - 1][c] = 0;
-                        currPos.setRowIndex(r - 2);
-                        currPos.setColumnIndex(c);
+                        randomNeighborHelper(matrix,r-2,c,r-1,c,currPos);
                         return;
                     }
                     break;
@@ -148,10 +143,7 @@ public class MyMazeGenerator extends AMazeGenerator {
                     if (c + 2 > matrix[0].length - 1)
                         continue;
                     if (matrix[r][c + 2] != 0) {
-                        matrix[r][c + 2] = 0;
-                        matrix[r][c + 1] = 0;
-                        currPos.setRowIndex(r);
-                        currPos.setColumnIndex(c + 2);
+                        randomNeighborHelper(matrix,r,c+2,r,c+1,currPos);
                         return;
                     }
                     break;
@@ -159,10 +151,7 @@ public class MyMazeGenerator extends AMazeGenerator {
                     if (c - 2 < 0)
                         continue;
                     if (matrix[r][c - 2] != 0) {
-                        matrix[r][c - 2] = 0;
-                        matrix[r][c - 1] = 0;
-                        currPos.setRowIndex(r);
-                        currPos.setColumnIndex(c - 2);
+                        randomNeighborHelper(matrix,r,c-2,r,c-1,currPos);
                         return;
                     }
                     break;
@@ -170,17 +159,19 @@ public class MyMazeGenerator extends AMazeGenerator {
                     if (r + 2 > matrix.length - 1)
                         continue;
                     if (matrix[r + 2][c] != 0) {
-                        matrix[r + 2][c] = 0;
-                        matrix[r + 1][c] = 0;
-                        currPos.setRowIndex(r + 2);
-                        currPos.setColumnIndex(c);
+                        randomNeighborHelper(matrix,r+2,c,r+1,c,currPos);
                         return;
                     }
                     break;
             }
         }
     }
-
+    private void randomNeighborHelper(int[][] matrix, int r1, int c1, int r2, int c2, Position currPos) throws LowBoundInput {
+        matrix[r1][c1] = 0;
+        matrix[r2][c2] = 0;
+        currPos.setRowIndex(r1);
+        currPos.setColumnIndex(c1);
+    }
 
     /**
      * creates an array of numbers in not organized way

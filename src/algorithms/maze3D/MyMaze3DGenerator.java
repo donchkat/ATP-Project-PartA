@@ -1,6 +1,7 @@
 package algorithms.maze3D;
 
 import Errors.LowBoundInput;
+import algorithms.mazeGenerators.Position;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -92,7 +93,6 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         boolean downN = isOutOfRange(myMaze, new Position3D(d, r + 2, c));
         boolean insideN = isOutOfRange(myMaze, new Position3D(d + 2, r, c));
         boolean outsideN = isOutOfRange(myMaze, new Position3D(d - 2, r, c));
-
         //only the in range neighbors are checked for their value
         if (leftN) {
             leftN = false;
@@ -127,6 +127,14 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         return leftN || rightN || upN || downN || insideN || outsideN;
     }
 
+    private void randomNeighborHelper(int[][][] matrix,int d1,int d2 ,int r1, int c1, int r2, int c2, Position3D currPos) throws LowBoundInput {
+        matrix[d1][r1][c1] = 0;
+        matrix[d2][r2][c2] = 0;
+        currPos.setDepth(d1);
+        currPos.setRowIndex(r1);
+        currPos.setColumnIndex(c1);
+    }
+
     /**
      * this function chooses to which possible neighbor to go.
      * it breaks the wall between them and puts 0 inside.
@@ -149,11 +157,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     if (r - 2 < 0)
                         continue;
                     if (matrix[d][r - 2][c] != 0) {
-                        matrix[d][r - 2][c] = 0;
-                        matrix[d][r - 1][c] = 0;
-                        currPos.setDepth(d);
-                        currPos.setRowIndex(r - 2);
-                        currPos.setColumnIndex(c);
+                        randomNeighborHelper(matrix,d,d ,r-2,c,r-1,c,currPos);
                         return;
                     }
                     break;
@@ -161,11 +165,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     if (c + 2 > matrix[0][0].length - 1)
                         continue;
                     if (matrix[d][r][c + 2] != 0) {
-                        matrix[d][r][c + 2] = 0;
-                        matrix[d][r][c + 1] = 0;
-                        currPos.setRowIndex(d);
-                        currPos.setRowIndex(r);
-                        currPos.setColumnIndex(c + 2);
+                        randomNeighborHelper(matrix,d,d ,r,c+2,r,c+1,currPos);
                         return;
                     }
                     break;
@@ -173,11 +173,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     if (c - 2 < 0)
                         continue;
                     if (matrix[d][r][c - 2] != 0) {
-                        matrix[d][r][c - 2] = 0;
-                        matrix[d][r][c - 1] = 0;
-                        currPos.setDepth(d);
-                        currPos.setRowIndex(r);
-                        currPos.setColumnIndex(c - 2);
+                        randomNeighborHelper(matrix,d,d ,r,c-2,r,c-1,currPos);
                         return;
                     }
                     break;
@@ -185,11 +181,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     if (r + 2 > matrix[0].length - 1)
                         continue;
                     if (matrix[d][r + 2][c] != 0) {
-                        matrix[d][r + 2][c] = 0;
-                        matrix[d][r + 1][c] = 0;
-                        currPos.setDepth(d);
-                        currPos.setRowIndex(r + 2);
-                        currPos.setColumnIndex(c);
+                        randomNeighborHelper(matrix,d,d ,r+2,c,r+1,c,currPos);
                         return;
                     }
                     break;
@@ -198,11 +190,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                         continue;
 
                     if (matrix[d + 2][r][c] != 0) {
-                        matrix[d + 2][r][c] = 0;
-                        matrix[d + 1][r][c] = 0;
-                        currPos.setDepth(d + 2);
-                        currPos.setRowIndex(r);
-                        currPos.setColumnIndex(c);
+                        randomNeighborHelper(matrix,d+2,d+1 ,r,c,r,c,currPos);
                         return;
                     }
                     break;
@@ -210,11 +198,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     if (d - 2 < 0)
                         continue;
                     if (matrix[d - 2][r][c] != 0) {
-                        matrix[d - 2][r][c] = 0;
-                        matrix[d - 1][r][c] = 0;
-                        currPos.setDepth(d - 2);
-                        currPos.setRowIndex(r);
-                        currPos.setColumnIndex(c);
+                        randomNeighborHelper(matrix,d-2,d-1 ,r,c,r,c,currPos);
                         return;
                     }
                     break;

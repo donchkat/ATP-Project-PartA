@@ -28,6 +28,9 @@ class BestFirstSearchTest {
     System.out.println("good job!");
     }
 
+
+
+    //
     private static void CheckTotalTime() throws LowBoundInput, NullError, OutOfBoundMatrixInput {
         for(int i=1000;i<1050;i++) {
            long startTime=System.currentTimeMillis();

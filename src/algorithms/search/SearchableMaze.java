@@ -82,11 +82,8 @@ public class SearchableMaze implements ISearchable {
      */
     @Override
     public ArrayList<AState> getAllSuccessors (AState state) throws LowBoundInput, OutOfBoundMatrixInput, NullError{
-        if (state == null)
-            return null;
-        if (state.equals(this.getStartState())) {
-            this.initMatColor();
-        }
+        if (state == null) return null;
+        if (state.equals(this.getStartState())) { this.initMatColor(); }
         ArrayList<AState> possibleMoves = new ArrayList<>();
         Position currPos = (Position) state.getValue();
         MazeState Mstate = new MazeState(state.getCost(), state.getCameFrom(), currPos);
@@ -104,17 +101,13 @@ public class SearchableMaze implements ISearchable {
         boolean leftCell = isInsertedStateToList(possibleMoves, Mstate, r, c - 1, 10);
 
         //DOWNRIGHT
-        if (rightCell || downCell)
-            isInsertedStateToList(possibleMoves, Mstate, r + 1, c + 1, 15);
+        if (rightCell || downCell) isInsertedStateToList(possibleMoves, Mstate, r + 1, c + 1, 15);
         //DOWNLEFT
-        if (downCell || leftCell)
-            isInsertedStateToList(possibleMoves, Mstate, r + 1, c - 1, 15);
+        if (downCell || leftCell) isInsertedStateToList(possibleMoves, Mstate, r + 1, c - 1, 15);
         //rightup
-        if (upCell || rightCell)
-            isInsertedStateToList(possibleMoves, Mstate, r - 1, c + 1, 15);
+        if (upCell || rightCell) isInsertedStateToList(possibleMoves, Mstate, r - 1, c + 1, 15);
         //leftUp
-        if (upCell || leftCell)
-            isInsertedStateToList(possibleMoves, Mstate, r - 1, c - 1, 15);
+        if (upCell || leftCell) isInsertedStateToList(possibleMoves, Mstate, r - 1, c - 1, 15);
         return possibleMoves;
     }
 
