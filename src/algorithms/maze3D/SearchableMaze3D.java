@@ -60,7 +60,7 @@ public class SearchableMaze3D implements ISearchable {
      */
     @Override
     public Maze3DState getStartState () throws NullError {
-        return new Maze3DState(0, null, adapterMaze.getStartPosition3D());
+        return new Maze3DState(0, null, adapterMaze.getStartPosition());
     }
 
     /**
@@ -68,7 +68,7 @@ public class SearchableMaze3D implements ISearchable {
      */
     @Override
     public Maze3DState getGoalState () throws NullError {
-        return new Maze3DState(Integer.MAX_VALUE, null, adapterMaze.getGoalPosition3D());
+        return new Maze3DState(Integer.MAX_VALUE, null, adapterMaze.getGoalPosition());
     }
 
     /**
@@ -77,7 +77,7 @@ public class SearchableMaze3D implements ISearchable {
      * @return Array list of states that are possible to move to from the current state.
      */
     @Override
-    public ArrayList<AState> getAllSuccessors (AState state) throws NullError, LowBoundInput {
+    public ArrayList<AState> getAllSuccessors (AState state) throws NullError{
         if (state == null)
             return null;
         if (state.equals(this.getStartState())) {
@@ -118,7 +118,7 @@ public class SearchableMaze3D implements ISearchable {
      * @param cost-    weight of "edge" between "vertices"
      * @return true if new state is inserted, else false
      */
-    public boolean isInsertedStateToList (ArrayList<AState> list, AState state, int d, int r, int c, double cost) throws NullError, LowBoundInput {
+    public boolean isInsertedStateToList (ArrayList<AState> list, AState state, int d, int r, int c, double cost) throws NullError {
         if (!adapterMaze.checkLegalCell(d, r, c)) {
             if (adapterMaze.isContainZero(d, r, c) && visitRecord[d][r][c].equals("white")) {
                 insertStateToList(list, state, d, r, c, cost);
@@ -137,7 +137,7 @@ public class SearchableMaze3D implements ISearchable {
      * @param c-index  of column of possible next state
      * @param cost-    weight of "edge" between "vertices"
      */
-    private void insertStateToList (ArrayList<AState> list, AState state, int d, int r, int c, double cost) throws NullError, LowBoundInput {
+    private void insertStateToList (ArrayList<AState> list, AState state, int d, int r, int c, double cost) throws NullError {
         Position3D newPos = new Position3D(d, r, c);
         AState newState = new Maze3DState(state.getCost() + cost, state, newPos);
         costs[d][r][c] = state.getCost();

@@ -16,6 +16,20 @@ public class Maze {
     private int cols;
     private int[][] matrix;
 
+    /**
+     * @return the start position of the maze
+     */
+    public Position getStartPosition () {
+        return startPosition;
+    }
+
+    /**
+     * @return the end position of the maze
+     */
+    public Position getGoalPosition () {
+        return goalPosition;
+    }
+
 
     public void setRows (int rows) {
         this.rows = rows;
@@ -27,13 +41,6 @@ public class Maze {
         return matrix;
     }
 
-    public void setStartPosition (Position startPosition) {
-        this.startPosition = startPosition;
-    }
-
-    public void setGoalPosition (Position goalPosition) {
-        this.goalPosition = goalPosition;
-    }
 
     public void setMatrix (int[][] matrix) {
         this.matrix = matrix;
@@ -92,20 +99,6 @@ public class Maze {
             }
             System.out.println("} \n");
         }
-    }
-
-    /**
-     * @return the start position of the maze
-     */
-    public Position getStartPosition () {
-        return startPosition;
-    }
-
-    /**
-     * @return the end position of the maze
-     */
-    public Position getGoalPosition () {
-        return goalPosition;
     }
 
     /**

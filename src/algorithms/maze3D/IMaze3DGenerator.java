@@ -8,5 +8,6 @@ import Errors.LowBoundInput;
 public interface IMaze3DGenerator {
 
     Maze3D generate (int depth, int rows, int cols) throws LowBoundInput;
+
     long measureAlgorithmTimeMillis (int depth, int row, int column) throws LowBoundInput;
 }

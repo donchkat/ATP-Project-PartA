@@ -8,14 +8,18 @@ import algorithms.maze3D.Maze3D;
 import algorithms.maze3D.MyMaze3DGenerator;
 import algorithms.maze3D.SearchableMaze3D;
 import algorithms.search.*;
+
 import java.util.ArrayList;
 
+/**
+ * testing the searching algorithms on 3D maze
+ */
 public class RunSearchOnMaze3D {
     public static void main (String[] args) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
         IMaze3DGenerator mg = new MyMaze3DGenerator();
 
-        for (int i = 0; i < 1000; i++) {
-            Maze3D maze = mg.generate(3, 10,10);
+        for (int i = 0; i < 100; i++) {
+            Maze3D maze = mg.generate(3, 5, 5);
             maze.print();
             SearchableMaze3D searchableMaze = new SearchableMaze3D(maze);
             solveProblem3D(searchableMaze, new BreadthFirstSearch());

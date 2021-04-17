@@ -1,5 +1,4 @@
 package algorithms.search;
-import Errors.NullError;
 
 import  java.util.Comparator;
 

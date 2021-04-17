@@ -11,10 +11,13 @@ import algorithms.search.*;
 
 import java.util.ArrayList;
 
+/**
+ * testing searching algorithms on 2D maze
+ */
 public class RunSearchOnMaze {
     public static void main (String[] args) throws LowBoundInput, NullError, OutOfBoundMatrixInput {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(10, 10);
+        Maze maze = mg.generate(30, 30);
       /*  int[][] mat = new int[][]{
                 {1,0,0,0,0,0,1,0,0,0,0,0,0,1,1},
                 {1,1,1,1,1,0,0,0,1,1,1,1,1,1,0},
@@ -54,7 +57,6 @@ public class RunSearchOnMaze {
          **/
     }
 
-
     private static void solveProblem (ISearchable domain, ISearchingAlgorithm searcher) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
 //Solve a searching problem with a searcher
         Solution solution = searcher.solve(domain);
@@ -63,25 +65,21 @@ public class RunSearchOnMaze {
         System.out.println("Solution path:");
         ArrayList<AState> solutionPath = solution.getSolutionPath();
         for (int i = 0; i < solutionPath.size(); i++) {
-            System.out.println(String.format("%s. %s, cost:%s", i, solutionPath.get(i),solutionPath.get(i).getCost()));
+            System.out.println(String.format("%s. %s, cost:%s", i, solutionPath.get(i), solutionPath.get(i).getCost()));
         }
-
-
     }
 
     private static int mysolveProblem (ISearchable domain, ISearchingAlgorithm searcher) throws NullError, LowBoundInput, OutOfBoundMatrixInput {
-//Solve a searching problem with a searcher
+        //Solve a searching problem with a searcher
         Solution solution = searcher.solve(domain);
-        //  System.out.println(String.format("'%s' algorithm - nodes evaluated: %s", searcher.getName(), searcher.getNumberOfNodesEvaluated()));
-//Printing Solution Path
-        //System.out.println("Solution path:");
+        System.out.println(String.format("'%s' algorithm - nodes evaluated: %s", searcher.getName(), searcher.getNumberOfNodesEvaluated()));
+        //Printing Solution Path
+        System.out.println("Solution path:");
         ArrayList<AState> solutionPath = solution.getSolutionPath();
         return solutionPath.size();
         /***    for (int i = 0; i < solutionPath.size(); i++) {
          System.out.println(String.format("%s %s",i,solutionPath.get(i)));
          }
          ***/
-
-
     }
 }

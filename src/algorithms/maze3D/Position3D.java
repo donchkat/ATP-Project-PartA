@@ -25,8 +25,8 @@ public class Position3D {
 
     /**
      * compares two positions
-     * @param o
-     * @returntrue if they have same coordinates else false
+     * @param o - the object itself
+     * @return true if they have same coordinates else false
      */
     @Override
     public boolean equals (Object o) {
@@ -44,9 +44,8 @@ public class Position3D {
         return "{" + depth + "," + row + "," + col + '}';
     }
 
-    public Position3D copy () throws LowBoundInput {
-        Position3D copyPos = new Position3D(this.depth, this.row, this.col);
-        return copyPos;
+    public Position3D copy () {
+        return new Position3D(this.depth, this.row, this.col);
     }
 
     /**

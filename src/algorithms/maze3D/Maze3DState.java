@@ -10,24 +10,25 @@ public class Maze3DState extends AState {
 
     /**
      * create new Maze3D state
-     * @param cost
-     * @param cameFrom
-     * @param value
-     * @throws NullError
+     *
+     * @param cost - cost so far of the path
+     * @param cameFrom - the cell we came from
+     * @param value - the cell itself object
+     * @throws NullError - exception
      */
     public Maze3DState (double cost, AState cameFrom, Position3D value) throws NullError {
         super();
-        if(value == null)
+        if (value == null)
             throw new NullError();
         this.cameFrom = cameFrom;
         this.cost = cost;
-        this.value=value;
+        this.value = value;
     }
 
     /**
      * @return 3D Position of curr state
      */
-    public Position3D getPosition3D(){
+    public Position3D getPosition3D () {
         return (Position3D) this.value;
     }
 

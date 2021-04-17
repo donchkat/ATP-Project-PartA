@@ -1,8 +1,6 @@
 package algorithms.maze3D;
 
 import Errors.LowBoundInput;
-import algorithms.mazeGenerators.Position;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -27,34 +25,33 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         Stack<Position3D> pathStack = new Stack<>();
         Position3D currPos = new Position3D(0, 0, 0);
 
-        newMaze.setCellInMatrix3D(currPos.getDepthIndex(),currPos.getRowIndex() ,currPos.getColumnIndex() ,0 ); //marking as visited
+        newMaze.setCellInMatrix3D(currPos.getDepthIndex(), currPos.getRowIndex(), currPos.getColumnIndex(), 0); //marking as visited
         pathStack.push(currPos.copy());
         while (!pathStack.isEmpty()) {
             if (checkNeighbors(newMaze, currPos)) {
-                randomNeighbor(newMaze.getMatrix3D(), currPos);
+                randomNeighbor(newMaze.getMap(), currPos);
                 pathStack.push(currPos.copy());
-            }
-            else if (!pathStack.isEmpty())
-                currPos =pathStack.pop();
+            } else if (!pathStack.isEmpty())
+                currPos = pathStack.pop();
         }
         Position3D toGoal = new Position3D(newMaze.getDepth() - 2, newMaze.getRows() - 2, newMaze.getCols() - 2);
         if (isInGoalEnvironment(toGoal, newMaze))
-            zeroPathToGoal( newMaze);
+            zeroPathToGoal(newMaze);
         return newMaze;
     }
 
     /**
+     * select randomly path from the closest position to the end position and build it on the matrix
      *
-     *select randomly path from the closest position to the end position and build it on the matrix
-     * @param myMaze  - the 3D maze we generate
+     * @param myMaze - the 3D maze we generate
      */
-    private void zeroPathToGoal ( Maze3D myMaze) {
-        myMaze.setCellInMatrix3D(myMaze.getDepth() - 1,myMaze.getRows() - 1,myMaze.getCols() - 1, 0 );
-        myMaze.setCellInMatrix3D(myMaze.getDepth() - 1, myMaze.getRows() - 2, myMaze.getCols() - 2, 0 );
+    private void zeroPathToGoal (Maze3D myMaze) {
+        myMaze.setCellInMatrix3D(myMaze.getDepth() - 1, myMaze.getRows() - 1, myMaze.getCols() - 1, 0);
+        myMaze.setCellInMatrix3D(myMaze.getDepth() - 1, myMaze.getRows() - 2, myMaze.getCols() - 2, 0);
         Random rnd = new Random();
         int num = rnd.nextInt(10);
         if (num % 2 != 0)
-            myMaze.setCellInMatrix3D(myMaze.getDepth() - 1,myMaze.getRows() - 1, myMaze.getCols() - 2, 0 );
+            myMaze.setCellInMatrix3D(myMaze.getDepth() - 1, myMaze.getRows() - 1, myMaze.getCols() - 2, 0);
         else
             myMaze.setCellInMatrix3D(myMaze.getDepth() - 1, myMaze.getRows() - 2, myMaze.getCols() - 1, 0);
     }
@@ -67,9 +64,9 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
      * @return True - we are a step or two from the goal (myMaze[d][r][c]) ,else False)
      */
     private boolean isInGoalEnvironment (Position3D currPos, Maze3D myMaze) {
-        int goalDepthIndex = myMaze.getGoalPosition3D().getDepthIndex() - 1;
-        int goalRowIndex = myMaze.getGoalPosition3D().getRowIndex() - 1;
-        int goalColIndex = myMaze.getGoalPosition3D().getColumnIndex() - 1;
+        int goalDepthIndex = myMaze.getGoalPosition().getDepthIndex() - 1;
+        int goalRowIndex = myMaze.getGoalPosition().getRowIndex() - 1;
+        int goalColIndex = myMaze.getGoalPosition().getColumnIndex() - 1;
         return goalDepthIndex <= currPos.getDepthIndex() || goalRowIndex <= currPos.getRowIndex() ||
                 goalColIndex <= currPos.getColumnIndex();
     }
@@ -97,53 +94,55 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         if (leftN) {
             leftN = false;
         } else {
-            leftN = (myMaze.getMatrix3D()[d][r][c - 2] == 1);
+            leftN = (myMaze.getMap()[d][r][c - 2] == 1);
         }
         if (rightN) {
             rightN = false;
         } else {
-            rightN = (myMaze.getMatrix3D()[d][r][c + 2] == 1);
+            rightN = (myMaze.getMap()[d][r][c + 2] == 1);
         }
         if (upN) {
             upN = false;
         } else {
-            upN = (myMaze.getMatrix3D()[d][r - 2][c] == 1);
+            upN = (myMaze.getMap()[d][r - 2][c] == 1);
         }
         if (downN) {
             downN = false;
         } else {
-            downN = (myMaze.getMatrix3D()[d][r + 2][c] == 1);
+            downN = (myMaze.getMap()[d][r + 2][c] == 1);
         }
         if (insideN) {
             insideN = false;
         } else {
-            insideN = (myMaze.getMatrix3D()[d+2][r][c] == 1);
+            insideN = (myMaze.getMap()[d + 2][r][c] == 1);
         }
         if (outsideN) {
             outsideN = false;
         } else {
-            outsideN = (myMaze.getMatrix3D()[d-2][r][c] == 1);
+            outsideN = (myMaze.getMap()[d - 2][r][c] == 1);
         }
         return leftN || rightN || upN || downN || insideN || outsideN;
     }
+
     /**
      * the function "breaks" wall between current cell and neighbor and moves to the neighbor
-     * @param matrix-matix of the maze
-     * @param r1-cell behind the wall row index
-     * @param d1-cell behind the wall depth index
-     * @param c1-cell behind the wall column index
-     * @param r2-wall row index
-     * @param d2-wall depth index
-     * @param c2-wall column index
+     *
+     * @param matrix-matix    of the maze
+     * @param rN-cell         behind the wall row index
+     * @param dN-cell         behind the wall depth index
+     * @param cN-cell         behind the wall column index
+     * @param rW-wall         row index
+     * @param dW-wall         depth index
+     * @param cW-wall         column index
      * @param currPos-current cell
-     * @throws LowBoundInput
+     * @throws LowBoundInput - exception
      */
-    private void randomNeighborHelper(int[][][] matrix,int d1,int d2 ,int r1, int c1, int r2, int c2, Position3D currPos) throws LowBoundInput {
-        matrix[d1][r1][c1] = 0;
-        matrix[d2][r2][c2] = 0;
-        currPos.setDepth(d1);
-        currPos.setRowIndex(r1);
-        currPos.setColumnIndex(c1);
+    private void randomNeighborHelper (int[][][] matrix, int dN, int dW, int rN, int cN, int rW, int cW, Position3D currPos) throws LowBoundInput {
+        matrix[dN][rN][cN] = 0;
+        matrix[dW][rW][cW] = 0;
+        currPos.setDepth(dN);
+        currPos.setRowIndex(rN);
+        currPos.setColumnIndex(cN);
     }
 
     /**
@@ -168,7 +167,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     if (r - 2 < 0)
                         continue;
                     if (matrix[d][r - 2][c] != 0) {
-                        randomNeighborHelper(matrix,d,d ,r-2,c,r-1,c,currPos);
+                        randomNeighborHelper(matrix, d, d, r - 2, c, r - 1, c, currPos);
                         return;
                     }
                     break;
@@ -176,7 +175,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     if (c + 2 > matrix[0][0].length - 1)
                         continue;
                     if (matrix[d][r][c + 2] != 0) {
-                        randomNeighborHelper(matrix,d,d ,r,c+2,r,c+1,currPos);
+                        randomNeighborHelper(matrix, d, d, r, c + 2, r, c + 1, currPos);
                         return;
                     }
                     break;
@@ -184,7 +183,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     if (c - 2 < 0)
                         continue;
                     if (matrix[d][r][c - 2] != 0) {
-                        randomNeighborHelper(matrix,d,d ,r,c-2,r,c-1,currPos);
+                        randomNeighborHelper(matrix, d, d, r, c - 2, r, c - 1, currPos);
                         return;
                     }
                     break;
@@ -192,7 +191,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     if (r + 2 > matrix[0].length - 1)
                         continue;
                     if (matrix[d][r + 2][c] != 0) {
-                        randomNeighborHelper(matrix,d,d ,r+2,c,r+1,c,currPos);
+                        randomNeighborHelper(matrix, d, d, r + 2, c, r + 1, c, currPos);
                         return;
                     }
                     break;
@@ -201,7 +200,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                         continue;
 
                     if (matrix[d + 2][r][c] != 0) {
-                        randomNeighborHelper(matrix,d+2,d+1 ,r,c,r,c,currPos);
+                        randomNeighborHelper(matrix, d + 2, d + 1, r, c, r, c, currPos);
                         return;
                     }
                     break;
@@ -209,7 +208,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     if (d - 2 < 0)
                         continue;
                     if (matrix[d - 2][r][c] != 0) {
-                        randomNeighborHelper(matrix,d-2,d-1 ,r,c,r,c,currPos);
+                        randomNeighborHelper(matrix, d - 2, d - 1, r, c, r, c, currPos);
                         return;
                     }
                     break;
@@ -240,7 +239,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
      * @return true if this neighbor is not in range.
      */
     private boolean isOutOfRange (Maze3D myMaze, Position3D optionalPos) {
-        return myMaze.checkLegalCell(optionalPos.getDepthIndex(),optionalPos.getRowIndex(),optionalPos.getColumnIndex());
+        return myMaze.checkLegalCell(optionalPos.getDepthIndex(), optionalPos.getRowIndex(), optionalPos.getColumnIndex());
     }
 
     /**
@@ -256,10 +255,10 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         for (int i = 0; i < depth; i++) {
             for (int j = 0; j < rows; j++) {
                 for (int k = 0; k < cols; k++) {
-                    newEmptyMaze.setCellInMatrix3D(i,j,k,1);
+                    newEmptyMaze.setCellInMatrix3D(i, j, k, 1);
                 }
             }
         }
-        return newEmptyMaze.getMatrix3D();
+        return newEmptyMaze.getMap();
     }
 }

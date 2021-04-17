@@ -170,18 +170,18 @@ public class MyMazeGenerator extends AMazeGenerator {
     /**
      * the function "breaks" wall between current cell and neighbor and moves to the neighbor
      * @param matrix-matix of the maze
-     * @param r1-cell behind the wall row index
-     * @param c1-cell behind the wall column index
-     * @param r2-wall row index
-     * @param c2-wall column index
+     * @param rN-cell behind the wall row index
+     * @param cN-cell behind the wall column index
+     * @param rW-wall row index
+     * @param cW-wall column index
      * @param currPos-current cell
-     * @throws LowBoundInput
+     * @throws LowBoundInput - exception
      */
-    private void randomNeighborHelper(int[][] matrix, int r1, int c1, int r2, int c2, Position currPos) throws LowBoundInput {
-        matrix[r1][c1] = 0;
-        matrix[r2][c2] = 0;
-        currPos.setRowIndex(r1);
-        currPos.setColumnIndex(c1);
+    private void randomNeighborHelper(int[][] matrix, int rN, int cN, int rW, int cW, Position currPos) throws LowBoundInput {
+        matrix[rN][cN] = 0;
+        matrix[rW][cW] = 0;
+        currPos.setRowIndex(rN);
+        currPos.setColumnIndex(cN);
     }
 
     /**

@@ -13,5 +13,5 @@ public interface ISearchingAlgorithm {
 
     String getName ();
 
-    int getNumberOfNodesEvaluated ();
+    int getNumberOfNodesEvaluated();
 }

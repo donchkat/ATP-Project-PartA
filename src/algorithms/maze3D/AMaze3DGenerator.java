@@ -10,15 +10,16 @@ import Errors.LowBoundInput;
 public abstract class AMaze3DGenerator implements IMaze3DGenerator {
     /**
      * checks the time it takes to build a 3D maze.
+     *
      * @param depth - the depth of the 3D maze
-     * @param rows - the number of rows in the maze
-     * @param cols - the number of columns in the maze
+     * @param row  - the number of rows in the maze
+     * @param column  - the number of columns in the maze
      * @return - the time it took to generate the maze(in millis)
      */
     @Override
-    public long measureAlgorithmTimeMillis (int depth, int rows, int cols) throws LowBoundInput {
+    public long measureAlgorithmTimeMillis (int depth, int row, int column) throws LowBoundInput {
         long startTime = System.currentTimeMillis();
-        this.generate(depth, rows, cols);
+        this.generate(depth, row, column);
         long finishTime = System.currentTimeMillis();
         return finishTime - startTime;
     }
@@ -27,5 +28,5 @@ public abstract class AMaze3DGenerator implements IMaze3DGenerator {
      * an abstract function - builds and returns a 3D maze.
      */
     @Override
-    public abstract Maze3D generate(int depth, int row, int column) throws LowBoundInput;
+    public abstract Maze3D generate (int depth, int row, int column) throws LowBoundInput;
 }
