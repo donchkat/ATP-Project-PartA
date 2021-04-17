@@ -166,6 +166,17 @@ public class MyMazeGenerator extends AMazeGenerator {
             }
         }
     }
+
+    /**
+     * the function "breaks" wall between current cell and neighbor and moves to the neighbor
+     * @param matrix-matix of the maze
+     * @param r1-cell behind the wall row index
+     * @param c1-cell behind the wall column index
+     * @param r2-wall row index
+     * @param c2-wall column index
+     * @param currPos-current cell
+     * @throws LowBoundInput
+     */
     private void randomNeighborHelper(int[][] matrix, int r1, int c1, int r2, int c2, Position currPos) throws LowBoundInput {
         matrix[r1][c1] = 0;
         matrix[r2][c2] = 0;

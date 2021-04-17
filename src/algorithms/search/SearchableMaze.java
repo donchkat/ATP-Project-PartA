@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class SearchableMaze implements ISearchable {
     private Maze adapterMaze;
     private String[][] visitRecord;
-    private double[][] costs; // DO WE NEED THIS?
+    private double[][] costs;
 
 
     /**

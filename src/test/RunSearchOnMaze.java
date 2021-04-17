@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class RunSearchOnMaze {
     public static void main (String[] args) throws LowBoundInput, NullError, OutOfBoundMatrixInput {
-        //IMazeGenerator mg = new MyMazeGenerator();
-        //Maze maze = mg.generate(10, 10);
-        int[][] mat = new int[][]{
+        IMazeGenerator mg = new MyMazeGenerator();
+        Maze maze = mg.generate(10, 10);
+      /*  int[][] mat = new int[][]{
                 {1,0,0,0,0,0,1,0,0,0,0,0,0,1,1},
                 {1,1,1,1,1,0,0,0,1,1,1,1,1,1,0},
                 {0,1,1,1,1,1,1,0,0,0,0,0,0,0,0},
@@ -31,7 +31,7 @@ public class RunSearchOnMaze {
         maze.setMatrix(mat);
         maze.setGoalPosition(new Position(7,0));
         maze.setStartPosition(new Position(2,14));
-        maze.print();
+        maze.print();*/
         SearchableMaze searchableMaze = new SearchableMaze(maze);
 
         solveProblem(searchableMaze, new BreadthFirstSearch());

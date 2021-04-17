@@ -126,7 +126,18 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         }
         return leftN || rightN || upN || downN || insideN || outsideN;
     }
-
+    /**
+     * the function "breaks" wall between current cell and neighbor and moves to the neighbor
+     * @param matrix-matix of the maze
+     * @param r1-cell behind the wall row index
+     * @param d1-cell behind the wall depth index
+     * @param c1-cell behind the wall column index
+     * @param r2-wall row index
+     * @param d2-wall depth index
+     * @param c2-wall column index
+     * @param currPos-current cell
+     * @throws LowBoundInput
+     */
     private void randomNeighborHelper(int[][][] matrix,int d1,int d2 ,int r1, int c1, int r2, int c2, Position3D currPos) throws LowBoundInput {
         matrix[d1][r1][c1] = 0;
         matrix[d2][r2][c2] = 0;

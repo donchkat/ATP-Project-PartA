@@ -88,7 +88,7 @@ public class SearchableMaze3D implements ISearchable {
         ArrayList<AState> possibleMoves = new ArrayList<AState>();
         Position3D currPos = (Position3D) state.getValue();
         Maze3DState Mstate = new Maze3DState(state.getCost(), state.getCameFrom(), currPos);
-        //Mstate.setState("gray");
+
         int d = Mstate.getPosition3D().getDepthIndex();
         int r = Mstate.getPosition3D().getRowIndex();
         int c = Mstate.getPosition3D().getColumnIndex();

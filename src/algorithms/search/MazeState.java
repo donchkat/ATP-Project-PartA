@@ -16,7 +16,7 @@ public class MazeState extends AState{
     }
 
     /**
-     * @param cost - the cost we gained so far. ???????????????
+     * @param cost - the cost we gained so far.
      * @param cameFrom - it's father
      * @param currPosition - the current position we are at.
      */
