@@ -16,6 +16,9 @@ public class Maze {
     private int cols;
     private int[][] matrix;
 
+    public Maze(byte[] savedMazeBytes) {
+    }
+
     /**
      * @return the start position of the maze
      */
@@ -135,4 +138,57 @@ public class Maze {
         this.matrix[row][col] = value;
     }
 
+
+    /**
+     * @return returns a compressed maze that contains the number of rows in bytes and the content of the maze
+     * @throws Exception
+     */
+    public byte[] toByteArray() throws Exception {
+        //HERE WE WANT TO USE EACH BIT IN THE BITE AND WE NEED TO FIND A WAY HOW TO USE IT WE CAN SAVE 8 TIMES CELLS WITH THIS
+        int sizeofarr=SizeOfRowToByte();
+        byte[] buffer= new byte[sizeofarr+this.rows*this.cols+1];
+        fillBufferWithRowsNumber(buffer,sizeofarr);
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                if(this.matrix[i][j]==0)
+                   buffer[i+j+sizeofarr]=0;
+                else
+                    buffer[i+j+sizeofarr]=1;
+            }
+        }
+        return buffer;
+    }
+
+    /**
+     * @param buffer- the byte[] that will contain the nuber of rows+the maze capacity
+     * @param sizeofarr
+     */
+    private void fillBufferWithRowsNumber(byte[] buffer, int sizeofarr) {
+        int numofrows=this.rows;
+        int i;
+        for ( i = 0; i < sizeofarr-1; i++) {
+            if(numofrows<=255)
+               buffer[i]=(byte) numofrows;
+            else {
+                buffer[i] = (byte) 255;
+                numofrows -= 255;
+            }
+        }
+        buffer[i]=(byte)sizeofarr;
+    }
+
+    /**
+     * @return the number of 255's that the rows contains in bytes
+     */
+    private int SizeOfRowToByte() {
+        int sizeofarr=1;
+        int rows=this.rows;
+        while(rows!=0){
+            if(rows>255) {
+                sizeofarr++;
+            }
+            rows -= 255;
+        }
+        return sizeofarr;
+    }
 }

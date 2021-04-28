@@ -18,7 +18,7 @@ public class RunMazeGenerator {
     private static void testMazeGenerator (IMazeGenerator mazeGenerator) throws LowBoundInput, NullError {
         System.out.println(String.format("Maze generation time(ms): %s", mazeGenerator.measureAlgorithmTimeMillis(1000/*rows*/, 1000/*columns*/)));
 // generate another maze
-        Maze maze = mazeGenerator.generate(6/*rows*/, 6/*columns*/);
+        Maze maze = mazeGenerator.generate(6/*rows*/, 36/*columns*/);
 // prints the maze
         maze.print();
 // get the maze entrance
