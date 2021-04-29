@@ -151,9 +151,9 @@ public class Maze {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
                 if(this.matrix[i][j]==0)
-                   buffer[i+j+sizeofarr]=0;
+                   buffer[i+j+sizeofarr+1]=0;
                 else
-                    buffer[i+j+sizeofarr]=1;
+                    buffer[i+j+sizeofarr+1]=1;
             }
         }
         return buffer;
@@ -166,7 +166,7 @@ public class Maze {
     private void fillBufferWithRowsNumber(byte[] buffer, int sizeofarr) {
         int numofrows=this.rows;
         int i;
-        for ( i = 0; i < sizeofarr-1; i++) {
+        for ( i = 1; i < sizeofarr+1; i++) {
             if(numofrows<=255)
                buffer[i]=(byte) numofrows;
             else {
@@ -174,7 +174,7 @@ public class Maze {
                 numofrows -= 255;
             }
         }
-        buffer[i]=(byte)sizeofarr;
+        buffer[0]=(byte)sizeofarr;
     }
 
     /**
@@ -183,7 +183,7 @@ public class Maze {
     private int SizeOfRowToByte() {
         int sizeofarr=1;
         int rows=this.rows;
-        while(rows!=0){
+        while(rows>0){
             if(rows>255) {
                 sizeofarr++;
             }

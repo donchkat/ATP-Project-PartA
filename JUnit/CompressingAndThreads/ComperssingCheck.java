@@ -29,6 +29,23 @@ public class ComperssingCheck {
     }
 
     public static void main(String[] args) throws IOException {
+        /*
+        byte[] bits= new byte[9];
+         int x;
+         for (int i = 0; i < 9; i++) {
+            x=(int)Math.pow(2,i);
+            bits[i]=(byte) x;
+         }
+        for (int i = 1; i < 9; i++) {
+            System.out.println(bits[i-1]|bits[i]);
+        }*/
+          byte FORWARD = 0x1; // 00000001
+          byte LEFT     =0x2; // 00000010
+          byte RIGHT    =0x4; // 00000100
+        System.out.println(FORWARD);
+        System.out.println(LEFT);
+        LEFT= (byte) (LEFT|FORWARD|RIGHT);
+        System.out.println(LEFT);
 
 
     }
