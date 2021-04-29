@@ -59,7 +59,6 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
     }
 
-
     @Override
     public void write(int b) throws IOException {
 
