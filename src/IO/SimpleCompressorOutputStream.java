@@ -20,13 +20,21 @@ public class SimpleCompressorOutputStream extends OutputStream {
      */
     @Override
     public void write(byte[] b) throws IOException {
-        byte currByte=b[0];
-        byte counter=0;
+        byte currByte=b[b[0]+1];
+        int counter=0;
+        for (int i = 0; i < b[0]+1; i++) {
+            out.write(b[i]);
+        }
 
 
-        for (int i = 0; i <b.length ; i++) {
+        for (int i = b[0]+1; i <b.length ; i++) {
             if(currByte==0&&b[i]==1||currByte==1&&b[i]==0){
-                out.write(counter);
+                if(counter<=255) {
+                    out.write((byte)counter);
+                }
+                else{
+                 OutOfByteSize(counter);
+                }
                 counter=1;
                 currByte=b[i];
             }
@@ -37,6 +45,21 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
 
     }
+
+    private void OutOfByteSize(int counter) throws IOException {
+        while (counter > 0) {
+            if (counter >= 255) {
+                out.write(255);
+                out.write(0);
+            }
+            else
+                out.write((byte)counter);
+            counter -= 255;
+        }
+
+    }
+
+
     @Override
     public void write(int b) throws IOException {
 

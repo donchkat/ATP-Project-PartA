@@ -1,6 +1,10 @@
 package CompressingAndThreads;
 
+import Errors.LowBoundInput;
 import IO.MyCompressorOutputStream;
+import algorithms.mazeGenerators.IMazeGenerator;
+import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.MyMazeGenerator;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -28,17 +32,11 @@ public class ComperssingCheck {
 
     }
 
-    public static void main(String[] args) throws IOException {
-        /*
-        byte[] bits= new byte[9];
-         int x;
-         for (int i = 0; i < 9; i++) {
-            x=(int)Math.pow(2,i);
-            bits[i]=(byte) x;
-         }
-        for (int i = 1; i < 9; i++) {
-            System.out.println(bits[i-1]|bits[i]);
-        }*/
+    public static void main(String[] args) throws Exception {
+       CheckMazeCompressMethods();
+
+
+
           byte FORWARD = 0x1; // 00000001
           byte LEFT     =0x2; // 00000010
           byte RIGHT    =0x4; // 00000100
@@ -46,6 +44,23 @@ public class ComperssingCheck {
         System.out.println(LEFT);
         LEFT= (byte) (LEFT|FORWARD|RIGHT);
         System.out.println(LEFT);
+
+
+    }
+
+    private static void CheckMazeCompressMethods() throws Exception {
+        for (int i = 3; i < 5; i++) {
+            for (int j = 3; j < 5; j++) {
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+                IMazeGenerator mg1 = new MyMazeGenerator();
+                Maze maze1 = mg1.generate(i, j);
+                maze1.print();
+                System.out.println("--------------------------------------------------");
+                Maze newMaze= new Maze(maze1.toByteArray());
+                newMaze.print();
+            }
+
+        }
 
 
     }

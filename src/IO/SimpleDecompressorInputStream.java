@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class SimpleDecompressorInputStream extends InputStream {
     InputStream in;
-    OutputStream outDecomp;
 
 
     public SimpleDecompressorInputStream (InputStream inputStream) {
@@ -19,15 +18,20 @@ public class SimpleDecompressorInputStream extends InputStream {
         int i;
         int indexOfWhiles=0;
         int indexOfFors=0;
+        buffer[0]=(byte)in.read();
+        for (int j = 1; j < buffer[0]+1; j++) {
+            buffer[j]=(byte) in.read();
+        }
+        //byte[] allBytes=in.readAllBytes();
         int numOfTimes = in.read();
-        while ( numOfTimes != -1) {
+        while (numOfTimes!=-1) {
+            System.out.println(numOfTimes);
             if(indexOfWhiles%2==0)
                 number=0;
             else
                 number=1;
             for (i = 0; i < numOfTimes; i++) {
-                buffer[i+indexOfFors]=(byte)number;
-                outDecomp.write(number);
+                buffer[i+indexOfFors+buffer[0]+1]=(byte)number;
             }
             indexOfFors+=i;
             numOfTimes=in.read();

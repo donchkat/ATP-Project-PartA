@@ -17,49 +17,75 @@ public class Maze {
     private int[][] matrix;
 
     public Maze(byte[] savedMazeBytes) {
+        this.rows = DecompressRows(savedMazeBytes);
+        this.cols = ((savedMazeBytes.length) - (savedMazeBytes[0] + 1)) / this.rows;
+        this.matrix = new int[this.rows][this.cols];
+        int index = savedMazeBytes[0] + 1;
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                this.matrix[i][j] = savedMazeBytes[index];
+                index++;
+            }
+        }
+        this.startPosition = new Position(0, 0);
+        this.goalPosition = new Position(this.rows - 1, this.cols - 1);
+    }
+    public static int unsignedToBytes(byte b) {
+        return b & 0xFF;
+    }
+    /**
+     * @param savedMazeBytes input byte array after compressing
+     * @return num of rows of the maze
+     */
+    private int DecompressRows(byte[] savedMazeBytes) {
+        int numofrows = 0;
+        for (int i = 1; i < savedMazeBytes[0]+1; i++) {
+            numofrows += unsignedToBytes(savedMazeBytes[i]);
+        }
+        return numofrows;
     }
 
     /**
      * @return the start position of the maze
      */
-    public Position getStartPosition () {
+    public Position getStartPosition() {
         return startPosition;
     }
 
     /**
      * @return the end position of the maze
      */
-    public Position getGoalPosition () {
+    public Position getGoalPosition() {
         return goalPosition;
     }
 
 
-    public void setRows (int rows) {
+    public void setRows(int rows) {
         this.rows = rows;
     }
 
 
-    public int[][] getMatrix () {
+    public int[][] getMatrix() {
 
         return matrix;
     }
 
 
-    public void setMatrix (int[][] matrix) {
+    public void setMatrix(int[][] matrix) {
         this.matrix = matrix;
     }
 
     /**
      * @return the number of rows in the maze
      */
-    public int getRows () {
+    public int getRows() {
         return rows;
     }
 
     /**
      * @return the number of columns in the maze
      */
-    public int getCols () {
+    public int getCols() {
         return cols;
     }
 
@@ -70,8 +96,8 @@ public class Maze {
      * @param numOfRows - the number of rows in the maze
      * @param numOfCols - the number of columns in the maze
      */
-    public Maze (int numOfRows, int numOfCols) throws LowBoundInput {
-       if(numOfCols<2||numOfRows<2)throw new LowBoundInput();
+    public Maze(int numOfRows, int numOfCols) throws LowBoundInput {
+        if (numOfCols < 2 || numOfRows < 2) throw new LowBoundInput();
         matrix = new int[numOfRows][numOfCols];
         this.rows = numOfRows;
         this.cols = numOfCols;
@@ -86,7 +112,7 @@ public class Maze {
     /**
      * prints a 2D maze
      */
-    public void print () {
+    public void print() {
         for (int i = 0; i < this.matrix.length; i++) {
             System.out.print("{ ");
             for (int j = 0; j < matrix[i].length; j++) {
@@ -111,7 +137,7 @@ public class Maze {
      * @param colIndex - the column index of current position
      * @return boolean answer - T if the the position is out of the maze bounds F otherwise
      */
-    public boolean checkLegalCell (int rowIndex, int colIndex) {
+    public boolean checkLegalCell(int rowIndex, int colIndex) {
         return rowIndex < 0 || colIndex < 0 || rowIndex >= this.matrix.length || colIndex >= this.matrix[0].length;
     }
 
@@ -122,19 +148,20 @@ public class Maze {
      * @param colIndex - the column of current position
      * @return - True if cell contains 0, else False
      */
-    public boolean isContainZero (int rowIndex, int colIndex) throws LowBoundInput, OutOfBoundMatrixInput {
-        if(rowIndex < 0 || colIndex < 0)throw new LowBoundInput();
-        if(rowIndex >= this.matrix.length || colIndex >= this.matrix[0].length)throw new OutOfBoundMatrixInput();
+    public boolean isContainZero(int rowIndex, int colIndex) throws LowBoundInput, OutOfBoundMatrixInput {
+        if (rowIndex < 0 || colIndex < 0) throw new LowBoundInput();
+        if (rowIndex >= this.matrix.length || colIndex >= this.matrix[0].length) throw new OutOfBoundMatrixInput();
         return this.matrix[rowIndex][colIndex] == 0;
     }
 
     /**
      * setter for a specific cell in the matrix of the maze
-     * @param row - row index of the cell we set
-     * @param col - column index of the cell we set
+     *
+     * @param row   - row index of the cell we set
+     * @param col   - column index of the cell we set
      * @param value - the value we set into the cell
      */
-    public void setCellInMatrix(int row, int col, int value){
+    public void setCellInMatrix(int row, int col, int value) {
         this.matrix[row][col] = value;
     }
 
@@ -145,46 +172,48 @@ public class Maze {
      */
     public byte[] toByteArray() throws Exception {
         //HERE WE WANT TO USE EACH BIT IN THE BITE AND WE NEED TO FIND A WAY HOW TO USE IT WE CAN SAVE 8 TIMES CELLS WITH THIS
-        int sizeofarr=SizeOfRowToByte();
-        byte[] buffer= new byte[sizeofarr+this.rows*this.cols+1];
-        fillBufferWithRowsNumber(buffer,sizeofarr);
+        int sizeofarr = SizeOfRowToByte();
+        byte[] buffer = new byte[sizeofarr + this.rows * this.cols + 1];
+        fillBufferWithRowsNumber(buffer, sizeofarr);
+        int index = 0;
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
-                if(this.matrix[i][j]==0)
-                   buffer[i+j+sizeofarr+1]=0;
+                if (this.matrix[i][j] == 0)
+                    buffer[index + sizeofarr + 1] = 0;
                 else
-                    buffer[i+j+sizeofarr+1]=1;
+                    buffer[index + sizeofarr + 1] = 1;
+                index++;
             }
         }
         return buffer;
     }
 
     /**
-     * @param buffer- the byte[] that will contain the nuber of rows+the maze capacity
+     * @param buffer-   the byte[] that will contain the nuber of rows+the maze capacity
      * @param sizeofarr
      */
     private void fillBufferWithRowsNumber(byte[] buffer, int sizeofarr) {
-        int numofrows=this.rows;
+        int numofrows = this.rows;
         int i;
-        for ( i = 1; i < sizeofarr+1; i++) {
-            if(numofrows<=255)
-               buffer[i]=(byte) numofrows;
+        for (i = 1; i < sizeofarr + 1; i++) {
+            if (numofrows <= 255)
+                buffer[i] = (byte) numofrows;
             else {
                 buffer[i] = (byte) 255;
                 numofrows -= 255;
             }
         }
-        buffer[0]=(byte)sizeofarr;
+        buffer[0] = (byte) sizeofarr;
     }
 
     /**
      * @return the number of 255's that the rows contains in bytes
      */
     private int SizeOfRowToByte() {
-        int sizeofarr=1;
-        int rows=this.rows;
-        while(rows>0){
-            if(rows>255) {
+        int sizeofarr = 1;
+        int rows = this.rows;
+        while (rows > 0) {
+            if (rows > 255) {
                 sizeofarr++;
             }
             rows -= 255;
