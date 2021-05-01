@@ -13,28 +13,27 @@ public class SimpleDecompressorInputStream extends InputStream {
         this.in = inputStream;
     }
 
-    public int read(byte[] buffer) throws IOException {
+    public int read (byte[] buffer) throws IOException {
         int number;
         int i;
-        int indexOfWhiles=0;
-        int indexOfFors=0;
-        buffer[0]=(byte)in.read();
-        for (int j = 1; j < buffer[0]+1; j++) {
-            buffer[j]=(byte) in.read();
+        int indexOfWhiles = 0;
+        int indexOfFors = 0;
+        buffer[0] = (byte) in.read();
+        for (int j = 1; j < buffer[0] + 1; j++) {
+            buffer[j] = (byte) in.read();
         }
-        //byte[] allBytes=in.readAllBytes();
         int numOfTimes = in.read();
-        while (numOfTimes!=-1) {
+        while (numOfTimes != -1) {
             System.out.println(numOfTimes);
-            if(indexOfWhiles%2==0)
-                number=0;
+            if (indexOfWhiles % 2 == 0)
+                number = 0;
             else
-                number=1;
+                number = 1;
             for (i = 0; i < numOfTimes; i++) {
-                buffer[i+indexOfFors+buffer[0]+1]=(byte)number;
+                buffer[i + indexOfFors + buffer[0] + 1] = (byte) number;
             }
-            indexOfFors+=i;
-            numOfTimes=in.read();
+            indexOfFors += i;
+            numOfTimes = in.read();
             indexOfWhiles++;
         }
         return 0;
@@ -42,7 +41,7 @@ public class SimpleDecompressorInputStream extends InputStream {
 
     @Override
     public int read () throws IOException {
-       return 0;
+        return 0;
     }
 
 

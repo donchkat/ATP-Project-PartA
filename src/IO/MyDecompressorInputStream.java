@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MyDecompressorInputStream extends InputStream {
-    public MyDecompressorInputStream(FileInputStream fileInputStream) {
+    InputStream in;
+    public MyDecompressorInputStream (InputStream input) {
+        this.in = input;
     }
 
     @Override
-    public int read() throws IOException {
+    public int read () throws IOException {
         return 0;
     }
 }
