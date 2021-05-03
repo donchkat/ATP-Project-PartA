@@ -22,33 +22,47 @@ public class MyCompressorOutputStream extends OutputStream {
      */
     @Override
     public void write (byte[] b) throws IOException {
-        byte currByte = b[b[0] + 1];
-
+        //writing the rows information
         for (int i = 0; i < b[0] + 1; i++) {
             out.write(b[i]);
         }
+        //last 8 or less numbers in array b.
+        int lastNumbers = (b.length - b[0] - 1) % 8;
         int i;
-        byte[] arr=new byte[8];
-        for (i = b[0] + 1; i < b.length; i+=8) {
+        byte[] arr = new byte[8];
+
+        //loop the maze content only, in groups of 8 numbers each time.
+        //stops before the 8 (maybe less) last numbers of the maze.
+        for (i = b[0] + 1; i < b.length-lastNumbers; i += 8) {
             for (int j = 0; j < 8; j++) {
-                arr[j]=b[i+j];
+                arr[j] = b[i + j];
             }
-           byte tmp= WriteToOutBinaryNum(arr);
-           out.write(tmp);
+            out.write(WriteToOutBinaryNum(arr));
         }
-        out.write((b.length-b[0]-1)%8);
-        for (int j = (b.length-b[0]-1)%8-1; j >=0; j++) {
-            out.write((byte) Math.pow(2,j)*b[i+j]);
+        if (lastNumbers != 0) {
+            //the last index we stopped on in the byte array
+            byte[] lastArr = new byte[lastNumbers];
+            for (int j = 0; j < lastNumbers; j++) {
+                lastArr[j] = b[i + j];
+            }
+            out.write(WriteToOutBinaryNum(lastArr));
         }
     }
 
-    private byte WriteToOutBinaryNum(byte[] arr) {
-     byte num=0;
-        for (int i = arr.length-1; i >= 0; i--) {
-            num+=(byte) Math.pow(2,i)*arr[i];
+    private byte WriteToOutBinaryNum (byte[] arr) {
+        byte num = 0;
+        byte decimal =0;
+        int j=0;
+        for (int i = arr.length - 1; i >= 0; i--) {
+            num = (byte)(Math.pow(2, j) * arr[i]);
+            j++;
+            decimal += unsignedToBytes(num);
         }
-     return num;
+        return decimal;
 
+    }
+    public static byte unsignedToBytes (byte b) {
+        return (byte) (b & 0xFF);
     }
 
 

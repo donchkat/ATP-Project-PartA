@@ -23,15 +23,11 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
 
             Maze toSolveMaze=(Maze)fromClient.readObject();
-            //WE SHOULD DECIDE THE KIND OF SOLVING FROM THE CONFIGURATION FILE(THE SINGLETON FILE)
-            //WE MIGHT DO IT GENERICLY WITH USING OF GENERIC INTERFACES OF SOLVERS
             SearchableMaze searchableMaze = new SearchableMaze(toSolveMaze);
             ISearchingAlgorithm searcher=new BestFirstSearch();
             Solution MazeSolution=searcher.solve(searchableMaze);
-            //NEED TO BE CHANGED TO MYCOMPRESSOR
             OutputStream out = new MyCompressorOutputStream(toClient);
             toClient.writeObject(MazeSolution);
-            // out.writeObject(MazeSolution); THIS DOESNT WORK DONT KNOW WHY!
             out.flush();
             out.close();
             fromClient.close();
