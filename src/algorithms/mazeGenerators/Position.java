@@ -2,12 +2,14 @@ package algorithms.mazeGenerators;
 
 import Errors.LowBoundInput;
 
+import java.io.Serializable;
+
 /**
  * this class represents a position in a 2D area.
  * rowIndex - the index of current row
  * columnIndex - the index of current column
  */
-public class Position {
+public class Position implements Serializable {
     private int rowIndex;
     private int columnIndex;
 

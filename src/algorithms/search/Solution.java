@@ -1,12 +1,14 @@
 package algorithms.search;
 
 import Errors.NullError;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * class of list of states from the start position of the maze to the goal position
  */
-public class Solution {
+public class Solution implements Serializable {
     private ArrayList<AState> solutionPath;
 
     /**

@@ -1,9 +1,11 @@
 package algorithms.search;
 
+import java.io.Serializable;
+
 /**
  * represent the state in any searching algorithm- like node in the graph
  */
-public abstract class AState {
+public abstract class AState implements Serializable {
     protected double cost;
     protected AState cameFrom;
     protected Object value;

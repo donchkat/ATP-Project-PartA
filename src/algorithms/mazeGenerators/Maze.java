@@ -3,13 +3,15 @@ package algorithms.mazeGenerators;
 import Errors.LowBoundInput;
 import Errors.OutOfBoundMatrixInput;
 
+import java.io.Serializable;
+
 /**
  * this class represents a 2D Maze object
  * startPosition - the position we start the maze at
  * goalPosition - the goal position we wanna get to
  * matrix - the 2D field of the maze (array of int [][])
  */
-public class Maze {
+public class Maze implements Serializable{
     private Position startPosition;
     private Position goalPosition;
     private int rows;

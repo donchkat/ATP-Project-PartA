@@ -42,7 +42,6 @@ public class SimpleCompressorOutputStream extends OutputStream {
             }
         }
 
-
     }
 
     private void OutOfByteSize (int counter) throws IOException {
