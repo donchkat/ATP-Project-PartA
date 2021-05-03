@@ -24,7 +24,7 @@ public class SimpleDecompressorInputStream extends InputStream {
         }
         int numOfTimes = in.read();
         while (numOfTimes != -1) {
-            System.out.println(numOfTimes);
+            //System.out.println(numOfTimes);
             if (indexOfWhiles % 2 == 0)
                 number = 0;
             else

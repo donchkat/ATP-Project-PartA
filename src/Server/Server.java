@@ -24,6 +24,12 @@ public class Server {
     }
 
     public void start () {
+        new Thread(()->{
+            runServer();
+        }).start();
+    }
+
+    private void runServer(){
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
@@ -36,8 +42,10 @@ public class Server {
                     // Insert the new task into the thread pool:
                     System.out.println("Server got a task from a client!");
                     threadPool.submit(() -> {
+                        //System.out.println("thread was created");
                         handleClient(clientSocket);
                     });
+                    //handleClient(clientSocket);
 
 
                 } catch (SocketTimeoutException e) {
@@ -54,6 +62,7 @@ public class Server {
 
     private void handleClient (Socket clientSocket) {
         try {
+            //System.out.println("starting strategy");
             strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
             clientSocket.close();
         } catch (IOException e) {
