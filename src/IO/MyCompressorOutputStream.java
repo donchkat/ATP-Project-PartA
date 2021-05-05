@@ -51,18 +51,19 @@ public class MyCompressorOutputStream extends OutputStream {
 
     private byte WriteToOutBinaryNum (byte[] arr) {
         byte num = 0;
-        byte decimal =0;
+        int decimal =0;
         int j=0;
         for (int i = arr.length - 1; i >= 0; i--) {
             num = (byte)(Math.pow(2, j) * arr[i]);
             j++;
-            decimal += unsignedToBytes(num);
+            decimal += num;
         }
-        return decimal;
+        num = (byte)decimal;
+        return (byte)unsignedToBytes(num);
 
     }
-    public static byte unsignedToBytes (byte b) {
-        return (byte) (b & 0xFF);
+    public static int unsignedToBytes (byte b) {
+        return  (b & 0xFF);
     }
 
 

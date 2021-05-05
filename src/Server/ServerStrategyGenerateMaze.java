@@ -1,12 +1,12 @@
 package Server;
 
 import IO.MyCompressorOutputStream;
-import IO.SimpleCompressorOutputStream;
+
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 
 import java.io.*;
-import java.util.ArrayList;
+
 
 /**
  * Strategy design pattern - one of the strategies of our server.
