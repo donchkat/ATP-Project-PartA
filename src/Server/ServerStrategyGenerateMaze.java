@@ -16,13 +16,14 @@ import java.io.*;
 public class ServerStrategyGenerateMaze implements IServerStrategy {
     @Override
     public void applyStrategy (InputStream inFromClient, OutputStream outToClient) {
+        System.out.println("in strategy:"+Thread.currentThread().getId());
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
             int[] SizeOfMatrix = (int[]) fromClient.readObject();
             MyMazeGenerator mazeGenerator = new MyMazeGenerator();
             Maze toClientMaze = mazeGenerator.generate(SizeOfMatrix[0]/*rows*/, SizeOfMatrix[1]/*columns*/);
-            System.out.println("Before compression:");
+            System.out.println("Before compression: "+Thread.currentThread().getId());
             toClientMaze.print();
             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             ByteArrayOutputStream bOut = new ByteArrayOutputStream();
