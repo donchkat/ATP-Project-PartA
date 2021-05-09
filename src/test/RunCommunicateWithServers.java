@@ -96,7 +96,7 @@ public class RunCommunicateWithServers {
                         toServer.writeObject(maze); //send maze to server
                         toServer.flush();
                         Solution mazeSolution = (Solution) fromServer.readObject(); //read generated maze (compressed with MyCompressor)from server
-                        System.out.println(String.format("Solution steps:%s", mazeSolution));
+                        System.out.println(String.format("Solution steps:%s", mazeSolution)); //we dont have to string of the maze solution
                         ArrayList<AState> mazeSolutionSteps = mazeSolution.getSolutionPath();
                         for (int i = 0; i < mazeSolutionSteps.size(); i++) {
                             System.out.println(String.format("%s. %s", i, mazeSolutionSteps.get(i).toString()));

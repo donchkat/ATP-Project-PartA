@@ -10,11 +10,12 @@ import java.util.concurrent.*;
 import java.io.*;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy {
+    //not sure its right to put it here
     ConcurrentHashMap<byte[], File> concurrentHashMap = new ConcurrentHashMap<>();
     String tempDirectoryPath = System.getProperty("java.io.tmpdir");
-    volatile int counter=0;
+
     @Override
-    public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
+    public void applyStrategy (InputStream inFromClient, OutputStream outToClient) {
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
@@ -31,12 +32,10 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                 SearchableMaze searchableMaze = new SearchableMaze(toSolveMaze);
                 ISearchingAlgorithm searcher = getSearchingAlgFromConfig();
                 MazeSolution = searcher.solve(searchableMaze);
-                myFile=new File(tempDirectoryPath+"MazeNumber"+counter);
-                System.out.println("++++++++++++++++++++++++++++++++++++++");
-                System.out.println(myFile.getAbsolutePath());
-                System.out.println("++++++++++++++++++++++++++++++++++++++");
-
-                counter++;
+                //changed here
+                System.out.println("the hash code is:"+toSolveMaze.hashCode());
+                ObjectOutputStream toFile = new ObjectOutputStream(new FileOutputStream(tempDirectoryPath + toSolveMaze.hashCode()));
+                toFile.writeObject(MazeSolution);
             }
             OutputStream out = new MyCompressorOutputStream(toClient);
             toClient.writeObject(MazeSolution);
@@ -49,7 +48,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
         }
     }
 
-    private ISearchingAlgorithm getSearchingAlgFromConfig() {
+    private ISearchingAlgorithm getSearchingAlgFromConfig () {
         Configurations configurations = Configurations.getInstance();
         try (InputStream input = new FileInputStream("src/resources/config.properties")) {
 

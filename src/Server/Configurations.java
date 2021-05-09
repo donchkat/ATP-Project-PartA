@@ -12,11 +12,11 @@ public class Configurations {
     private String mazeSearchingAlgorithm;
     private Properties properties;
 
-    public Properties getProperties() {
+    public Properties getProperties () {
         return properties;
     }
 
-    public void setProperties(Properties properties) {
+    public void setProperties (Properties properties) {
         this.properties = properties;
     }
 
@@ -24,10 +24,10 @@ public class Configurations {
         this.threadPoolSize = 1;
         this.mazeGeneratingAlgorithm = "Simple";
         this.mazeSearchingAlgorithm = "BestFirstSearch";
-        this.properties=new Properties();
+        this.properties = new Properties();
         try (OutputStream output = new FileOutputStream("src/resources/config.properties")) {
             // set the properties value
-            properties.setProperty("db.numOfThreads", ""+threadPoolSize);
+            properties.setProperty("db.numOfThreads", "" + threadPoolSize);
             properties.setProperty("db.mazeGeneratingAlg", mazeGeneratingAlgorithm);
             properties.setProperty("db.mazeSearchingAlg", mazeSearchingAlgorithm);
             // save properties to project root folder
@@ -52,7 +52,7 @@ public class Configurations {
         this.threadPoolSize = threadPoolSize;
         try (OutputStream output = new FileOutputStream("src/resources/config.properties")) {
             // set the properties value
-            properties.setProperty("db.numOfThreads", ""+this.threadPoolSize);
+            properties.setProperty("db.numOfThreads", "" + this.threadPoolSize);
             // save properties to project root folder
             properties.store(output, null);
             System.out.println(properties);
