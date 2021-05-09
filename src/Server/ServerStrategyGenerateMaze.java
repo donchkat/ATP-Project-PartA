@@ -48,9 +48,9 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg")=="Simple")
+            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg").equals("Simple"))
                 return new SimpleMazeGenerator();
-            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg")=="Empty")
+            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg").equals("Empty"))
                 return new EmptyMazeGenerator();
 
         } catch (IOException ex) {

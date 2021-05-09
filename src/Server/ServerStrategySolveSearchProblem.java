@@ -41,9 +41,9 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if(configurations.getProperties().getProperty("db.mazeSearchingAlg")=="BestFirstSearch")
+            if(configurations.getProperties().getProperty("db.mazeSearchingAlg").equals("BestFirstSearch"))
                 return new BestFirstSearch();
-            if(configurations.getProperties().getProperty("db.mazeSearchingAlg")=="BreadthFirstSearch")
+            if(configurations.getProperties().getProperty("db.mazeSearchingAlg").equals("BreadthFirstSearch"))
                 return new BestFirstSearch();
 
         } catch (IOException ex) {

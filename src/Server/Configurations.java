@@ -50,6 +50,15 @@ public class Configurations {
 
     public void setThreadPoolSize (int threadPoolSize) {
         this.threadPoolSize = threadPoolSize;
+        try (OutputStream output = new FileOutputStream("src/resources/config.properties")) {
+            // set the properties value
+            properties.setProperty("db.numOfThreads", ""+this.threadPoolSize);
+            // save properties to project root folder
+            properties.store(output, null);
+            System.out.println(properties);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 
     public String getMazeGeneratingAlgorithm () {
@@ -58,6 +67,16 @@ public class Configurations {
 
     public void setMazeGeneratingAlgorithm (String mazeGeneratingAlgorithm) {
         this.mazeGeneratingAlgorithm = mazeGeneratingAlgorithm;
+        try (OutputStream output = new FileOutputStream("src/resources/config.properties")) {
+            // set the properties value
+            properties.setProperty("db.mazeGeneratingAlg", mazeGeneratingAlgorithm);
+            // save properties to project root folder
+            properties.store(output, null);
+            System.out.println(properties);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+
     }
 
     public String getMazeSearchingAlgorithm () {
@@ -66,6 +85,15 @@ public class Configurations {
 
     public void setMazeSearchingAlgorithm (String mazeSearchingAlgorithm) {
         this.mazeSearchingAlgorithm = mazeSearchingAlgorithm;
+        try (OutputStream output = new FileOutputStream("src/resources/config.properties")) {
+            // set the properties value
+            properties.setProperty("db.mazeSearchingAlg", mazeSearchingAlgorithm);
+            // save properties to project root folder
+            properties.store(output, null);
+            System.out.println(properties);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 
 

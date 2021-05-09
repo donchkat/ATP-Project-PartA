@@ -42,9 +42,9 @@ public class ClientStrategySolveMaze implements IClientStrategy {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg")=="Simple")
+            if(configurations.getProperties().getProperty("db.mazeGeneratingAlgorithm").equals("Simple"))
                 return new SimpleMazeGenerator();
-            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg")=="Empty")
+            if(configurations.getProperties().getProperty("db.mazeGeneratingAlgorithm").equals("Empty"))
                 return new EmptyMazeGenerator();
 
         } catch (IOException ex) {

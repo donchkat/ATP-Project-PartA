@@ -3,8 +3,7 @@ package test;
 import Client.*;
 import IO.*;
 import Server.*;
-import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.mazeGenerators.*;
 import algorithms.search.AState;
 import algorithms.search.Solution;
 import java.io.*;
@@ -63,16 +62,36 @@ public class RunCommunicateWithServers {
         }
     }
 
+
     private static void CommunicateWithServer_SolveSearchProblem () {
+
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
                 @Override
-                public void clientStrategy (InputStream inFromServer, OutputStream outToServer) {
+                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                     try {
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
-                        MyMazeGenerator mg = new MyMazeGenerator();
+                        IMazeGenerator mg=new MyMazeGenerator();
+                        Configurations configurations= Configurations.getInstance();
+                        try (InputStream input = new FileInputStream("src/resources/config.properties")) {
+
+                            // load a properties file
+                            try {
+                                configurations.getProperties().load(input);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            System.out.println(configurations.getProperties().getProperty("db.mazeGeneratingAlg"));
+                            System.out.println(configurations.getProperties().getProperty("db.mazeGeneratingAlg"));
+                            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg").equals("Simple"))
+                                mg=new SimpleMazeGenerator();
+                           else if(configurations.getProperties().getProperty("db.mazeGeneratingAlg").equals("Empty"))
+                                mg= new EmptyMazeGenerator();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
                         Maze maze = mg.generate(50, 50);
                         toServer.writeObject(maze); //send maze to server
                         toServer.flush();
@@ -92,4 +111,7 @@ public class RunCommunicateWithServers {
             e.printStackTrace();
         }
     }
+
+
+
 }
