@@ -1,14 +1,13 @@
 package Client;
 
-import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
+import Server.Configurations;
+import algorithms.mazeGenerators.*;
 import algorithms.search.AState;
+import algorithms.search.BestFirstSearch;
+import algorithms.search.DepthFirstSearch;
 import algorithms.search.Solution;
 
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class ClientStrategySolveMaze implements IClientStrategy {
@@ -18,7 +17,7 @@ public class ClientStrategySolveMaze implements IClientStrategy {
             ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
             ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
             toServer.flush();
-            MyMazeGenerator mg = new MyMazeGenerator();
+            IMazeGenerator mg = GetKindFromConfig();
             Maze maze = mg.generate(50, 50);
             toServer.writeObject(maze); //send maze to server
             toServer.flush();
@@ -31,5 +30,26 @@ public class ClientStrategySolveMaze implements IClientStrategy {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private IMazeGenerator GetKindFromConfig() {
+        Configurations configurations=Configurations.getInstance();
+        try (InputStream input = new FileInputStream("src/resources/config.properties")) {
+
+            // load a properties file
+            try {
+                configurations.getProperties().load(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg")=="Simple")
+                return new SimpleMazeGenerator();
+            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg")=="Empty")
+                return new EmptyMazeGenerator();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return new MyMazeGenerator();
     }
 }

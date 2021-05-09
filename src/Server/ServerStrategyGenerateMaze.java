@@ -2,8 +2,7 @@ package Server;
 
 import IO.MyCompressorOutputStream;
 
-import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.mazeGenerators.*;
 
 import java.io.*;
 
@@ -21,7 +20,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
             int[] SizeOfMatrix = (int[]) fromClient.readObject();
-            MyMazeGenerator mazeGenerator = new MyMazeGenerator();
+            IMazeGenerator mazeGenerator = GetKindFromConfig();
             Maze toClientMaze = mazeGenerator.generate(SizeOfMatrix[0]/*rows*/, SizeOfMatrix[1]/*columns*/);
             System.out.println("Before compression: "+Thread.currentThread().getId());
             toClientMaze.print();
@@ -38,5 +37,25 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private IMazeGenerator GetKindFromConfig() {
+        Configurations configurations=Configurations.getInstance();
+        try (InputStream input = new FileInputStream("src/resources/config.properties")) {
+
+            // load a properties file
+            try {
+                configurations.getProperties().load(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg")=="Simple")
+                return new SimpleMazeGenerator();
+            if(configurations.getProperties().getProperty("db.mazeGeneratingAlg")=="Empty")
+                return new EmptyMazeGenerator();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return new MyMazeGenerator();
     }
 }

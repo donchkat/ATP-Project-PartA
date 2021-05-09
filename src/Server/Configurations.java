@@ -1,15 +1,41 @@
 package Server;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Properties;
+
 public class Configurations {
     private static Configurations configurations = null;
     private int threadPoolSize;
     private String mazeGeneratingAlgorithm;
     private String mazeSearchingAlgorithm;
+    private Properties properties;
+
+    public Properties getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Properties properties) {
+        this.properties = properties;
+    }
 
     private Configurations () {
         this.threadPoolSize = 1;
         this.mazeGeneratingAlgorithm = "Simple";
         this.mazeSearchingAlgorithm = "BestFirstSearch";
+        this.properties=new Properties();
+        try (OutputStream output = new FileOutputStream("src/resources/config.properties")) {
+            // set the properties value
+            properties.setProperty("db.numOfThreads", ""+threadPoolSize);
+            properties.setProperty("db.mazeGeneratingAlg", mazeGeneratingAlgorithm);
+            properties.setProperty("db.mazeSearchingAlg", mazeSearchingAlgorithm);
+            // save properties to project root folder
+            properties.store(output, null);
+            System.out.println(properties);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 
     public static Configurations getInstance () {

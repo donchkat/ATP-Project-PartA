@@ -4,15 +4,9 @@ import IO.MyCompressorOutputStream;
 import IO.SimpleCompressorOutputStream;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
-import algorithms.search.BestFirstSearch;
-import algorithms.search.ISearchingAlgorithm;
-import algorithms.search.SearchableMaze;
-import algorithms.search.Solution;
+import algorithms.search.*;
 
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy{
 
@@ -23,7 +17,8 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
             Maze toSolveMaze=(Maze)fromClient.readObject();
             SearchableMaze searchableMaze = new SearchableMaze(toSolveMaze);
-            ISearchingAlgorithm searcher=new BestFirstSearch();
+
+            ISearchingAlgorithm searcher=getSearchingAlgFromConfig();
             Solution MazeSolution=searcher.solve(searchableMaze);
             OutputStream out = new MyCompressorOutputStream(toClient);
             toClient.writeObject(MazeSolution);
@@ -34,5 +29,26 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private ISearchingAlgorithm getSearchingAlgFromConfig() {
+        Configurations configurations=Configurations.getInstance();
+        try (InputStream input = new FileInputStream("src/resources/config.properties")) {
+
+            // load a properties file
+            try {
+                configurations.getProperties().load(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(configurations.getProperties().getProperty("db.mazeSearchingAlg")=="BestFirstSearch")
+                return new BestFirstSearch();
+            if(configurations.getProperties().getProperty("db.mazeSearchingAlg")=="BreadthFirstSearch")
+                return new BestFirstSearch();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return new DepthFirstSearch();
     }
 }
