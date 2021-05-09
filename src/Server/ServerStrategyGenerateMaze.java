@@ -13,18 +13,22 @@ import java.io.*;
  * and then to return the generated maze to client.(in compressed form)
  */
 public class ServerStrategyGenerateMaze implements IServerStrategy {
+    /**
+     * @param inFromClient sizes of the maze the client want
+     * @param outToClient the maze in the wanted sizes compressed to byte array
+     */
     @Override
-    public void applyStrategy (InputStream inFromClient, OutputStream outToClient) {
-        System.out.println("in strategy:"+Thread.currentThread().getId());
+    public void ServerStrategy (InputStream inFromClient, OutputStream outToClient) {
+        //System.out.println("in strategy:"+Thread.currentThread().getId());
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
             int[] SizeOfMatrix = (int[]) fromClient.readObject();
             IMazeGenerator mazeGenerator = GetKindFromConfig();
             Maze toClientMaze = mazeGenerator.generate(SizeOfMatrix[0]/*rows*/, SizeOfMatrix[1]/*columns*/);
-            System.out.println("Before compression: "+Thread.currentThread().getId());
-            toClientMaze.print();
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            //System.out.println("Before compression: "+Thread.currentThread().getId());
+           // toClientMaze.print();
+           // System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             ByteArrayOutputStream bOut = new ByteArrayOutputStream();
             OutputStream out = new MyCompressorOutputStream(bOut);
             out.write(toClientMaze.toByteArray());
@@ -38,6 +42,10 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @return maze generator by the configurations values
+     */
     private IMazeGenerator GetKindFromConfig() {
         Configurations configurations=Configurations.getInstance();
         try (InputStream input = new FileInputStream("src/resources/config.properties")) {

@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
 
+/**
+ * singleton class that is able to change the properties of the maze
+ */
 public class Configurations {
     private static Configurations configurations = null;
     private int threadPoolSize;
@@ -22,7 +25,7 @@ public class Configurations {
 
     private Configurations () {
         this.threadPoolSize = 1;
-        this.mazeGeneratingAlgorithm = "Simple";
+        this.mazeGeneratingAlgorithm = "My";
         this.mazeSearchingAlgorithm = "BestFirstSearch";
         this.properties = new Properties();
         try (OutputStream output = new FileOutputStream("src/resources/config.properties")) {

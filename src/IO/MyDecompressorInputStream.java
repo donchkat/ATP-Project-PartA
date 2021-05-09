@@ -9,12 +9,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Decompressing buffer into input stream
+ */
 public class MyDecompressorInputStream extends InputStream {
     InputStream in;
 
     public MyDecompressorInputStream (InputStream input) {
         this.in =  input;
     }
+
+    /**
+     * @param buffer  write into the buffer from the input
+     * @return 0 when we finished the decompressing
+     * @throws IOException
+     */
     @Override
     public int read (byte[] buffer) throws IOException {
         buffer[0] = (byte) in.read();
@@ -24,12 +33,10 @@ public class MyDecompressorInputStream extends InputStream {
         for (j = 1; j < buffer[0] + 1; j++) {
             buffer[j] = (byte) in.read();
         }
-
         index=j;
         byte [] decimals = readFromStreamToArrayList(); //moving all the decimals to array list
         int i;
         int bitsNumber=8; //the number of the bits in the binary number
-
         //for each decimal in the array list we translate it to binary 8 bit number
         for (i = 0; i < decimals.length-1; i++) {
             ToByteNumber(decimals[i], buffer, index, bitsNumber);

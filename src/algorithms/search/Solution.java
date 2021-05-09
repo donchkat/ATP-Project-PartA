@@ -11,6 +11,18 @@ import java.util.ArrayList;
 public class Solution implements Serializable {
     private ArrayList<AState> solutionPath;
 
+    @Override
+    public String toString() {
+        String s="";
+        for (int i = 0; i < solutionPath.size(); i++) {
+            s+=solutionPath.get(i).value.toString();
+        }
+
+
+
+        return s;
+    }
+
     /**
      * @param aState the goal state
      * @throws NullError

@@ -3,6 +3,9 @@ package IO;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * compressing buffer into OutputStream on our way of compressing (making from each series of 8 0s and 1s binary number and encode it to byte)
+ */
 public class MyCompressorOutputStream extends OutputStream {
     private OutputStream out;
 
@@ -49,6 +52,10 @@ public class MyCompressorOutputStream extends OutputStream {
         }
     }
 
+    /**
+     * @param arr byte arr that represent a binary number
+     * @return the decimal form of the binary number
+     */
     private byte WriteToOutBinaryNum (byte[] arr) {
         byte num = 0;
         int decimal =0;
@@ -62,6 +69,11 @@ public class MyCompressorOutputStream extends OutputStream {
         return (byte)unsignedToBytes(num);
 
     }
+
+    /**
+     * @param b bunary number that could be negative
+     * @return the number but as unsigned (ignoring the sign bit and use it as msb)
+     */
     public static int unsignedToBytes (byte b) {
         return  (b & 0xFF);
     }

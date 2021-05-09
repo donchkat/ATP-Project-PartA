@@ -7,6 +7,8 @@ import java.net.SocketTimeoutException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
+
 public class Server {
     private int port;
     private int listeningIntervalMS;
@@ -19,8 +21,7 @@ public class Server {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
-        // initialize a new fixed thread pool with 2 threads: //WHY ONLY 2?
-        this.threadPool = Executors.newFixedThreadPool(2);
+        this.threadPool = Executors.newFixedThreadPool(Configurations.getInstance().getThreadPoolSize());
     }
 
     public void start () {
@@ -29,6 +30,9 @@ public class Server {
         }).start();
     }
 
+    /**
+     * creating new socket for each client and handling it with the strategies
+     */
     private void runServer(){
         try {
             ServerSocket serverSocket = new ServerSocket(port);
@@ -53,23 +57,28 @@ public class Server {
                 }
             }
             serverSocket.close();
-            //threadPool.shutdown(); // do not allow any new tasks into the thread pool (not doing anything to the current tasks and running threads)
             threadPool.shutdownNow(); // do not allow any new tasks into the thread pool, and also interrupts all running threads (do not terminate the threads, so if they do not handle interrupts properly, they could never stop...)
         } catch (IOException e) {
             System.out.println("Something happened while connecting to server socket.");
         }
     }
 
+    /**
+     * @param clientSocket handeling the client call for the server with the use of strategy
+     */
     private void handleClient (Socket clientSocket) {
         try {
             //System.out.println("starting strategy");
-            strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
+            strategy.ServerStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
             clientSocket.close();
         } catch (IOException e) {
             System.out.println("Something happened while handling client..");
         }
     }
 
+    /**
+     * we use this method when we finished to take care of all the clients
+     */
     public void stop () {
         stop = true;
     }
