@@ -37,7 +37,7 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
-            System.out.println("Server socket was created.");
+            //System.out.println("Server socket was created.");
 
             while (!stop) {
                 try {
@@ -49,7 +49,6 @@ public class Server {
                         //System.out.println("thread was created");
                         handleClient(clientSocket);
                     });
-                    //handleClient(clientSocket);
 
 
                 } catch (SocketTimeoutException e) {

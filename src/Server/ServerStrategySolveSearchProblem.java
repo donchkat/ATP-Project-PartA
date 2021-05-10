@@ -30,23 +30,27 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
             Maze toSolveMaze = (Maze) fromClient.readObject();
+            System.out.println("the maze we need to solve:");
+            toSolveMaze.print();
             byte[] compMaze = toSolveMaze.toByteArray();
             Solution MazeSolution;
             File myFile;
             if (concurrentHashMap.containsKey(compMaze)) {
+                System.out.println("This maze already solved!");
                 myFile = concurrentHashMap.get(compMaze).getAbsoluteFile();
                 ObjectInputStream fromFile = new ObjectInputStream(new FileInputStream(myFile));
                 MazeSolution = (Solution) fromFile.readObject();
 
             } else {
+                System.out.println("I see this maze for the first time!");
                 SearchableMaze searchableMaze = new SearchableMaze(toSolveMaze);
                 ISearchingAlgorithm searcher = getSearchingAlgFromConfig();
                 MazeSolution = searcher.solve(searchableMaze);
-                //changed here
                 System.out.println("the hash code is:" + toSolveMaze.hashCode());
                 ObjectOutputStream toFile = new ObjectOutputStream(new FileOutputStream(tempDirectoryPath + toSolveMaze.hashCode()));
-                System.out.println(tempDirectoryPath + toSolveMaze.hashCode());
                 toFile.writeObject(MazeSolution);
+                File solFile = new File(tempDirectoryPath + toSolveMaze.hashCode());
+                concurrentHashMap.put(compMaze ,solFile);
             }
             OutputStream out = new MyCompressorOutputStream(toClient);
             toClient.writeObject(MazeSolution);

@@ -244,4 +244,12 @@ public class Maze implements Serializable{
         }
         return sizeofarr;
     }
+
+    public void setGoalPosition (Position position) {
+        this.goalPosition = position;
+    }
+
+    public void setStartPosition (Position startPosition) {
+        this.startPosition = startPosition;
+    }
 }
