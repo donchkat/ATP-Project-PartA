@@ -35,12 +35,13 @@ public class RunCommunicateWithServers {
 
             });
             threads[i].start();
+            threads[i].setName(""+i);
         }
 
         for (int i = 0; i < threads.length; i++) {
             try{
                 threads[i].join();
-                System.out.println("thread number "+Thread.currentThread().getId() + " has finished");
+                System.out.println("thread number "+Thread.currentThread().getName() + " has finished");
 
             }catch (InterruptedException e){
                 e.printStackTrace();
@@ -120,16 +121,16 @@ public class RunCommunicateWithServers {
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
-                        //Maze maze = mg.generate(50, 50);
-                        int[][] mat = new int[][]{
-                                {0,0,0},
-                                {0,1,1},
-                                {0,0,0},};
+                        Maze maze = mg.generate(50, 50);
+//                        int[][] mat = new int[][]{
+//                                {0,0,0},
+//                                {0,1,1},
+//                                {0,0,0},};
 
-                        Maze maze = new Maze(3,3);
-                        maze.setMatrix(mat);
-                        maze.setGoalPosition(new Position(0,0));
-                        maze.setStartPosition(new Position(2,2));
+                        //Maze maze = new Maze(3,3);
+//                        maze.setMatrix(mat);
+//                        maze.setGoalPosition(new Position(0,0));
+//                        maze.setStartPosition(new Position(2,2));
                         toServer.writeObject(maze); //send maze to server
                         toServer.flush();
                         Solution mazeSolution = (Solution) fromServer.readObject(); //read generated maze (compressed with MyCompressor)from server

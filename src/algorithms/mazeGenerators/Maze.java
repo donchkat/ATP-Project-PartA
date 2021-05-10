@@ -4,6 +4,8 @@ import Errors.LowBoundInput;
 import Errors.OutOfBoundMatrixInput;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * this class represents a 2D Maze object
@@ -17,6 +19,26 @@ public class Maze implements Serializable{
     private int rows;
     private int cols;
     private int[][] matrix;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Maze maze = (Maze) o;
+        return rows == maze.rows &&
+                cols == maze.cols &&
+                Objects.equals(startPosition, maze.startPosition) &&
+                Objects.equals(goalPosition, maze.goalPosition) &&
+                Arrays.equals(matrix, maze.matrix);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(startPosition, goalPosition, rows, cols);
+        result = 31 * result + Arrays.hashCode(matrix);
+        return result;
+    }
 
     /**
      * constructor

@@ -6,6 +6,8 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.*;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.concurrent.*;
 import java.io.*;
 
@@ -17,7 +19,7 @@ import java.io.*;
  */
 public class ServerStrategySolveSearchProblem implements IServerStrategy {
     //not sure its right to put it here
-    ConcurrentHashMap<byte[], File> concurrentHashMap = new ConcurrentHashMap<>();
+    ConcurrentHashMap<Integer, File> concurrentHashMap;
     String tempDirectoryPath = System.getProperty("java.io.tmpdir");
 
     /**
@@ -34,23 +36,34 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             toSolveMaze.print();
             byte[] compMaze = toSolveMaze.toByteArray();
             Solution MazeSolution;
-            File myFile;
-            if (concurrentHashMap.containsKey(compMaze)) {
+            File myFile,HashMapOfMazesFile=new File(tempDirectoryPath+"hashMapOfMazes.hmom");
+            ObjectOutputStream writeToHashFile;
+            if(!HashMapOfMazesFile.isFile())
+                concurrentHashMap = new ConcurrentHashMap<>();
+            else {
+                ObjectInputStream fromHashMapFile = new ObjectInputStream(new FileInputStream(HashMapOfMazesFile));
+                concurrentHashMap = (ConcurrentHashMap<Integer, File>) fromHashMapFile.readObject();
+            }
+            if (concurrentHashMap.containsKey(Arrays.hashCode(compMaze))) {
                 System.out.println("This maze already solved!");
-                myFile = concurrentHashMap.get(compMaze).getAbsoluteFile();
+                myFile = concurrentHashMap.get(Arrays.hashCode(compMaze)).getAbsoluteFile();
                 ObjectInputStream fromFile = new ObjectInputStream(new FileInputStream(myFile));
                 MazeSolution = (Solution) fromFile.readObject();
-
             } else {
                 System.out.println("I see this maze for the first time!");
                 SearchableMaze searchableMaze = new SearchableMaze(toSolveMaze);
                 ISearchingAlgorithm searcher = getSearchingAlgFromConfig();
                 MazeSolution = searcher.solve(searchableMaze);
-                System.out.println("the hash code is:" + toSolveMaze.hashCode());
-                ObjectOutputStream toFile = new ObjectOutputStream(new FileOutputStream(tempDirectoryPath + toSolveMaze.hashCode()));
+                System.out.println("the hash code is:" + Arrays.hashCode(compMaze));
+                ObjectOutputStream toFile = new ObjectOutputStream(new FileOutputStream(tempDirectoryPath + Arrays.hashCode(compMaze)));
                 toFile.writeObject(MazeSolution);
-                File solFile = new File(tempDirectoryPath + toSolveMaze.hashCode());
-                concurrentHashMap.put(compMaze ,solFile);
+                File solFile = new File(tempDirectoryPath + Arrays.hashCode(compMaze));
+                concurrentHashMap.put(Arrays.hashCode(compMaze) ,solFile);
+                writeToHashFile=new ObjectOutputStream(new FileOutputStream(tempDirectoryPath+"hashMapOfMazes.hmom"));
+                writeToHashFile.writeObject(concurrentHashMap);
+                writeToHashFile.flush();
+                writeToHashFile.close();
+
             }
             OutputStream out = new MyCompressorOutputStream(toClient);
             toClient.writeObject(MazeSolution);
