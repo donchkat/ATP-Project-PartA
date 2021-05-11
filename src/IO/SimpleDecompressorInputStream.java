@@ -2,9 +2,6 @@ package IO;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-
 /**
  * inserting into the input buffer the encoded maze from the input stream
  */
@@ -19,7 +16,7 @@ public class SimpleDecompressorInputStream extends InputStream {
     /**
      * @param buffer input buffer that will contain the compressed maze that the maze constructor knows how to handle
      * @return 0 when the reading into the buffer had finished
-     * @throws IOException
+     * @throws IOException - exception
      */
     public int read (byte[] buffer) throws IOException {
         int number;
@@ -32,7 +29,6 @@ public class SimpleDecompressorInputStream extends InputStream {
         }
         int numOfTimes = in.read();
         while (numOfTimes != -1) {
-            //System.out.println(numOfTimes);
             if (indexOfWhiles % 2 == 0)
                 number = 0;
             else

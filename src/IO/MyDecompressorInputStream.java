@@ -1,13 +1,7 @@
 package IO;
 
-import java.io.*;
-import java.util.ArrayList;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Decompressing buffer into input stream

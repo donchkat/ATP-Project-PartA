@@ -19,16 +19,12 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
      */
     @Override
     public void ServerStrategy (InputStream inputStream, OutputStream outputStream) {
-        //System.out.println("in strategy:"+Thread.currentThread().getId());
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inputStream);
             ObjectOutputStream toClient = new ObjectOutputStream(outputStream);
             int[] SizeOfMatrix = (int[]) fromClient.readObject();
             IMazeGenerator mazeGenerator = GetKindFromConfig();
             Maze toClientMaze = mazeGenerator.generate(SizeOfMatrix[0]/*rows*/, SizeOfMatrix[1]/*columns*/);
-            //System.out.println("Before compression: "+Thread.currentThread().getId());
-           // toClientMaze.print();
-           // System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             ByteArrayOutputStream bOut = new ByteArrayOutputStream();
             OutputStream out = new MyCompressorOutputStream(bOut);
             out.write(toClientMaze.toByteArray());

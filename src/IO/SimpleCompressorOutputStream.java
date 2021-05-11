@@ -1,10 +1,7 @@
 package IO;
 
-import jdk.jfr.Unsigned;
-
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
 /**
  * compressing the buffer in the given way
@@ -47,8 +44,9 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
     /**
      * here we take care of the case when there are more then 255 1s or 0s in a row
+     *
      * @param counter the number of zeros/ones in a row
-     * @throws IOException
+     * @throws IOException - exception
      */
     private void OutOfByteSize (int counter) throws IOException {
         while (counter > 0) {
@@ -64,6 +62,6 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
     @Override
     public void write (int b) throws IOException {
-
+        //empty function
     }
 }

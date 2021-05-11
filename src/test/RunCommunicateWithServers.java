@@ -20,37 +20,37 @@ public class RunCommunicateWithServers {
         //Starting servers
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();
-
-        Thread[] threads = new Thread[6];
-        for (int i = 0; i < threads.length; i++) {
-            threads[i] = new Thread(()->{
-                System.out.println("thread number "+Thread.currentThread().getId() + " has started");
-                //CommunicateWithServer_MazeGenerating();
-                CommunicateWithServer_SolveSearchProblem();
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-            });
-            threads[i].start();
-            threads[i].setName(""+i);
-        }
-
-        for (int i = 0; i < threads.length; i++) {
-            try{
-                threads[i].join();
-                System.out.println("thread number "+Thread.currentThread().getName() + " has finished");
-
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
-        }
+//
+//        Thread[] threads = new Thread[6];
+//        for (int i = 0; i < threads.length; i++) {
+//            threads[i] = new Thread(()->{
+//                System.out.println("thread number "+Thread.currentThread().getId() + " has started");
+//                CommunicateWithServer_MazeGenerating();
+//                CommunicateWithServer_SolveSearchProblem();
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            });
+//            threads[i].start();
+//            threads[i].setName(""+i);
+//        }
+//
+//        for (int i = 0; i < threads.length; i++) {
+//            try{
+//                threads[i].join();
+//                System.out.println("thread number "+Thread.currentThread().getName() + " has finished");
+//
+//            }catch (InterruptedException e){
+//                e.printStackTrace();
+//            }
+//        }
 
         //Communicating with servers
-        //CommunicateWithServer_MazeGenerating();
-        //CommunicateWithServer_SolveSearchProblem();
+        CommunicateWithServer_MazeGenerating();
+        CommunicateWithServer_SolveSearchProblem();
 
         //Stopping all servers
         mazeGeneratingServer.stop();
@@ -77,7 +77,7 @@ public class RunCommunicateWithServers {
                         byte[] decompressedMaze = new byte[compressedMaze[0]+1+(50*50)]; //allocating byte[] for the decompressedmaze -
                         is.read(decompressedMaze); //Fill decompressedMaze with bytes
                         Maze maze = new Maze(decompressedMaze);
-                        System.out.println("after decompression:");
+                        //System.out.println("after decompression:");
                         maze.print();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -112,8 +112,6 @@ public class RunCommunicateWithServers {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            System.out.println(configurations.getProperties().getProperty("db.mazeGeneratingAlg"));
-                            System.out.println(configurations.getProperties().getProperty("db.mazeGeneratingAlg"));
                             if(configurations.getProperties().getProperty("db.mazeGeneratingAlg").equals("Simple"))
                                 mg=new SimpleMazeGenerator();
                            else if(configurations.getProperties().getProperty("db.mazeGeneratingAlg").equals("Empty"))
@@ -126,8 +124,8 @@ public class RunCommunicateWithServers {
 //                                {0,0,0},
 //                                {0,1,1},
 //                                {0,0,0},};
-
-                        //Maze maze = new Maze(3,3);
+//
+//                        Maze maze = new Maze(3,3);
 //                        maze.setMatrix(mat);
 //                        maze.setGoalPosition(new Position(0,0));
 //                        maze.setStartPosition(new Position(2,2));
